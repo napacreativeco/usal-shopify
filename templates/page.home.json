@@ -1,0 +1,13 @@
+{
+    "name": "Homepage",
+    "wrapper": "div#homepage.page-wrapper",
+    "sections": {
+      "hero": {
+        "type": "home--hero"
+      }
+    },
+    "order": [
+      "hero"
+    ]
+  }
+  

@@ -1,0 +1,403 @@
+{% assign add_to_cart = 'Add to cart' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}
+
+<form action="/cart/add" method="post" enctype="multipart/form-data">
+      
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product | image_url: 'grande' }}" />
+  <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+  {% if product.available %}
+    <link itemprop="availability" href="http://schema.org/InStock" />
+  {% else %}
+    <link itemprop="availability" href="http://schema.org/OutOfStock" />
+  {% endif %}
+
+
+  <div data-product--learn>
+
+    {% comment %} Header {% endcomment %}
+    <div class="topper">
+        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+        <div>
+            {{ "today" | date: "%B %d, %Y" }}
+        </div>
+    </div>
+
+    <header>
+        {% render 'navbar' %}
+        {% render 'navbar--mobile' %}
+    </header>
+
+    <div class="single-product learn" itemscope itemtype="http://schema.org/Product">
+
+      {% comment %} 1  {% endcomment %}
+      <section class="section-one">
+
+        <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+
+        <div class="row">
+          
+          {% comment %} Cell {% endcomment %}
+          <div class="cell title-cell">
+
+            <div class="top">
+              <div class="variants title-variant">
+
+              </div>
+              <div class="title">
+                <h1>{{ product.title }}</h1>
+              </div>
+              <div>
+                <a href="" title="View All">[View All]</a>
+              </div>
+            </div>
+
+            <div class="bottom">
+                <p>{{ product.description }}</p>
+            </div>
+            
+          </div>
+
+          {% comment %} Details {% endcomment %}
+          <div class="cell details-cell">
+            <div class="top">
+              <span>Event Details</span>
+            </div>
+            <div class="bottom">
+              <div class="row">
+                <div class="where">
+                  <h4>Where</h4>
+                  <span class="where--text">
+                    {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
+                    {% if event %}
+                      <div>
+                        {% if event.location != blank %}
+                          <p>
+                            <strong>Location:</strong>
+                            {{ event.location }}</p>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </span>
+                </div>
+                <div class="guided-by">
+                  <h4>Guided by</h4>
+                  <span class="guided-by--text"></span>
+                </div>
+                <div class="time">
+                  <h4>Time</h4>
+                  <span class="time--text">
+                    {{ event.start_at | date: "%l:%M %P" }}
+                  </span>               
+                </div>
+              </div>
+              <div class="row">
+                <div class="when">
+                  <h4>When</h4>
+                  <span class="when--text">
+                    {{ event.start_at | date: "%B %e, %Y" }}
+                  </span>
+                </div>
+                <div class="capacity">
+                  <h4>Capacity</h4>
+                  <span class="capacity--text"></span>
+                </div>
+                <div class="length">
+                  <h4>Length</h4>
+                  <span class="length--text"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% comment %} Pricing {% endcomment %}
+          <div class="cell pricing-cell">
+            <div class="inner">
+
+              {% comment %} Pricing > Top {% endcomment %}
+              <div class="top">
+                <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                  <span>Ticket Price: 
+                    {% assign variant = product.selected_or_first_available_variant %}
+                    {% if product.compare_at_price > product.price %}
+                      <span class="product-price on-sale" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
+                      <s class="product-compare-price">{{ variant.compare_at_price | money_without_trailing_zeros }}</s>
+                    {% else %}
+                      <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
+                    {% endif %}
+                  </span>
+                </div>
+                <div class="sold-out--status">
+                  Open
+                </div>
+              </div>
+
+              {% comment %} Pricing > Bottom {% endcomment %}
+              <div class="bottom">
+
+                  <div class="variants">
+                    {% comment %}
+                      VARIANT RADIO BUTTONS
+                    {% endcomment %}
+                    {% assign hide_default_title = false %}
+                    {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                      {% assign hide_default_title = true %}
+                    {% endif %}   
+
+                    {% if product.variants.size > 1 %} 
+
+                      <ul class="variants-list">
+                        {% assign found_available_variant = false %}
+                        {% for variant in product.variants %}
+                          <li class="switch-field">
+                              {% if variant.available %}
+                                  <input class="date-radio" type="radio"{% if variant.compare_at_price > variant.price %} data-compare-at-price="{{ variant.compare_at_price | money_with_currency }}"{% endif %} data-price="{{ variant.price | money_without_trailing_zeros }}" id="{{ variant.id }}" value="{{ variant.id }}" name="id"{% if found_available_variant == false  %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
+                                  
+                                  <label for="{{ variant.id }}">
+                                    {{ variant.title }}
+                                  </label>
+                              {% else %}
+                                  <p class="date-radio out-of-stock" id="{{ variant.id }}" value="{{ variant.id }}" name="id">
+                                    {{ variant.title }}
+                                  </p>
+                              {% endif %}
+                            </li>
+                        {% endfor %}
+                      </ul>
+
+                    {% else %}
+                  
+                        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                  
+                    {% endif %}      
+                  </div>
+
+                  <div class="add-to-cart">
+                    <div id="product-add">
+                      <input type="submit" name="add" id="add" value="{{ add_to_cart | escape }}">
+                    </div>          
+                  </div>
+
+              </div>
+
+            </div>
+          </div>
+        
+        </div>
+      </section>
+
+      {% comment %} 2  {% endcomment %}
+      <section class="section-two">
+
+        <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
+
+        <div class="row">
+          <div class="cell slideshow-cell">
+            {% if product.images.size == 0 %}
+        
+              <img src="{{ '' | img_url: 'grande' }}" alt="" />
+            
+            {% else %}
+            
+              {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+              <a href="{{ featured_image | img_url: '1024x1024' }}">
+                <img src="{{ featured_image | img_url: 'grande' }}" alt="{{ product.title | escape }}" />
+              </a>
+    
+              {% if product.images.size > 1 %}
+                <ul>
+                  {% for image in product.images %}
+                    <li>
+                      <a href="{{ image | img_url: '1024x1024' }}">
+                        <img src="{{ image | img_url: 'large' }}" alt="{{ image.alt | escape }}" />
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            
+            {% endif %}
+          </div>
+          <div class="cell info-cell">
+            <div class="item">
+              <div class="top">
+                <span class="title">About [GUIDE_NAME]</span>
+              </div>
+              <div class="bottom">
+                <p>
+                  [GUIDE_BIO]
+                </p>
+              </div>
+            </div>
+            <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
+            <div class="item">
+              <div class="top">
+                <span class="title">Objective</span>
+              </div>
+              <div class="bottom">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper consectetur ex. Aliquam eu dui arcu. Nam ut erat quam. Morbi egestas cursus diam ut iaculis. Maecenas lobortis felis non nulla faucibus, in lacinia felis efficitur. Morbi at lobortis urna. Etiam at felis quam. Cras eu elit dui. Duis ut diam nec dolor maximus feugiat. Nullam arcu lorem, venenatis id nisl eget, consequat blandit purus. Proin ac nibh et lacus mattis sagittis. Phasellus in consectetur tortor, vitae dictum justo.
+                </p>
+              </div>
+            </div>
+            <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
+            <div class="item">
+              <div class="top">
+                <span class="title">What's included</span>
+              </div>
+              <div class="bottom">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper consectetur ex. Aliquam eu dui arcu. Nam ut erat quam. Morbi egestas cursus diam ut iaculis. Maecenas lobortis felis non nulla faucibus, in lacinia felis efficitur. Morbi at lobortis urna. Etiam at felis quam. Cras eu elit dui. Duis ut diam nec dolor maximus feugiat. Nullam arcu lorem, venenatis id nisl eget, consequat blandit purus. Proin ac nibh et lacus mattis sagittis. Phasellus in consectetur tortor, vitae dictum justo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+
+        
+
+        
+
+          Event info: 
+          {% render 'evey--event-info' %}
+          
+          
+
+          
+
+      
+
+          {% if collection %}
+            {% if collection.previous_product or collection.next_product %}
+            <div>     
+            {% if collection.previous_product %}
+              {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
+              <span class="left">{{ 'Previous Product' | link_to: prev_url }}</span>
+            {% endif %}
+            {% if collection.next_product %}
+              {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
+              <span class="right">{{ 'Next Product' | link_to: next_url }}</span>
+            {% endif %}
+            </div>
+            {% endif %}
+          {% endif %}
+
+
+    </div>
+
+  </div>
+</form>
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+<script>
+  /*
+   * Page Title
+   */
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h2 class="page-title">{{ template.suffix | capitalize }}</h2>');
+
+  (function() {
+    $('body').css('background', '#B78268');
+  }(jQuery));
+</script>
+
+{% comment %}
+RADIO BUTTON FUNCTIONS
+{% endcomment %}
+<script type="text/javascript" charset="utf-8">
+  jQuery(function() { 
+    var first_variant_title = jQuery("input[checked='checked'] > label").text();
+    var first_variant_price = jQuery("ul li input[type='radio']:checked").attr("data-price");
+    var first_variant_compare_at_price = jQuery("ul li input[type='radio']:checked").attr("data-compare-at-price") || ''; 
+
+    jQuery(".product-price").html(first_variant_price);
+    jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
+    jQuery(".price-field del").html(first_variant_compare_at_price);
+
+    /*
+     * Click Function
+     */
+    jQuery("input[type='radio']").click(function() {
+
+      var variant_price = jQuery(this).attr("data-price");
+      var variant_title = jQuery(this).closest('li').children("label").text();
+      jQuery(".product-price").html(variant_price);
+      jQuery(".title-variant").html(variant_title);
+      
+      var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
+      jQuery(".price-field del").html(variant_compare_at_price);
+
+    });
+  });
+</script>
+
+<script>
+  /*
+   * Variant Selection
+   */
+  var selectCallback = function(variant, selector) {
+    if (variant) {
+    
+      
+
+      // Swap image.
+      if (variant.featured_image) {
+        var newImage = variant.featured_image; // New image object.
+        var mainImageDomEl = jQuery('.product-photo-container img')[0]; // DOM element of main image we need to swap.
+        Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+      }
+      
+      // Selected a valid variant that is available.
+      if (variant.available) {
+            
+        jQuery('.title-variant').html(' {{ variant.selected }} ');
+        jQuery('.sold-out--status').html('OPEN');
+
+        // Enabling add to cart button.
+        jQuery('#add').removeClass('disabled').prop('disabled', false).val({{ add_to_cart | json }});
+      
+        // If item is backordered yet can still be ordered, we'll show special message.
+        if (variant.inventory_management && variant.inventory_quantity <= 0) {
+          jQuery('#selected-variant').html({{ product.title | json }}{% unless hide_default_title %} + ' - ' + variant.title{% endunless %});
+          jQuery('#backorder').removeClass("hidden");
+        } else {
+          jQuery('#backorder').addClass("hidden");
+        }
+        
+      } else {
+        // Variant is sold out.
+        jQuery('#backorder').addClass('hidden');
+        jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);    
+        jQuery('.sold-out--status').html('SOLD OUT');   
+      }
+      
+      // Whether the variant is in stock or not, we can update the price and compare at price.
+      if ( variant.compare_at_price > variant.price ) {
+        jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<s class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</s>');
+      } else {
+        jQuery('#product-price').html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );
+      }        
+    } else {
+      // variant doesn't exist.
+      jQuery('#product-price').empty();
+      jQuery('#backorder').addClass('hidden');
+      jQuery('#add').val({{ unavailable | json }}).addClass('disabled').prop('disabled', true);
+    }
+  };
+    
+  jQuery(function($) {
+    new Shopify.OptionSelectors('product-select', { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+    
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+    {% endif %}
+  });
+  Shopify.Image.preload({{ product.images | json }}, 'grande');
+  Shopify.Image.preload({{ product.images | json }}, '1024x1024');
+</script>

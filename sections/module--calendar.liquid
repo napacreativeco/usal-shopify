@@ -1,0 +1,93 @@
+<section data-module--calendar class="module">
+
+    <div class="background" style="background: url('{{ 'background-placeholder.jpg' | asset_url }}'); background-size: cover;"></div>
+
+    <header>
+      {% render 'navbar' %}
+      {% render 'navbar--mobile' %}
+    </header>
+
+    {% comment %}
+        TO DO:
+        -- Sort Calendar Items in chronological order by variant.value
+    {% endcomment %}
+    <div class="header--desktop">
+
+        <div class="anime-line">&nbsp;</div>
+
+        <header class="grid g-2fr-4fr align-stretch">
+            <div class="title-block border-right">
+                <h2 class="title">Calendar</h2>
+                <div class="links flex justify-between">
+                    <span>(Upcoming Events)</span>
+                    <a href="">View All</a>
+                </div>
+            </div>
+
+            <div>
+               <div class="calendar-grid" >  
+
+                        {% for product in collections.all.products %}
+
+                            {% case product.type %}
+                                {% when 'Event' %}
+                                    
+                                    {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
+                                    {% if event %}
+                                        
+                                        <div class="calendar-item">
+                                            <div class="top">
+                                                <div class="date">{{ event.variant }}</div>
+                                                <div class="counter supply">
+                                                </div>
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="title">
+                                                    <a class="supply" href={{ product.url }}>{{ event.title }}</a>
+                                                </div>
+                                                <div class="price">
+                                                    {{ product.price | money_without_trailing_zeros }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                    
+                                </li>
+                            {% endcase %}
+                        {% endfor %}
+                        
+               </div>
+            </div>
+        </header>
+    </div>
+
+    {% comment %}
+    Header > Mobile
+    {% endcomment %}
+    <div class="header--mobile justify-between align-top">
+        <div class="title-block flex flex-column justify-between">
+            
+            <div class="links flex justify-between align-bottom">
+                <span>(Upcoming Events)</span>
+                <a href="">View All</a>
+            </div>
+
+            <div class="anime-line">&nbsp;</div>
+
+            <h2 class="title">Calendar</h2>
+        </div>
+    </div>
+
+
+</section>
+
+{% schema %}
+{
+  "name": "Module - Calendar",
+  "tag": "section",
+  "class": "module",
+  "settings": [
+
+  ]
+}
+{% endschema %}

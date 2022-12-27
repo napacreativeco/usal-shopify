@@ -1,0 +1,9 @@
+  {% comment %}
+    IE8 and IE9 don't support the HTML5 placeholder attribute, so it's a good idea to use JavaScript
+    to show and hide the placeholder text.
+    Have a look in assets/shop.js.liquid to see sample JavaScript for this.
+  {% endcomment %}      
+  <form action="/search" method="get" class="search-form right" role="search">
+    <input name="q" type="search" id="search-field" placeholder="Search store..." value="{{ search.terms | escape }}" />
+    <input type="submit" id="search-submit" value="Search" />
+  </form>

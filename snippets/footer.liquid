@@ -1,0 +1,105 @@
+{% comment %}
+  Footer > Desktop
+{% endcomment %}
+<footer class="desktop">
+  <div class="row">
+
+    <div class="flex justify-left align-center">
+      Copyright &copy; 2022 Usal. {{ settings.business-address }}
+    </div>
+
+    <div class="flex justify-center align-center">
+      <img src="{{ 'logo.svg' | asset_url }}" alt="Usal Project" />
+    </div>
+
+    <div class="flex justify-right align-center">
+      <nav role="navigation">
+        <ul>
+
+          {% assign counter = 0 %}
+
+          {% for link in linklists.footer.links %}
+            {%- liquid
+                        assign counter = counter | plus: 1 
+            
+                        assign has_sub_menu = false 
+                        assign has_sub_categories = false 
+                        assign parent_link_active = false 
+                        assign child_list_handle = link.title | handle 
+            
+                        if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 
+                            assign has_sub_menu = true 
+            
+                            for l in linklists[child_list_handle].links
+                                if handle != blank and handle == l.object.handle
+                                    assign parent_link_active = true
+                                elsif page_title == l.title
+                                    assign parent_link_active = true
+                                endif
+                            endfor
+            
+                        elsif link.type == 'collection_link' and link.object.all_tags.size > 0
+                                assign has_sub_categories = true
+                        endif
+                        -%}
+
+            <li class="nav-link {% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
+              <span class="counter">[ {{ counter }} ]</span>
+              <a href="{{ link.url }}">
+                {{ link.title }}
+              </a>
+
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</footer>
+
+{% comment %}
+  Footer > Mobile
+{% endcomment %}<footer class="mobile">
+
+  <nav role="navigation">
+
+    <ul class="flex justify-left align-top">
+
+      {% for link in linklists.footer-mobile.links %}
+
+        {% assign has_sub_menu = false %}
+        {% assign has_sub_categories = false %}
+        {% assign parent_link_active = false %}
+        {% assign child_list_handle = link.title | handle %}
+
+        {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+          {% assign has_sub_menu = true %}
+
+          {% for l in linklists[child_list_handle].links %}
+            {% if handle != blank and handle == l.object.handle %}
+              {% assign parent_link_active = true %}
+            {% elsif page_title == l.title %}
+              {% assign parent_link_active = true %}
+            {% endif %}
+          {% endfor %}
+
+        {% elsif link.type == 'collection_link' and link.object.all_tags.size > 0 %}
+          {% assign has_sub_categories = true %}
+        {% endif %}
+
+        <li class="nav-link {% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
+          <a href="{{ link.url }}">
+            {{ link.title }}
+          </a>
+
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="attribution">
+    <div>logo</div>
+    <div>{{ settings.business-address }}</div>
+  </div>
+</footer>

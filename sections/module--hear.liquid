@@ -1,0 +1,218 @@
+<section data-module--hear class="module">
+
+
+  {% comment %}
+    Header > Desktop
+  {% endcomment %}<div class="header--desktop">
+
+    <div class="anime-line">&nbsp;</div>
+
+    <header class="grid g-2fr-4fr">
+
+      <div class="title-block flex flex-column justify-between border-right">
+        <h2 class="title">Hear</h2>
+        <div class="links flex justify-between">
+          <span>(Latest Show)</span>
+          <a href="">View All</a>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <div class="flex flex-column justify-between">
+
+          <p class="description">
+            {{ section.settings.audio-description }}
+          </p>
+
+          <div class="audioplayer">
+            <audio id="myAudio" preload="metadata">
+              <source src="{{ section.settings.audio-url }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+
+            <div class="playbox">
+              <button
+                class="playbutton"
+                onclick="playAudio()"
+                type="button">Play Audio</button>
+              <button
+                class="pausebutton"
+                onclick="pauseAudio()"
+                type="button">Pause Audio</button>
+            </div>
+
+            <div class="details">
+              <div class="title">
+                <span class="h2">NTS Radio</span>
+                <span class="audio-title">{{ section.settings.audio-title }}</span>
+              </div>
+              <div id="scrubber">
+                <div>
+                  <span id="duration"></span>
+                </div>
+                <div class="progress-container" id="progress-container">
+                  <div class="progress" id="progress"></div>
+                </div>
+                <div>
+                  <span id="timeleft"></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="icon">
+          <div class="info">
+            <span>[C]</span>
+            <span>Foundation</span>
+          </div>
+          <div class="image">
+            <img
+              width="100%"
+              height="100%"
+              src="{{ 'discs.svg' | asset_url }}"
+              alt="Balance" />
+          </div>
+        </div>
+
+      </div>
+    </header>
+  </div>
+
+  {% comment %}
+    Header > Mobile
+  {% endcomment %}<div class="header--mobile justify-between align-top">
+    <div class="title-block flex flex-column justify-between">
+
+      <div class="links flex justify-between">
+        <span>(Latest Show)</span>
+        <a href="">View All</a>
+      </div>
+      <div class="anime-line">&nbsp;</div>
+      <h2 class="title">Hear</h2>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  // Containers
+  let aud = document.getElementById("myAudio");
+
+
+  // On Load
+  aud.onloadeddata = function() {
+    var timeleft = document.getElementById('timeleft'),
+      timeline = document.getElementById('duration'),
+      duration = parseInt(aud.duration),
+      currentTime = parseInt(aud.currentTime),
+      timeLeft = duration - currentTime,
+      s,
+      m;
+
+
+    s = timeLeft % 60;
+    m = Math.floor(timeLeft / 60) % 60;
+
+    s = s < 10
+      ? "0" + s
+      : s;
+    m = m < 10
+      ? "0" + m
+      : m;
+
+    timeleft.innerHTML = m + ":" + s;
+    timeline.innerHTML = m + ':0' + s;
+
+    var sx = parseInt(aud.currentTime % 60);
+    var mx = parseInt((aud.currentTime / 60) % 60);
+    if (sx < 10) {
+      timeline.innerHTML = mx + ':0' + sx;
+    } else {
+      timeline.innerHTML = mx + ':' + sx;
+    }
+  }
+
+  // Play
+  function playAudio() {
+    aud.play();
+  }
+
+  // Pause
+  function pauseAudio() {
+    aud.pause();
+  }
+
+  // Progress Bar
+  aud.addEventListener('timeupdate', function(e) {
+    var progress = document.getElementById('progress');
+    var progressContainer = document.getElementById('progress-container');
+    const {duration, currentTime} = e.srcElement;
+    const progressPercent = (currentTime / duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+  });
+
+
+  // Countdown
+  aud.addEventListener("timeupdate", function() {
+    var timeleft = document.getElementById('timeleft'),
+      duration = parseInt(aud.duration),
+      currentTime = parseInt(aud.currentTime),
+      timeLeft = duration - currentTime,
+      s,
+      m;
+
+
+    s = timeLeft % 60;
+    m = Math.floor(timeLeft / 60) % 60;
+
+    s = s < 10
+      ? "0" + s
+      : s;
+    m = m < 10
+      ? "0" + m
+      : m;
+
+    timeleft.innerHTML = m + ":" + s;
+
+  }, false);
+
+  // Countup
+  aud.addEventListener("timeupdate", function() {
+    var timeline = document.getElementById('duration');
+    var s = parseInt(aud.currentTime % 60);
+    var m = parseInt((aud.currentTime / 60) % 60);
+    if (s < 10) {
+      timeline.innerHTML = m + ':0' + s;
+    } else {
+      timeline.innerHTML = m + ':' + s;
+    }
+  }, false);
+</script>
+
+{% schema %}
+  {
+    "name": "Module - Hear",
+    "tag": "section",
+    "class": "module",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "audio-description",
+        "label": "Audio Description",
+        "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+      }, {
+        "type": "text",
+        "id": "audio-title",
+        "label": "Audio Title",
+        "default": "Mountain System Researcg Episode 15"
+      }, {
+        "type": "text",
+        "id": "audio-url",
+        "label": "Audio URL",
+        "default": "https://samplelib.com/lib/preview/mp3/sample-3s.mp3"
+      }
+    ]
+  }
+{% endschema %}

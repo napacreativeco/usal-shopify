@@ -1,0 +1,86 @@
+<style>
+  h3 {
+    text-decoration: underline;
+  }
+  cite {
+    color: red;
+  }
+  i {
+    color: green;
+  }
+</style>
+<h3>Display Event Options:</h3>
+<pre></pre>
+<div class="test-grid">
+  {% for product in collections.all.products %}
+
+
+    {% case product.type %}
+      {% when 'Event' %}
+
+      <cite>Title:</cite>
+      {{ product.title }}
+      <i>Options:</i>
+      {%- for value in product.options_by_name['date'].values %}
+        <span>{{ value }}</span>
+        {% unless forloop.last %},
+        {% endunless -%}
+      {%- endfor %}
+
+
+      <hr>
+
+    {% endcase %}
+  {% endfor %}
+</div>
+
+<h3>List Event Variants:</h3>
+<pre>Needs to be sorted chronologically by these <i>Values</i>. <br />See ABOVE - the forLoop is sorting by the Product object.</pre>
+
+{% for product in collections.all.products %}
+
+  {% case product.type %}
+    {% when 'Event' %}
+
+    {% assign variants = product.variants %}
+    {% for variant in variants %}
+
+      <cite>Title:</cite>
+      {{ variant.title }}
+
+      <i>Value:</i>
+      {{ variant.metafields.custom.usal_event_start_time.value | date: '%D %b' }}
+
+      <br/>
+      <hr>
+    {% endfor %}
+
+  {% endcase %}
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Nested Sorting</h3>
+{% for product in collections.all.products %}
+
+  {% case product.type %}
+  {% when 'Event' %}
+    {% for product_option in product.options_with_values %}
+      {% for value in product_option.values %}
+        {{ value }}
+      {% endfor %}
+    {% endfor %}
+  {% endcase %}
+{% endfor %}

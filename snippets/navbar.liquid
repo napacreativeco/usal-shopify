@@ -1,0 +1,99 @@
+<div class="navbar">
+
+  <div class="row">
+
+    {% comment %}
+      * Logo
+    {% endcomment %}
+    <div data-logo>
+      {% if template == 'index' %}
+        <img src="{{ 'logo-simple.svg' | asset_url }}" alt="Usal Project" />
+      {% else %}
+        {{ page.title }}
+      {% endif %}
+    </div>
+
+    {% comment %}
+      * Nav
+    {% endcomment %}
+    <nav role="navigation">
+      <ul>
+        {% assign counter = 0 %}
+
+        {% for link in linklists.main-menu.links %}
+
+          {% assign counter = counter | plus: 1 %}
+
+          {% assign has_sub_menu = false %}
+          {% assign has_sub_categories = false %}
+          {% assign parent_link_active = false %}
+          {% assign child_list_handle = link.title | handle %}
+
+          {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+            {% assign has_sub_menu = true %}
+
+            {% for l in linklists[child_list_handle].links %}
+              {% if handle != blank and handle == l.object.handle %}
+                {% assign parent_link_active = true %}
+              {% elsif page_title == l.title %}
+                {% assign parent_link_active = true %}
+              {% endif %}
+            {% endfor %}
+
+          {% endif %}
+
+          <li class="nav-link {% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
+            <a href="{{ link.url }}">
+              <span class="counter">[{{ counter }}]</span>
+              {{ link.title }}{% if has_sub_menu or has_sub_categories %}
+                <i class="fa fa-angle-down"></i>
+              {% endif %}
+            </a>
+
+            {% comment %}
+              * Sub-Menu
+            {% endcomment %}
+            {% if has_sub_menu or has_sub_categories %}
+              <ul>
+                {% if has_sub_menu %}
+                  {% for l in linklists[child_list_handle].links %}
+                    <li class="{% if l.active %} active{% endif %}">
+                      <a href="{{ l.url }}">{{ l.title }}</a>
+                    </li>
+                  {% endfor %}
+
+                {% elsif has_sub_categories %}
+
+                  {% for tag in link.object.all_tags %}
+                    <li class="{% if current_tags contains tag %} active{% endif %}">
+                      <a href="{{ link.url }}/{{ tag | handle }}">{{ tag }}</a>
+                    </li>
+                  {% endfor %}
+
+                {% endif %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    {% comment %}
+      * Cart Counter
+    {% endcomment %}
+    {%- liquid          
+            assign countCart = cart.item_count
+            if cart.item_count < 10 and cart.item_count > 1
+                assign countCart = cart.item_count | prepend: '0'
+            elsif cart.item_count == 0  
+                assign countCart = cart.item_count 
+            endif
+        -%}
+    <div data-cart>
+      <a href="/cart">
+        <span>Cart</span>
+        ({{ countCart }})
+      </a>
+    </div>
+  </div>
+</div>

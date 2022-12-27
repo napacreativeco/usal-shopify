@@ -1,0 +1,139 @@
+<section data-module--goods class="module">
+  {% comment %}
+    Header > Desktop
+  {% endcomment %}<div class="">
+    <div class="anime-line">&nbsp;</div>
+
+    <header class="grid g-2fr-4fr align-stretch">
+      <div class="title-block border-right">
+        <h2 class="title">Goods</h2>
+        <div class="links flex justify-between">
+          <span>(Latest Goods)</span>
+          <a href="">View All</a>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <div class="description">
+          <p>
+            {{ section.settings.description }}
+          </p>
+        </div>
+
+        <div class="icon">
+          <div class="info">
+            <span>[A]</span>
+            <span>Balance</span>
+          </div>
+          <div class="image">
+            <img
+              width="100%"
+              height="100%"
+              src="{{ 'circles.svg' | asset_url }}"
+              alt="Balance" />
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  {% comment %}
+    Product Grid > Desktop
+  {% endcomment %}<div class="wrapper desktop">
+    <div class="product-grid">
+      {% assign prodCount = 0 %}
+      {% for product in collections.goods.products limit: 5 %}
+        {% assign prodCount = prodCount | plus: 1 %}
+
+        <div class="item">
+          <div class="index">{{ prodCount }}</div>
+          <div class="image">
+            <a href="{{ product.url }}" title="{{ product.title }}">
+              <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">
+            </a>
+          </div>
+          <div class="info">
+            <div class="title">
+              <a href="{{ product.url }}" title="{{ product.title }}">
+                <h3>{{ product.title }}</h3>
+              </a>
+            </div>
+            <div class="details">
+              <div class="size">
+                {% for option in product.options %}
+                  {{ option.title }}
+                {% endfor %}
+              </div>
+              <div class="price">{{ product.price | money_without_trailing_zeros }}</div>
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        <h2>Sorry</h2>
+        <p>There are no products to see here.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% comment %}
+    Header > Mobile
+  {% endcomment %}<div class="header--mobile justify-between align-top">
+    <div class="title-block flex flex-column justify-between">
+      <div class="links flex justify-between align-bottom">
+        <span>(Latest Goods)</span>
+        <a href="">View All</a>
+      </div>
+
+      <div class="anime-line">&nbsp;</div>
+
+      <h2 class="title">Goods</h2>
+    </div>
+  </div>
+
+  {% comment %}
+    Product Grid > Mobile
+  {% endcomment %}<div class="wrapper mobile">
+    <div class="product-grid">
+      {% assign prodCount = 0 %}
+      {% for product in collections.goods.products limit: 6 %}
+        {% assign prodCount = prodCount | plus: 1 %}
+
+        <div class="item">
+          <div class="index">{{ prodCount }}</div>
+          <div class="image">
+            <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">
+          </div>
+          <div class="info">
+            <div class="title">
+              <h3>{{ product.title }}</h3>
+            </div>
+            <div class="details">
+              <div class="size">sizes</div>
+              <div class="price">price</div>
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        // no products in your frontpage collection
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Module - Goods",
+    "tag": "section",
+    "class": "module",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description",
+        "default": "Usal goods are designed and printed in Los Angeles, California. Produced with high quality, comfortable garments. Made for the Usal community and their adventures, with love. Shop the new collection, out now."
+      }
+    ]
+  }
+{% endschema %}

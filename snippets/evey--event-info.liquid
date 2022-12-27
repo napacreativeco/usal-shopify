@@ -1,0 +1,20 @@
+{% comment %}
+  Evey Product Page Template
+{% endcomment %}
+
+{% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
+{% if event %}
+  <div>
+    {% if event.location != blank %}
+      <p>
+        <strong>Location:</strong>
+        {{ event.location }}</p>
+    {% endif %}
+    {% if event.start_at != blank %}
+      <p>
+        <strong>Date:</strong>
+        {{ event.start_at | date: "%B %e, %Y" }} at {{ event.start_at | date: "%l:%M %P" }}
+      </p>
+    {% endif %}
+  </div>
+{% endif %}

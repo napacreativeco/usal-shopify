@@ -1,0 +1,22 @@
+<div id="navbar-mobile">
+    <div class="row">
+        <div>
+            <button id="hamburger">Menu</button>
+        </div>
+        <div class="flex justify-center">[Usal Los Angeles, CA]</div>
+        <div class="flex justify-right" data-cart-mobile>
+            <a href="/cart">
+                <span>Cart</span> ({{ countCart }})
+            </a> 
+        </div>
+    </div>
+</div>
+
+<script>
+    var hamburger = document.getElementById('hamburger');
+    var mobileContent = document.getElementById('mobile-content');
+
+    hamburger.addEventListener('click', function(e) {
+        mobileContent.style.height = 'auto';
+    });
+</script>

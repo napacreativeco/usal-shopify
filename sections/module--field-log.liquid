@@ -1,0 +1,107 @@
+
+<div class="fieldlog-coordinates">
+    <img src="{{ 'fieldlog-coordinates.svg' | asset_url }}" alt="Usal Project" />
+</div>
+
+<section data-module--field-log class="module">
+
+    {% comment %}
+    Header > Desktop
+    {% endcomment %}
+    <div class="fieldlog--header">
+        <div class="anime-line">&nbsp;</div>
+
+        <header class="flex flex-row justify-between w-100">
+            <div>
+                <h2 class="title">Field Log</h2>
+            </div>
+            <div class="links">
+                <a href="">View All</a>
+            </div>
+        </header>
+    </div>
+
+    {% comment %}
+    Header > Mobile
+    {% endcomment %}
+    <div class="header--mobile justify-between align-top">
+        <div class="title-block flex flex-column justify-between">
+            
+            <div class="links flex justify-between">
+                <span>(Latest Posts)</span>
+                <a href="">View All</a>
+            </div>
+            <div class="anime-line">&nbsp;</div>
+            <h2 class="title">Field Log</h2>
+        </div>
+    </div>
+
+    {% comment %}
+    Grid > Desktop
+    {% endcomment %}
+    <div class="wrapper desktop">
+        <div class="blog-grid">
+            <div class="row grid g-5fr g-wgap-20">
+                {% for article in blogs.field-log.articles limit: 10 %}
+                    <article class="item">
+
+                        <div class="title">
+                            <h3>{{ article.title }}</h3>
+                            <span>{{ article.published_at | date: '%D' }}</span>
+                        </div>
+                        <div class="image">
+                            <img src={{ article | img_url: 'medium' }} alt={{ article.title }} />
+                        </div>
+                        <div class="content">
+                            <p>
+                                {{ article.content }}
+                            </p>
+                        </div>
+                        <div class="link">
+                            <a href="" title="Full post">full post</a>
+                        </div>
+
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% comment %}
+    Grid > Mobile
+    {% endcomment %}
+    <div class="wrapper mobile">
+        <div class="blog-grid">
+            <div class="blog grid g-5fr g-gap-20">
+                {% for article in blogs.field-log.articles limit: 6 %}
+                    <article class="item">
+
+                        <div class="title">
+                            <h3>{{ article.title }}</h3>
+                            <span>{{ article.published_at | date: '%D' }}</span>
+                        </div>
+                        <div class="image">
+                            <img src={{ article | img_url: 'medium' }} alt={{ article.title }} />
+                        </div>
+                        <div class="content">
+                            <p>
+                                {{ article.content }}
+                            </p>
+                        </div>
+                        <div class="link">
+                            <a href="" title="Full post">Full post</a>
+                        </div>
+
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+</section>
+
+<div class="footer-coordinates">
+    <img src="{{ 'footer-coordinates.svg' | asset_url }}" alt="Usal Project" />
+</div>

@@ -1,0 +1,16 @@
+{
+    "git.optimisticUpdate": false,
+    "git.showActionButton": {
+        "commit": false,
+        "publish": false,
+        "sync": false
+    },
+    "git.showCommitInput": false,
+    "scm.autoReveal": false,
+    "workbench.colorTheme": "Dracula",
+    "workbench.preferredDarkColorTheme": "Dracula",
+    "workbench.preferredHighContrastColorTheme": "Arachnoid",
+    "explorer.decorations.badges": false,
+    "explorer.expandSingleFolderWorkspaces": false,
+    "explorer.decorations.colors": false
+}

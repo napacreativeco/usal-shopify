@@ -1,0 +1,53 @@
+{
+  "wrapper": "div#index.page-wrapper",
+  "sections": {
+    "code": {
+      "type": "codeloop",
+      "settings": {
+      }
+    },
+    "calendar": {
+      "type": "module--calendar",
+      "settings": {
+      }
+    },
+    "large-nav": {
+      "type": "module--large-nav",
+      "settings": {
+      }
+    },
+    "home-goods": {
+      "type": "module--goods",
+      "settings": {
+        "description": "Usal goods are designed and printed in Los Angeles, California. Produced with high quality, comfortable garments. Made for the Usal community and their adventures, with love. Shop the new collection, out now."
+      }
+    },
+    "home-see": {
+      "type": "module--see",
+      "settings": {
+      }
+    },
+    "home-hear": {
+      "type": "module--hear",
+      "settings": {
+        "audio-description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "audio-title": "Mountain System Researcg Episode 15",
+        "audio-url": "https:\/\/samplelib.com\/lib\/preview\/mp3\/sample-3s.mp3"
+      }
+    },
+    "home-field-log": {
+      "type": "module--field-log",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "code",
+    "calendar",
+    "large-nav",
+    "home-goods",
+    "home-see",
+    "home-hear",
+    "home-field-log"
+  ]
+}
