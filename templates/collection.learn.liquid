@@ -23,10 +23,9 @@
     </div>
 
     <div class="loop--learn">
-        {% for product in collections.all.products %}
+        {% for product in collections.learn.products %}
 
-            {% case product.type %}
-                {% when 'Learn' %}
+
 
 
                    <div data-name="{{ product.handle }}" class="loop-learn--item">
@@ -85,7 +84,7 @@
                             
                         })(jQuery);
                    </script>
-            {% endcase %}
+     
         {% endfor %}
     </div>
 

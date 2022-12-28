@@ -11,3 +11,5 @@
 config.yml
 
 /src
+
+node_modules

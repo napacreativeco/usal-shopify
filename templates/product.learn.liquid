@@ -14,7 +14,9 @@
   {% endif %}
 
 
-  <div data-product--learn>
+  {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
+
+  <div class="single-product-page" data-product--learn>
 
     {% comment %} Header {% endcomment %}
     <div class="topper">
@@ -42,7 +44,7 @@
           <div class="cell title-cell">
 
             <div class="top">
-              <div class="variants title-variant">
+              <div class=" title-variant">
 
               </div>
               <div class="title">
@@ -69,13 +71,11 @@
                 <div class="where">
                   <h4>Where</h4>
                   <span class="where--text">
-                    {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
+                    
                     {% if event %}
                       <div>
                         {% if event.location != blank %}
-                          <p>
-                            <strong>Location:</strong>
-                            {{ event.location }}</p>
+                          <p>{{ event.location }}</p>
                         {% endif %}
                       </div>
                     {% endif %}
@@ -83,7 +83,9 @@
                 </div>
                 <div class="guided-by">
                   <h4>Guided by</h4>
-                  <span class="guided-by--text"></span>
+                  <span class="guided-by--text">
+                    
+                  </span>
                 </div>
                 <div class="time">
                   <h4>Time</h4>
@@ -115,17 +117,13 @@
           <div class="cell pricing-cell">
             <div class="inner">
 
-              {% comment %} Pricing > Top {% endcomment %}
               <div class="top">
                 <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                   <span>Ticket Price: 
                     {% assign variant = product.selected_or_first_available_variant %}
-                    {% if product.compare_at_price > product.price %}
-                      <span class="product-price on-sale" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
-                      <s class="product-compare-price">{{ variant.compare_at_price | money_without_trailing_zeros }}</s>
-                    {% else %}
-                      <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
-                    {% endif %}
+
+                    <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
+                   
                   </span>
                 </div>
                 <div class="sold-out--status">
@@ -133,44 +131,28 @@
                 </div>
               </div>
 
-              {% comment %} Pricing > Bottom {% endcomment %}
               <div class="bottom">
 
                   <div class="variants">
                     {% comment %}
                       VARIANT RADIO BUTTONS
                     {% endcomment %}
-                    {% assign hide_default_title = false %}
-                    {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
-                      {% assign hide_default_title = true %}
-                    {% endif %}   
-
-                    {% if product.variants.size > 1 %} 
 
                       <ul class="variants-list">
-                        {% assign found_available_variant = false %}
                         {% for variant in product.variants %}
+
                           <li class="switch-field">
-                              {% if variant.available %}
-                                  <input class="date-radio" type="radio"{% if variant.compare_at_price > variant.price %} data-compare-at-price="{{ variant.compare_at_price | money_with_currency }}"{% endif %} data-price="{{ variant.price | money_without_trailing_zeros }}" id="{{ variant.id }}" value="{{ variant.id }}" name="id"{% if found_available_variant == false  %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
-                                  
-                                  <label for="{{ variant.id }}">
-                                    {{ variant.title }}
-                                  </label>
-                              {% else %}
-                                  <p class="date-radio out-of-stock" id="{{ variant.id }}" value="{{ variant.id }}" name="id">
-                                    {{ variant.title }}
-                                  </p>
-                              {% endif %}
-                            </li>
+
+                              <input class="date-radio" type="radio" data-price="{{ variant.price | money_without_trailing_zeros }}" id="{{ variant.id }}" value="{{ variant.id }}" name="id"{% if found_available_variant == false  %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
+                              
+                              <label for="{{ variant.id }}">
+                                {{ variant.title }}
+                              </label>
+
+                          </li>
+
                         {% endfor %}
                       </ul>
-
-                    {% else %}
-                  
-                        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-                  
-                    {% endif %}      
                   </div>
 
                   <div class="add-to-cart">
@@ -187,40 +169,31 @@
         </div>
       </section>
 
-      {% comment %} 2  {% endcomment %}
+      {% comment %} SECTION 2  {% endcomment %}
       <section class="section-two">
 
         <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
 
         <div class="row">
+
+          {% comment %} Slideshow {% endcomment %}
           <div class="cell slideshow-cell">
-            {% if product.images.size == 0 %}
-        
-              <img src="{{ '' | img_url: 'grande' }}" alt="" />
-            
-            {% else %}
-            
-              {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
-              <a href="{{ featured_image | img_url: '1024x1024' }}">
-                <img src="{{ featured_image | img_url: 'grande' }}" alt="{{ product.title | escape }}" />
-              </a>
-    
-              {% if product.images.size > 1 %}
-                <ul>
-                  {% for image in product.images %}
-                    <li>
-                      <a href="{{ image | img_url: '1024x1024' }}">
-                        <img src="{{ image | img_url: 'large' }}" alt="{{ image.alt | escape }}" />
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            
-            {% endif %}
+
+              <div class="wrappy">              
+                <div class="swiper-container">
+                  <div class="swiper-wrapper">
+                    {% for image in product.images %}
+                      <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
+                    {% endfor %}
+                  </div> 
+                </div>
+              </div>
+
+              <div class="swiper-pagination"></div>
           </div>
+          {% comment %} Guide {% endcomment %}
           <div class="cell info-cell">
-            <div class="item">
+            <div class="list-item">
               <div class="top">
                 <span class="title">About [GUIDE_NAME]</span>
               </div>
@@ -231,7 +204,7 @@
               </div>
             </div>
             <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
-            <div class="item">
+            <div class="list-item">
               <div class="top">
                 <span class="title">Objective</span>
               </div>
@@ -242,7 +215,7 @@
               </div>
             </div>
             <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
-            <div class="item">
+            <div class="list-item">
               <div class="top">
                 <span class="title">What's included</span>
               </div>
@@ -256,43 +229,13 @@
         </div>
       </section>
 
-      
-
-        
-
-        
-
-          Event info: 
-          {% render 'evey--event-info' %}
-          
-          
-
-          
-
-      
-
-          {% if collection %}
-            {% if collection.previous_product or collection.next_product %}
-            <div>     
-            {% if collection.previous_product %}
-              {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
-              <span class="left">{{ 'Previous Product' | link_to: prev_url }}</span>
-            {% endif %}
-            {% if collection.next_product %}
-              {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
-              <span class="right">{{ 'Next Product' | link_to: next_url }}</span>
-            {% endif %}
-            </div>
-            {% endif %}
-          {% endif %}
-
 
     </div>
 
   </div>
 </form>
 
-{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+<script defer src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
 
 <script>
   /*
@@ -356,6 +299,7 @@ RADIO BUTTON FUNCTIONS
       if (variant.available) {
             
         jQuery('.title-variant').html(' {{ variant.selected }} ');
+        jQuery('.product-price').text(' {{ variant.selected.price }} ');
         jQuery('.sold-out--status').html('OPEN');
 
         // Enabling add to cart button.
@@ -400,4 +344,23 @@ RADIO BUTTON FUNCTIONS
   });
   Shopify.Image.preload({{ product.images | json }}, 'grande');
   Shopify.Image.preload({{ product.images | json }}, '1024x1024');
+</script>
+
+
+<script>
+  var Swipes = new Swiper('.swiper-container', {
+    loop: true,
+    pagination: {
+        el: '.swiper-pagination',
+    },
+  });
+</script>
+
+<script>
+  (function() {
+    console.log('Product Object:')
+    console.log('{{ product | json }}');
+    console.log('Event Object:')
+    console.log('{{ event | json }}')
+  }(jQuery));
 </script>

@@ -24,6 +24,8 @@
 
     <link rel="canonical" href="{{ canonical_url }}" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.css" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {% render 'open-graph-tags' %}
@@ -50,7 +52,11 @@
   <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
 
     <div id="site-wrapper">
+
       <script src={{ 'jquery.min.js' | asset_url }}></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+
       <main role="main">
         {{ content_for_layout }}
       </main>
@@ -67,14 +73,6 @@
       </footer>
 
     </div>
-
-
-    <!-- subify Snippet Start -->
-    {% if content_for_header contains 'https:\/\/cdn.hengam.io\/subify\/subify-sdk.js' %}
-
-      {% render 'subify-snippet' %}
-
-    {% endif %}
 
 
   </body>
