@@ -45,7 +45,7 @@
 
             <div class="top">
               <div class=" title-variant">
-
+                {% comment %} filled in via JS {% endcomment %}
               </div>
               <div class="title">
                 <h1>{{ product.title }}</h1>
@@ -84,7 +84,11 @@
                 <div class="guided-by">
                   <h4>Guided by</h4>
                   <span class="guided-by--text">
-                    
+                    {% for variant in product.variants %}
+                      {% unless variant == empty %}
+                        {{ variant.metafields.learn.guide_name }}
+                      {% endunless %}
+                    {% endfor %}
                   </span>
                 </div>
                 <div class="time">
@@ -103,7 +107,7 @@
                 </div>
                 <div class="capacity">
                   <h4>Capacity</h4>
-                  <span class="capacity--text"></span>
+                    <div class="capacity-text"></div>
                 </div>
                 <div class="length">
                   <h4>Length</h4>
@@ -123,6 +127,7 @@
                     {% assign variant = product.selected_or_first_available_variant %}
 
                     <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
+
                    
                   </span>
                 </div>
@@ -141,9 +146,9 @@
                       <ul class="variants-list">
                         {% for variant in product.variants %}
 
-                          <li class="switch-field">
+                          <li class="switch-field" data-link="{{ variant.id }}">
 
-                              <input class="date-radio" type="radio" data-price="{{ variant.price | money_without_trailing_zeros }}" id="{{ variant.id }}" value="{{ variant.id }}" name="id"{% if found_available_variant == false  %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
+                              <input class="date-radio" type="radio" data-guide-name="{{ variant.metafields.learn.guide_name }}" data-capacity="{{ variant.inventory_quantity }}" data-price="{{ variant.price | money_without_trailing_zeros }}" id="{{ variant.id }}" value="{{ variant.id }}" name="id" {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
                               
                               <label for="{{ variant.id }}">
                                 {{ variant.title }}
@@ -262,15 +267,38 @@ RADIO BUTTON FUNCTIONS
     jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
     jQuery(".price-field del").html(first_variant_compare_at_price);
 
+    // Initial Hydration
+    var variant_cap = jQuery(this).attr("data-capacity");
+    jQuery('.capacity-text').html('{{ variant.inventory_quantity }}');
+
     /*
      * Click Function
      */
     jQuery("input[type='radio']").click(function() {
 
+      var variant_guide = jQuery(this).attr("data-guide-name");
+      var variant_cap = jQuery(this).attr("data-capacity");
+      var variant_id = jQuery(this).attr("id");
       var variant_price = jQuery(this).attr("data-price");
       var variant_title = jQuery(this).closest('li').children("label").text();
       jQuery(".product-price").html(variant_price);
       jQuery(".title-variant").html(variant_title);
+
+      // Date
+      var dateHolder = document.querySelector('learn-item--date');
+
+      // Capacity
+      jQuery('.capacity-text').html(variant_cap);
+      
+      // Guide
+      jQuery('.guided-by--text').html(variant_guide);
+
+      var yeah = jQuery(this).attr("id");
+      var mapped = '{{ event.ticket_types }}';
+
+      var dateHolder = document.querySelector('learn-item--date');
+      
+      console.log(mapped);
       
       var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
       jQuery(".price-field del").html(variant_compare_at_price);
@@ -285,8 +313,6 @@ RADIO BUTTON FUNCTIONS
    */
   var selectCallback = function(variant, selector) {
     if (variant) {
-    
-      
 
       // Swap image.
       if (variant.featured_image) {
@@ -294,12 +320,11 @@ RADIO BUTTON FUNCTIONS
         var mainImageDomEl = jQuery('.product-photo-container img')[0]; // DOM element of main image we need to swap.
         Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
       }
-      
+
+
       // Selected a valid variant that is available.
       if (variant.available) {
-            
-        jQuery('.title-variant').html(' {{ variant.selected }} ');
-        jQuery('.product-price').text(' {{ variant.selected.price }} ');
+
         jQuery('.sold-out--status').html('OPEN');
 
         // Enabling add to cart button.
@@ -315,6 +340,7 @@ RADIO BUTTON FUNCTIONS
         
       } else {
         // Variant is sold out.
+        jQuery('.sold-out--status').html('SOLD OUT');
         jQuery('#backorder').addClass('hidden');
         jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);    
         jQuery('.sold-out--status').html('SOLD OUT');   
@@ -358,9 +384,6 @@ RADIO BUTTON FUNCTIONS
 
 <script>
   (function() {
-    console.log('Product Object:')
-    console.log('{{ product | json }}');
-    console.log('Event Object:')
-    console.log('{{ event | json }}')
+    console.log('test: {{ variant.metafields.learn.guide_name }}')
   }(jQuery));
 </script>

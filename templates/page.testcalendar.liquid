@@ -1,0 +1,14 @@
+{% for product in collections.all.products %}
+    {% case product.type %}
+        {% when 'Event' %}
+            {% assign prodo = product.variants | sort: product.metafields.evey.event.value %}
+            {% for variant in prodo %}
+                <h1>
+                    
+                Date: {{ variant.title }}
+                Product: {{ variant.product.title }}
+                </h1>
+            {% endfor %}
+
+    {% endcase %}
+{% endfor %}
