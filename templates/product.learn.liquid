@@ -64,54 +64,40 @@
           {% comment %} Details {% endcomment %}
           <div class="cell details-cell">
             <div class="top">
-              <span>Event Details</span>
+              <span class="product-details--label">Event Details</span>
             </div>
             <div class="bottom">
               <div class="row">
                 <div class="where">
-                  <h4>Where</h4>
-                  <span class="where--text">
-                    
-                    {% if event %}
-                      <div>
-                        {% if event.location != blank %}
-                          <p>{{ event.location }}</p>
-                        {% endif %}
-                      </div>
-                    {% endif %}
-                  </span>
+                  <h4 class="product-details--label">Where</h4>
+                  <span class="where--text product-detail"></span>
                 </div>
                 <div class="guided-by">
-                  <h4>Guided by</h4>
+                  <h4 class="product-details--label">Guided by</h4>
                   <span class="guided-by--text">
-                    {% for variant in product.variants %}
-                      {% unless variant == empty %}
-                        {{ variant.metafields.learn.guide_name }}
-                      {% endunless %}
-                    {% endfor %}
+                    {% assign variant = product.selected_or_first_available_variant %}
+                    <span class="product-detail product-price" itemprop="price">{{ variant.metafields.learn.guide_name }}</span>
                   </span>
                 </div>
                 <div class="time">
-                  <h4>Time</h4>
-                  <span class="time--text">
-                    {{ event.start_at | date: "%l:%M %P" }}
-                  </span>               
+                  <h4 class="product-details--label">Time</h4>
+                  <span class="product-detail time--text"></span>               
                 </div>
               </div>
               <div class="row">
                 <div class="when">
-                  <h4>When</h4>
-                  <span class="when--text">
+                  <h4 class="product-details--label">When</h4>
+                  <span class="when--text product-detail">
                     {{ event.start_at | date: "%B %e, %Y" }}
                   </span>
                 </div>
                 <div class="capacity">
-                  <h4>Capacity</h4>
-                    <div class="capacity-text"></div>
+                  <h4 class="product-details--label">Capacity</h4>
+                    <div class="capacity-text product-detail"></div>
                 </div>
                 <div class="length">
-                  <h4>Length</h4>
-                  <span class="length--text"></span>
+                  <h4 class="product-details--label">Length</h4>
+                  <span class="length--text product-detail"></span>
                 </div>
               </div>
             </div>
@@ -123,13 +109,9 @@
 
               <div class="top">
                 <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                  <span>Ticket Price: 
+                  <span>Ticket Price: </span>
                     {% assign variant = product.selected_or_first_available_variant %}
-
                     <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
-
-                   
-                  </span>
                 </div>
                 <div class="sold-out--status">
                   Open
@@ -147,8 +129,25 @@
                         {% for variant in product.variants %}
 
                           <li class="switch-field" data-link="{{ variant.id }}">
+                            {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                            {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
-                              <input class="date-radio" type="radio" data-guide-name="{{ variant.metafields.learn.guide_name }}" data-capacity="{{ variant.inventory_quantity }}" data-price="{{ variant.price | money_without_trailing_zeros }}" id="{{ variant.id }}" value="{{ variant.id }}" name="id" {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
+                              <input
+                                class="date-radio"
+                                type="radio"
+                                data-google-maps="{{ variant.metafields.learn.location_google_url }}"
+                                data-date="{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}"
+                                data-start-time="{{ variant.metafields.learn.event_start_time | date: '%I:%M %P' }}" 
+                                data-end-time="{{ variant.metafields.learn.event_end_time | date: '%I:%M %P' }}"
+                                data-duration="{{ endHour | minus: startHour }}"                         
+                                data-location="{{ variant.metafields.learn.location_address }}"
+                                data-guide-name="{{ variant.metafields.learn.guide_name }}"
+                                data-guide-bio="{{ variant.metafields.learn.guide_bio }}"
+                                data-capacity="{{ variant.inventory_quantity }}"
+                                data-price="{{ variant.price | money_without_trailing_zeros }}"
+                                id="{{ variant.id }}" value="{{ variant.id }}"
+                                name="id"
+                                {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
                               
                               <label for="{{ variant.id }}">
                                 {{ variant.title }}
@@ -200,29 +199,32 @@
           <div class="cell info-cell">
             <div class="list-item">
               <div class="top">
-                <span class="title">About [GUIDE_NAME]</span>
+                <span class="title about--guide-name">About                     
+                  {% assign variant = product.selected_or_first_available_variant %}
+                  <span>{{ variant.metafields.learn.guide_name }}</span>
+                </span>
               </div>
               <div class="bottom">
-                <p>
+                <div class="guide-bio--content">
                   [GUIDE_BIO]
-                </p>
+                </div>
               </div>
             </div>
-            <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
+            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
             <div class="list-item">
               <div class="top">
                 <span class="title">Objective</span>
               </div>
               <div class="bottom">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper consectetur ex. Aliquam eu dui arcu. Nam ut erat quam. Morbi egestas cursus diam ut iaculis. Maecenas lobortis felis non nulla faucibus, in lacinia felis efficitur. Morbi at lobortis urna. Etiam at felis quam. Cras eu elit dui. Duis ut diam nec dolor maximus feugiat. Nullam arcu lorem, venenatis id nisl eget, consequat blandit purus. Proin ac nibh et lacus mattis sagittis. Phasellus in consectetur tortor, vitae dictum justo.
+                  {{ product.metafields.learn.objective }}
                 </p>
               </div>
             </div>
-            <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
+            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
             <div class="list-item">
               <div class="top">
-                <span class="title">What's included</span>
+                <span class="title">What's<br />included</span>
               </div>
               <div class="bottom">
                 <p>
@@ -268,30 +270,61 @@ RADIO BUTTON FUNCTIONS
     jQuery(".price-field del").html(first_variant_compare_at_price);
 
     // Initial Hydration
+    var variant_location = jQuery(this).attr("data-location");
     var variant_cap = jQuery(this).attr("data-capacity");
+    var variant_guide = jQuery(this).attr("data-guide-name");
+    var variant_start_time = jQuery(this).attr("data-start-time");
     jQuery('.capacity-text').html('{{ variant.inventory_quantity }}');
+    jQuery('.guided-by--text').html(variant_guide);
+    jQuery('.time--text').html(variant_start_time);
+    jQuery('.where--text').html(variant_location);
 
     /*
      * Click Function
      */
     jQuery("input[type='radio']").click(function() {
 
+      var variant_google_maps_url = jQuery(this).attr("data-google-maps");
+      var variant_location = jQuery(this).attr("data-location");
+      var variant_date = jQuery(this).attr("data-date");
+      var variant_guide_bio = jQuery(this).attr("data-guide-bio");
       var variant_guide = jQuery(this).attr("data-guide-name");
       var variant_cap = jQuery(this).attr("data-capacity");
       var variant_id = jQuery(this).attr("id");
       var variant_price = jQuery(this).attr("data-price");
+      var variant_start_time = jQuery(this).attr("data-start-time");
+      var variant_end_time = jQuery(this).attr("data-end-time");
+      var variant_duration = jQuery(this).attr("data-duration");
       var variant_title = jQuery(this).closest('li').children("label").text();
-      jQuery(".product-price").html(variant_price);
+      
+
+      // Title 
       jQuery(".title-variant").html(variant_title);
 
+      // Location
+      jQuery('.where--text').html(variant_location).wrap('<a href="'+ variant_google_maps_url +'" title="Location"></a>');
+
       // Date
-      var dateHolder = document.querySelector('learn-item--date');
+      jQuery('.when--text').html(variant_date);
+
+      // Time
+      jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
 
       // Capacity
       jQuery('.capacity-text').html(variant_cap);
       
       // Guide
       jQuery('.guided-by--text').html(variant_guide);
+      jQuery('.about--guide-name').html('About ' + variant_guide);
+
+      // Guide Bio
+      jQuery('.guide-bio--content').html(variant_guide_bio);
+
+      // Price
+      jQuery(".product-price").html(variant_price);
+
+      // Length
+      jQuery(".length--text").html(variant_duration + ' hrs');
 
       var yeah = jQuery(this).attr("id");
       var mapped = '{{ event.ticket_types }}';
