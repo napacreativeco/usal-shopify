@@ -269,15 +269,43 @@ RADIO BUTTON FUNCTIONS
     jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
     jQuery(".price-field del").html(first_variant_compare_at_price);
 
-    // Initial Hydration
+    /* 
+     * Initial Hydration
+     */
+    var variant_google_maps_url = jQuery('.date-radio').attr("data-google-maps");
     var variant_location = jQuery(this).attr("data-location");
-    var variant_cap = jQuery(this).attr("data-capacity");
+    var variant_date = jQuery(this).attr("data-date");
+    var variant_guide_bio = jQuery(this).attr("data-guide-bio");
     var variant_guide = jQuery(this).attr("data-guide-name");
+    var variant_cap = jQuery(this).attr("data-capacity");
+    var variant_id = jQuery(this).attr("id");
+    var variant_price = jQuery(this).attr("data-price");
     var variant_start_time = jQuery(this).attr("data-start-time");
-    jQuery('.capacity-text').html('{{ variant.inventory_quantity }}');
+    var variant_end_time = jQuery(this).attr("data-end-time");
+    var variant_duration = jQuery(this).attr("data-duration");
+    var variant_title = jQuery(this).closest('li').children("label").text();
+    {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+    {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+
+    // Title 
+    jQuery(".title-variant").html('{{ variant.title }}');
+    // Location
+    jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
+    // Date
+    jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
+    // Time
+    jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
+    // Capacity
+    jQuery('.capacity-text').html('{{ variant.inventory_quantity }}');  
+    // Guide
     jQuery('.guided-by--text').html(variant_guide);
-    jQuery('.time--text').html(variant_start_time);
-    jQuery('.where--text').html(variant_location);
+    jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
+    // Guide Bio
+    jQuery('.guide-bio--content').html('{{ variant.metafields.learn.guide_bio }}');
+    // Price
+    jQuery(".product-price").html(variant_price);
+    // Length
+    jQuery(".length--text").html('{{ endHour | minus: startHour }} hrs');
 
     /*
      * Click Function
@@ -413,10 +441,4 @@ RADIO BUTTON FUNCTIONS
         el: '.swiper-pagination',
     },
   });
-</script>
-
-<script>
-  (function() {
-    console.log('test: {{ variant.metafields.learn.guide_name }}')
-  }(jQuery));
 </script>
