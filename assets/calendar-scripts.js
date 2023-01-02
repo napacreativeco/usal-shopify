@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     timeZone: 'PST',
     locale: Shopify.locale,
     dateAlignment: 'month',
+    progressiveEventRendering: false,
     headerToolbar: {
       right: 'custom3',
       left: 'title custom1,custom2'
@@ -143,9 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Place Year in Title Bar
   var myLocationElement = document.querySelector('.fc-custom3-button');
-  var date = calendar.getDate();
+  // var date = calendar.getDate();
+  var date = calendar.view.currentEnd;
   myLocationElement.innerText = date.getFullYear();
-  console.log(date);
+
+
+  console.log(calendar.view.currentEnd)
 
   $('.fc-button').on('click', function() {
     var date = calendar.getDate();
@@ -165,3 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
+
+
+  $('.fc-daygrid-event-harness').text('text');

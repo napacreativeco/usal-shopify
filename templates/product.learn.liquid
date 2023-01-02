@@ -325,41 +325,25 @@ RADIO BUTTON FUNCTIONS
       var variant_duration = jQuery(this).attr("data-duration");
       var variant_title = jQuery(this).closest('li').children("label").text();
       
-
       // Title 
       jQuery(".title-variant").html(variant_title);
-
       // Location
       jQuery('.where--text').html(variant_location).wrap('<a href="'+ variant_google_maps_url +'" title="Location"></a>');
-
       // Date
       jQuery('.when--text').html(variant_date);
-
       // Time
       jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
-
       // Capacity
       jQuery('.capacity-text').html(variant_cap);
-      
       // Guide
       jQuery('.guided-by--text').html(variant_guide);
       jQuery('.about--guide-name').html('About ' + variant_guide);
-
       // Guide Bio
       jQuery('.guide-bio--content').html(variant_guide_bio);
-
       // Price
       jQuery(".product-price").html(variant_price);
-
       // Length
       jQuery(".length--text").html(variant_duration + ' hrs');
-
-      var yeah = jQuery(this).attr("id");
-      var mapped = '{{ event.ticket_types }}';
-
-      var dateHolder = document.querySelector('learn-item--date');
-      
-      console.log(mapped);
       
       var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
       jQuery(".price-field del").html(variant_compare_at_price);
@@ -442,3 +426,4 @@ RADIO BUTTON FUNCTIONS
     },
   });
 </script>
+
