@@ -92,6 +92,35 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         }).then(function (result) {
             onSuccess(result.schedule); // DONT DELETE
+
+            // James
+            // Try to use .indexOf() to find the index number of the matching Product Id.
+            // or
+            // Try matching them by Title string?
+            var eventTitle = document.querySelector('.fc-event-title');
+            var eventHolder = [];
+            var prodOBJ = [];
+            for (let i = 0; i < result.events.length; i++) {
+              eventHolder.push(result.events[i]);                
+            }
+            console.log(eventHolder);
+
+            fetch(window.Shopify.routes.root + 'products.json')
+            .then(response => response.json())
+            .then(data => {
+              var prodData = JSON.stringify(data)
+              console.log(prodData);
+              
+              for (let x = 0; x < eventHolder.length; x++) {
+                
+              }
+
+            });
+            eventTitle.insertAdjacentHTML('afterend', '<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
+
+
+            
+            
         }).catch(function (error) {
             console.log('[Evey] Failed to fetch events', error);
             onFailure(error);
@@ -129,8 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
         eventInfoImageElement.style.display = 'none';
       }
 
-      // var containerRect = document.querySelector('.calendar-page-container').getBoundingClientRect();
-      // var rect = container.getBoundingClientRect();
 
       // Show Pop-up
       eventInfoElement.style.visibility = 'visible';
@@ -169,7 +196,3 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
-
-
-
-  $('.fc-daygrid-event-harness').text('text');
