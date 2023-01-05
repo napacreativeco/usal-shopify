@@ -1,4 +1,4 @@
-{% assign add_to_cart = 'Add to cart' %}
+{% assign add_to_cart = 'Add' %}
 {% assign sold_out = 'Sold Out' %}
 {% assign unavailable = 'Unavailable' %}
 
@@ -78,12 +78,12 @@
                             {% endfor %}
                             </ul>
                     </div>
-                    <div>
-                        <div class="add-to-cart">
-                            <div id="product-add">
-                              <input type="submit" name="add" id="add" value="{{ add_to_cart | escape }}">
-                            </div>          
-                        </div>
+                    <div class="add-to-cart">
+                       
+                      <div id="product-add">
+                        <input type="submit" name="add" id="add" value="{{ add_to_cart | escape }}">
+                      </div>          
+                  
                     </div>
                 </div>
                 <div class="bottom">
@@ -96,7 +96,115 @@
                         </div>
                     </div>
                     <div class="quantity">
-                        <span class="label">Quantity:</span>
+                        <div>
+                          <span class="title">Quantity:</span>
+                        </div>
+                        
+
+                        <div class="quantity-list switch-field">
+                         
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-1" 
+                              name="quantity"
+                              min="1"
+                              value="1"   
+                              checked="checked"                          
+                              >
+                              <label for="quantity-1">01</label>                  
+                  
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-2" 
+                              name="quantity"
+                              min="2"
+                              value="2"
+                              >
+                              <label for="quantity-2">02</label>
+              
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-3" 
+                              name="quantity"
+                              min="3"
+                              value="3"
+                              >
+                              <label for="quantity-3">03</label>
+
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-4" 
+                              name="quantity"
+                              min="4"
+                              value="4"
+                              >
+                              <label for="quantity-4">04</label>
+           
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-5" 
+                              name="quantity"
+                              min="5"
+                              value="5"
+                              >
+                              <label for="quantity-5">05</label>
+           
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-6" 
+                              name="quantity"
+                              min="6"
+                              value="6"
+                              >
+                              <label for="quantity-6">06</label>
+
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-7" 
+                              name="quantity"
+                              min="7"
+                              value="7"
+                              >
+                              <label for="quantity-7">07</label>
+           
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-8" 
+                              name="quantity"
+                              min="8"
+                              value="8"
+                              >
+                              <label for="quantity-8">08</label>
+
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-9" 
+                              name="quantity"
+                              min="9"
+                              value="9"
+                              >
+                              <label for="quantity-9">09</label>
+           
+                              <input
+                              class="quantity-input"
+                              type="radio"
+                              id="quantity-10" 
+                              name="quantity"
+                              min="10"
+                              value="10"
+                              >
+                              <label for="quantity-10">10</label>
+                                      
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,45 +215,67 @@
 
 
 
-</div>
+  </div>
 </form>
 
 <script defer src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
 
 <script>
-/*
- * Page Title
- */
-var logoHolder = $('div[data-logo]');
-logoHolder.html('<h2 class="page-title">{{ template.suffix | capitalize }}</h2>');
+  /*
+  * Page Title
+  */
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h2 class="page-title">{{ template.suffix | capitalize }}</h2>');
 
-(function() {
-  $('body').css('background', '#191919');
-}(jQuery));
+  (function() {
+    $('body').css('background', '#191919');
+  }(jQuery));
 </script>
 
 {% comment %}
 RADIO BUTTON FUNCTIONS
 {% endcomment %}
 <script type="text/javascript" charset="utf-8">
-jQuery(function() { 
+  jQuery(function() { 
 
-  /*
-   * Click Function
-   */
-  jQuery("input[type='radio']").click(function() {
+    /*
+     * Variants
+     */
 
-    jQuery('.date-radio').removeClass('active');
-    
-    jQuery(this).addClass('active');
+    // Set underline
+    jQuery('.date-radio').first().addClass('active');
 
+    // Click Function
+    jQuery("input.date-radio").click(function() {
 
-    var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
-    jQuery(".price-field del").html(variant_compare_at_price);
+      jQuery('.date-radio').removeClass('active');
+      jQuery(this).addClass('active');
+
+    });
 
   });
-});
 </script>
+
+{% comment %} 
+*
+* Quantity Inputs
+*
+{% endcomment %}
+<script type="text/javascript" charset="utf-8">
+
+  jQuery('.field').first().addClass('active-button');
+
+  jQuery('.field').on('click', function(e) {
+
+    jQuery('.field').removeClass('active-button');
+    
+    jQuery(this).addClass('active-button');
+
+    jQuery(this).children('input').attr('checked');
+
+  });
+
+</script> 
 
 <script>
 /*
@@ -219,3 +349,4 @@ var Swipes = new Swiper('.swiper-container', {
   },
 });
 </script>
+
