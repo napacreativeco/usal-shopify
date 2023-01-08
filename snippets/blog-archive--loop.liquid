@@ -1,0 +1,111 @@
+<ul class="blog-list">
+
+
+<li class="blog-item">
+  <div class="blog-item--row">
+
+    <div class="month-column">
+      <span class="month">Dec.</span>
+    </div>
+
+    <div class="posts-column">
+      {% for article in blog.articles %}
+
+        {% assign monthVAR = article.published_at | date: '%B' %}
+        {% assign yearVAR = article.published_at | date: '%Y' %}
+
+        {% case monthVAR %}
+          {% when 'December' limit: 6 %}
+            {% if article %}
+              <article class="post-item">
+                <div class="item-row">
+
+                  <div class="top">
+                    <div><h2><a href="{{ article.url }}">{{ article.title }}</a></h2></div>
+                    <div><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time></div>
+                  </div>
+
+                  <div class="image" onclick="window.location='{{ article.url }}';" style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+                  
+                  <div class="bottom">
+                    <div class="excerpt">
+                      {% if article.excerpt.size > 0 %}
+                        {{ article.excerpt }}
+                      {% else %}
+                        <p>{{ article.content | strip_html | truncatewords: 120 }}
+                      {% endif %}
+                    </div>
+                    <div>
+                      <a href="{{ article.url }}" title="Full post">Full post</a>
+                    </div>
+                  </div>
+
+                </div>
+              </article>
+            {% else %}
+              <p>Sorry, there are no posts.</p>
+            {% endif %}
+
+        {% endcase %}
+
+      {% endfor %}
+    </div>
+
+  </div>
+</li>
+
+<li class="blog-item">
+  <div class="blog-item--row">
+
+    <div class="month-column">
+      <span class="month">Nov.</span>
+    </div>
+
+    <div class="posts-column">
+      {% for article in blog.articles %}
+
+        {% assign monthVAR = article.published_at | date: '%B' %}
+        {% assign yearVAR = article.published_at | date: '%Y' %}
+
+        {% case monthVAR %}
+          {% when 'November' limit: 6 %}
+            {% if article %}
+              <article class="post-item">
+                <div class="item-row">
+
+                  <div class="top">
+                    <div><h2><a href="{{ article.url }}">{{ article.title }}</a></h2></div>
+                    <div><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time></div>
+                  </div>
+
+                  <div class="image" onclick="window.location='{{ article.url }}';" style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+                  
+                  <div class="bottom">
+                    <div class="excerpt">
+                      {% if article.excerpt.size > 0 %}
+                        {{ article.excerpt }}
+                      {% else %}
+                        <p>{{ article.content | strip_html | truncatewords: 120 }}
+                      {% endif %}
+                    </div>
+                    <div>
+                      <a href="{{ article.url }}" title="Full post">Full post</a>
+                    </div>
+                  </div>
+
+                </div>
+              </article>
+            {% else %}
+              <p>Sorry, there are no posts.</p>
+            {% endif %}
+
+        {% endcase %}
+
+      {% endfor %}
+    </div>
+
+  </div>
+</li>
+
+
+</ul>

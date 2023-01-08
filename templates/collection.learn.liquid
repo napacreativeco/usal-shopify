@@ -25,65 +25,81 @@
     <div class="loop--learn">
         {% for product in collections.learn.products %}
 
+            <div data-name="{{ product.handle }}" class="loop-learn--item">
+                <div class="row">
+                    <pre class="learn-item--date">
+                        {% assign count = 0 %}
+                        {% for variant in product.variants %}
+                            {% assign count = count | plus: 1 %}
+                        {% endfor %}
+                        {% for variant in product.variants limit: 1 %}
+                            <span>{{ variant.title }}</span>
+                        {% endfor %}
+                        {% if product.variants.size > 1 %}
+                            <span class="additional">+{{ count | minus: 1 }}</span>
+                        {% endif %}
+                    </pre>
 
+                    <div class="title">
+                        <h2>
+                            <a href="{{ product.url }}" title="{{ product.title }}">
+                                {{ product.title }}
+                            </a>
+                        </h2>
+                    </div>
+                        
+                    <div class="tooltip">
+                        <div class="row">
+                            <div class="left">
+                                <img src="{{ 'star.svg' | asset_url }}" alt="Usal Project" />
+                            </div>
 
-
-                   <div data-name="{{ product.handle }}" class="loop-learn--item">
-                        <pre class="learn-item--date">
-                            {% assign count = 0 %}
-                            {% for variant in product.variants %}
-                                {% assign count = count | plus: 1 %}
-                            {% endfor %}
-                            {% for variant in product.variants limit: 1 %}
-                                <span>{{ variant.title }}</span>
-                            {% endfor %}
-                            {% if product.variants.size > 1 %}
-                                <span class="additional">+{{ count | minus: 1 }} more</span>
-                            {% endif %}
-                        </pre>
-                        <h2><a href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a></h2>
-                        <div class="tooltip">
-                            <div class="row">
-                                <div class="left">
-                                    <img src="{{ 'star.svg' | asset_url }}" alt="Usal Project" />
-                                </div>
-    
-                                <div class="right">
-                                    <p>Available: <span class="variant-count">{{ count }}</span></p>
-                                    <div class="tags">
-                                        {% for variant in product.variants %}
-                                            <span class="tag">{{ variant.title }}</span>
-                                        {% endfor %}   
-                                    </div>
+                            <div class="right">
+                                <p>Available: <span class="variant-count">{{ count }}</span></p>
+                                <div class="tags">
+                                    {% for variant in product.variants %}
+                                        <span class="tag">{{ variant.title }}</span>
+                                    {% endfor %}   
                                 </div>
                             </div>
                         </div>
-                   </div> 
-                   <div class="{{ product.handle }} image-container" style="background: url('{{ product.featured_image | image_url }}'); background-size: cover;">&nbsp;</div>
+                    </div>
 
-                   <script>
-                        (function($) {
-                            var pHandle = '{{ product.handle }}';
-                            var dateHolder = $('.learn-item--date');
+                </div>
 
-                            // Log Product Object
-                            $.getJSON('/products/'+ pHandle +'.js', function (product) {
-                                console.log(product);
-                            });
+            </div> 
 
-                            // Show/Hide Image on Hover
-                            $('.loop-learn--item').on('mouseenter', function(e) {
-                                var targ = $(this).attr('data-name');
-                                var k = '.' + targ;
-                                $(k).css('opacity', '1');
-                                console.log(k)
-                            });
-                            $('.loop-learn--item').on('mouseleave', function(e) {
-                                $('.image-container').css('opacity', '0');
-                            });
-                            
-                        })(jQuery);
-                   </script>
+            <div class="{{ product.handle }} image-container" style="background: url('{{ product.featured_image | image_url }}'); background-size: cover;">&nbsp;</div>
+
+            <script>
+                (function($) {
+                    var pHandle = '{{ product.handle }}';
+                    var dateHolder = $('.learn-item--date');
+
+                    // Log Product Object
+                    $.getJSON('/products/'+ pHandle +'.js', function (product) {
+                        console.log(product);
+                    });
+
+                    // Show/Hide Image on Hover
+                    $('.loop-learn--item').on('mouseenter', function(e) {
+                        var targ = $(this).attr('data-name');
+                        var k = '.' + targ;
+                        $(k).css({
+                            opacity: '1',
+                            height: '100%'
+                        });
+                        console.log(k)
+                    });
+                    $('.loop-learn--item').on('mouseleave', function(e) {
+                        $('.image-container').css({
+                            opacity: '0',
+                            height: '0px'
+                        });
+                    });
+                    
+                })(jQuery);
+            </script>
      
         {% endfor %}
     </div>
