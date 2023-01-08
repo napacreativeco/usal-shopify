@@ -1,4 +1,4 @@
-<div data-blog--article class="article">
+<div data-page--contact class="page">
 
     <div class="topper">
         <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
@@ -11,7 +11,31 @@
         {% render 'navbar--mobile' %}
     </header>
 
-    <div class="anime-line">&nbsp;</div>
+    <div class="content">
+
+        <div class="header">
+            <div class="row">
+                <div class="email">
+                    <a href="mailto:{{ 'info@usalproject.com' | escape }}" title="Email">
+                        info@<br />
+                        usalproject.com
+                    </a>
+                </div>
+                <div class="text disclaimer">
+                    <p>{{ page.metafields.contact.disclaimer }}</p>
+                </div>
+            </div>
+        </div>
+
+        {% assign featured_image = page.metafields.pages.featured_image.value %}
+        <div class="image" style="background: url('{{ featured_image | image_url }}'); background-size: cover; background-position: center center;">
+        </div>
+
+        <div class="text main-content">
+            <p>{{ page.content }}</p>
+        </div>
+
+    </div>
 
 </div>
 
