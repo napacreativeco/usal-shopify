@@ -217,7 +217,7 @@
               </div>
               <div class="bottom">
                 <p>
-                  {{ product.metafields.learn.objective }}
+                  {{ product.metafields.event.objective }}
                 </p>
               </div>
             </div>
@@ -227,9 +227,12 @@
                 <span class="title">What's<br />included</span>
               </div>
               <div class="bottom">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper consectetur ex. Aliquam eu dui arcu. Nam ut erat quam. Morbi egestas cursus diam ut iaculis. Maecenas lobortis felis non nulla faucibus, in lacinia felis efficitur. Morbi at lobortis urna. Etiam at felis quam. Cras eu elit dui. Duis ut diam nec dolor maximus feugiat. Nullam arcu lorem, venenatis id nisl eget, consequat blandit purus. Proin ac nibh et lacus mattis sagittis. Phasellus in consectetur tortor, vitae dictum justo.
-                </p>
+                <ul data-whats-included>
+                    {% assign whats_included = product.metafields.event.whats_included.value %}
+                    {% for item in whats_included %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
               </div>
             </div>
           </div>

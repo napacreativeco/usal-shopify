@@ -1,0 +1,491 @@
+{% assign add_to_cart = 'Add to cart' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}
+
+<form action="/cart/add" method="post" enctype="multipart/form-data">
+      
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product | image_url: 'grande' }}" />
+  <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+  {% if product.available %}
+    <link itemprop="availability" href="http://schema.org/InStock" />
+  {% else %}
+    <link itemprop="availability" href="http://schema.org/OutOfStock" />
+  {% endif %}
+
+
+  {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
+
+  <div class="single-product-page" data-product--learn>
+
+    {% comment %} Header {% endcomment %}
+    <div class="topper">
+        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+        <div>
+            {{ "today" | date: "%B %d, %Y" }}
+        </div>
+    </div>
+
+    <header>
+        {% render 'navbar' %}
+        {% render 'navbar--mobile' %}
+    </header>
+
+    <div class="single-product learn" itemscope itemtype="http://schema.org/Product">
+
+      {% comment %} 1  {% endcomment %}
+      <section class="section-one">
+
+        <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+
+        <div class="row">
+          
+          {% comment %} Cell {% endcomment %}
+          <div class="cell title-cell">
+
+            <div class="top">
+              <div class=" title-variant">
+                {% comment %} filled in via JS {% endcomment %}
+              </div>
+              <div class="title">
+                <h1>{{ product.title }}</h1>
+              </div>
+              <div>
+                <a href="" title="View All">[View All]</a>
+              </div>
+            </div>
+
+            <div class="bottom">
+                <p>{{ product.description }}</p>
+            </div>
+            
+          </div>
+
+          {% comment %} Details {% endcomment %}
+          <div class="cell details-cell">
+            <div class="top">
+              <span class="product-details--label">Event Details</span>
+            </div>
+            <div class="bottom">
+              <div class="row">
+                <div class="where">
+                  <h4 class="product-details--label">Where</h4>
+                  <span class="where--text product-detail"></span>
+                </div>
+                <div class="guided-by">
+                  <h4 class="product-details--label">Guided by</h4>
+                  <span class="guided-by--text">
+                    {% assign variant = product.selected_or_first_available_variant %}
+                    <span class="product-detail product-price" itemprop="price">{{ variant.metafields.learn.guide_name }}</span>
+                  </span>
+                </div>
+                <div class="time">
+                  <h4 class="product-details--label">Time</h4>
+                  <span class="product-detail time--text"></span>               
+                </div>
+              </div>
+              <div class="row">
+                <div class="when">
+                  <h4 class="product-details--label">When</h4>
+                  <span class="when--text product-detail">
+                    {{ event.start_at | date: "%B %e, %Y" }}
+                  </span>
+                </div>
+                <div class="capacity">
+                  <h4 class="product-details--label">Capacity</h4>
+                    <div class="capacity-text product-detail"></div>
+                </div>
+                <div class="length">
+                  <h4 class="product-details--label">Intensity</h4>
+                  <span class="intensity--text product-detail">
+                    {% assign val = product.metafields.escape.intensity.value %}
+                    {% if val == 1 %}
+                        <ul class="intensity-dots one">                            
+                    {% elsif val == 2 %}
+                        <ul class="intensity-dots two">
+                    {% elsif val == 3 %}
+                        <ul class="intensity-dots three">
+                    {% elsif val == 4 %}
+                        <ul class="intensity-dots four">
+                    {% elsif val == 5 %}
+                        <ul class="intensity-dots five">
+                    {% elsif val == 6 %}
+                        <ul class="intensity-dots six">
+                    {% endif %}
+                        <li><span class="dot dot1">&nbsp;</span></li>
+                        <li><span class="dot dot2">&nbsp;</span></li>
+                        <li><span class="dot dot3">&nbsp;</span></li>
+                        <li><span class="dot dot4">&nbsp;</span></li>
+                        <li><span class="dot dot5">&nbsp;</span></li>
+                        <li><span class="dot dot6">&nbsp;</span></li>
+                    </ul>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% comment %} Pricing {% endcomment %}
+          <div class="cell pricing-cell">
+            <div class="inner">
+
+              <div class="top">
+                <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                  <span>Ticket Price: </span>
+                    {% assign variant = product.selected_or_first_available_variant %}
+                    <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
+                </div>
+                <div class="sold-out--status">
+                  Open
+                </div>
+              </div>
+
+              <div class="bottom">
+
+                  <div class="variants">
+                    {% comment %}
+                      VARIANT RADIO BUTTONS
+                    {% endcomment %}
+
+                      <ul class="variants-list">
+                        {% for variant in product.variants %}
+
+                          <li class="switch-field" data-link="{{ variant.id }}">
+                            {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                            {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+
+                              <input
+                                class="date-radio"
+                                type="radio"
+                                data-google-maps="{{ variant.metafields.learn.location_google_url }}"
+                                data-date="{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}"
+                                data-start-time="{{ variant.metafields.learn.event_start_time | date: '%I:%M %P' }}" 
+                                data-end-time="{{ variant.metafields.learn.event_end_time | date: '%I:%M %P' }}"                   
+                                data-location="{{ variant.metafields.learn.location_address }}"
+                                data-guide-name="{{ variant.metafields.learn.guide_name }}"
+                                data-guide-bio="{{ variant.metafields.learn.guide_bio }}"
+                                data-capacity="{{ variant.inventory_quantity }}"
+                                data-price="{{ variant.price | money_without_trailing_zeros }}"
+                                id="{{ variant.id }}" value="{{ variant.id }}"
+                                name="id"
+                                {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
+                              
+                              <label for="{{ variant.id }}">
+                                {{ variant.title }}
+                              </label>
+
+                          </li>
+
+                        {% endfor %}
+                      </ul>
+                  </div>
+
+                  <div class="add-to-cart">
+                    <div id="product-add">
+                      <input type="submit" name="add" id="add" value="{{ add_to_cart | escape }}">
+                    </div>          
+                  </div>
+
+              </div>
+
+            </div>
+          </div>
+        
+        </div>
+      </section>
+
+      {% comment %} SECTION 2  {% endcomment %}
+      <section class="section-two">
+
+        <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
+
+        <div class="row">
+
+          {% comment %} Slideshow {% endcomment %}
+          <div class="cell slideshow-cell">
+
+              <div class="wrappy">              
+                <div class="swiper-container">
+                  <div class="swiper-wrapper">
+                    {% for image in product.images %}
+                      <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
+                    {% endfor %}
+                  </div> 
+                </div>
+              </div>
+
+              <div class="swiper-pagination"></div>
+          </div>
+          {% comment %} Guide {% endcomment %}
+          <div class="cell info-cell">
+            <div class="list-item guide-bio">
+              <div class="top">
+                <span class="title about--guide-name">About                     
+                  {% assign variant = product.selected_or_first_available_variant %}
+                  <span>{{ variant.metafields.learn.guide_name }}</span>
+                </span>
+              </div>
+              <div class="bottom">
+                <div class="guide-bio--content">
+                  [GUIDE_BIO]
+                </div>
+              </div>
+            </div>
+            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+            <div class="list-item objective">
+              <div class="top">
+                <span class="title">Objective</span>
+              </div>
+              <div class="bottom">
+                <p>
+                  {{ product.metafields.event.objective }}
+                </p>
+              </div>
+            </div>
+            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+            <div class="list-item whats-included">
+              <div class="top">
+                <span class="title">What's<br />included</span>
+              </div>
+              <div class="bottom">
+                <ul data-whats-included>
+                    {% assign whats_included = product.metafields.event.whats_included.value %}
+                    {% for item in whats_included %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+            <div class="list-item what-to-bring">
+              <div class="top">
+                <span class="title">What<br /> to bring</span>
+              </div>
+              <div class="bottom">
+                <ul data-what-to-bring>
+                    {% assign what_to_bring = product.metafields.event.what_to_bring.value %}
+                    {% for item in what_to_bring %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </div>
+
+  </div>
+</form>
+
+<script defer src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
+
+<script>
+  /*
+   * Page Title
+   */
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h2 class="page-title">{{ template.suffix | capitalize }}</h2>');
+
+  (function() {
+    $('body').css('background', '#B78268');
+  }(jQuery));
+</script>
+
+{% comment %}
+RADIO BUTTON FUNCTIONS
+{% endcomment %}
+<script type="text/javascript" charset="utf-8">
+  jQuery(function() { 
+    var first_variant_title = jQuery("input[checked='checked'] > label").text();
+    var first_variant_price = jQuery("ul li input[type='radio']:checked").attr("data-price");
+    var first_variant_compare_at_price = jQuery("ul li input[type='radio']:checked").attr("data-compare-at-price") || ''; 
+
+    jQuery(".product-price").html(first_variant_price);
+    jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
+    jQuery(".price-field del").html(first_variant_compare_at_price);
+
+    /* 
+     * Initial Hydration
+     */
+    var variant_google_maps_url = jQuery('.date-radio').attr("data-google-maps");
+    var variant_location = jQuery(this).attr("data-location");
+    var variant_date = jQuery(this).attr("data-date");
+    var variant_guide_bio = jQuery(this).attr("data-guide-bio");
+    var variant_guide = jQuery(this).attr("data-guide-name");
+    var variant_cap = jQuery(this).attr("data-capacity");
+    var variant_id = jQuery(this).attr("id");
+    var variant_price = jQuery(this).attr("data-price");
+    var variant_start_time = jQuery(this).attr("data-start-time");
+    var variant_end_time = jQuery(this).attr("data-end-time");
+    var variant_title = jQuery(this).closest('li').children("label").text();
+    {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+    {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+
+    // Title 
+    jQuery(".title-variant").html('{{ variant.title }}');
+    // Location
+    jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
+    // Date
+    jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
+    // Time
+    jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
+    // Capacity
+    jQuery('.capacity-text').html('{{ variant.inventory_quantity }}');  
+    // Guide
+    jQuery('.guided-by--text').html(variant_guide);
+    jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
+    // Guide Bio
+    jQuery('.guide-bio--content').html('{{ variant.metafields.learn.guide_bio }}');
+    // Price
+    jQuery(".product-price").html(variant_price);
+
+
+    /*
+     * Click Function
+     */
+    jQuery("input[type='radio']").click(function() {
+
+      var variant_google_maps_url = jQuery(this).attr("data-google-maps");
+      var variant_location = jQuery(this).attr("data-location");
+      var variant_date = jQuery(this).attr("data-date");
+      var variant_guide_bio = jQuery(this).attr("data-guide-bio");
+      var variant_guide = jQuery(this).attr("data-guide-name");
+      var variant_cap = jQuery(this).attr("data-capacity");
+      var variant_id = jQuery(this).attr("id");
+      var variant_price = jQuery(this).attr("data-price");
+      var variant_start_time = jQuery(this).attr("data-start-time");
+      var variant_end_time = jQuery(this).attr("data-end-time");
+      var variant_duration = jQuery(this).attr("data-duration");
+      var variant_title = jQuery(this).closest('li').children("label").text();
+      
+      // Title 
+      jQuery(".title-variant").html(variant_title);
+      // Location
+      jQuery('.where--text').html(variant_location).wrap('<a href="'+ variant_google_maps_url +'" title="Location"></a>');
+      // Date
+      jQuery('.when--text').html(variant_date);
+      // Time
+      jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
+      // Capacity
+      jQuery('.capacity-text').html(variant_cap);
+      // Guide
+      jQuery('.guided-by--text').html(variant_guide);
+      jQuery('.about--guide-name').html('About ' + variant_guide);
+      // Guide Bio
+      jQuery('.guide-bio--content').html(variant_guide_bio);
+      // Price
+      jQuery(".product-price").html(variant_price);
+      // Length
+      jQuery(".length--text").html(variant_duration + ' hrs');
+      
+      var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
+      jQuery(".price-field del").html(variant_compare_at_price);
+
+    });
+  });
+</script>
+
+<script>
+  /*
+   * Variant Selection
+   */
+  var selectCallback = function(variant, selector) {
+    if (variant) {
+
+      // Swap image.
+      if (variant.featured_image) {
+        var newImage = variant.featured_image; // New image object.
+        var mainImageDomEl = jQuery('.product-photo-container img')[0]; // DOM element of main image we need to swap.
+        Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+      }
+
+
+      // Selected a valid variant that is available.
+      if (variant.available) {
+
+        jQuery('.sold-out--status').html('OPEN');
+
+        // Enabling add to cart button.
+        jQuery('#add').removeClass('disabled').prop('disabled', false).val({{ add_to_cart | json }});
+      
+        // If item is backordered yet can still be ordered, we'll show special message.
+        if (variant.inventory_management && variant.inventory_quantity <= 0) {
+          jQuery('#selected-variant').html({{ product.title | json }}{% unless hide_default_title %} + ' - ' + variant.title{% endunless %});
+          jQuery('#backorder').removeClass("hidden");
+        } else {
+          jQuery('#backorder').addClass("hidden");
+        }
+        
+      } else {
+        // Variant is sold out.
+        jQuery('.sold-out--status').html('SOLD OUT');
+        jQuery('#backorder').addClass('hidden');
+        jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);    
+        jQuery('.sold-out--status').html('SOLD OUT');   
+      }
+      
+      // Whether the variant is in stock or not, we can update the price and compare at price.
+      if ( variant.compare_at_price > variant.price ) {
+        jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<s class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</s>');
+      } else {
+        jQuery('#product-price').html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );
+      }        
+    } else {
+      // variant doesn't exist.
+      jQuery('#product-price').empty();
+      jQuery('#backorder').addClass('hidden');
+      jQuery('#add').val({{ unavailable | json }}).addClass('disabled').prop('disabled', true);
+    }
+  };
+    
+  jQuery(function($) {
+    new Shopify.OptionSelectors('product-select', { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+    
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+    {% endif %}
+  });
+  Shopify.Image.preload({{ product.images | json }}, 'grande');
+  Shopify.Image.preload({{ product.images | json }}, '1024x1024');
+</script>
+
+<script>
+
+    var logoHolder = $('div[data-logo]');
+    logoHolder.html('<h1>{{ template.suffix | capitalize }}</h1>')
+    (function() {
+        $('body').css('background', '#2F5B9E');
+        $('.learn-item--date').on('mouseenter', function() {
+            $(this).siblings('.tooltip').css({
+                display: 'flex',
+                marginLeft: '0px',
+                opacity: '1'
+            })
+        });
+        $('.learn-item--date').on('mouseleave', function() {
+            $('.tooltip').css({
+                marginLeft: '20px',
+                opacity: '0'
+            });
+            setTimeout(function() {
+                $('.tooltip').css('display', 'none');
+            }, 1000);
+        });
+
+    }(jQuery))
+</script>
+
+
+<script>
+  var Swipes = new Swiper('.swiper-container', {
+    loop: true,
+    pagination: {
+        el: '.swiper-pagination',
+    },
+  });
+</script>
+
