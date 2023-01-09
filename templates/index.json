@@ -9,8 +9,8 @@
     "calendar": {
       "type": "module--calendar",
       "settings": {
-        "video-mp4": "shopify:\/\/files\/videos\/Sequence 01_2.mp4",
-        "video-webm": "shopify:\/\/files\/videos\/Sequence 01_2.webm"
+        "videomp4": "shopify:\/\/files\/videos\/Sequence 01_2.mp4",
+        "videowebm": "shopify:\/\/files\/videos\/Sequence 01_2.webm"
       }
     },
     "large-nav": {
