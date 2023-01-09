@@ -1,11 +1,13 @@
+
+
 <section data-module--calendar class="module">
-
-    {% assign see_video = post.metafields.see.video_file.value %}
-    <video controls class="background">
-
-        <source class="mp4" format="mp4" src="{{ section.settings.video-mp4 }}">
     
-        <source class="webm" src="{{ url.url }}">
+
+    <video id="background-video" autoplay="true" loop muted playsinline preload="metadata" class="background">
+
+        <source class="mp4" format="mp4" src="{{ sections.settings.videomp4 }}">
+    
+        <source class="webm" src="{{ sections.settings.videowebm }}">
          
     </video>
 
@@ -24,9 +26,9 @@
 
         <header class="grid g-2fr-4fr align-stretch">
             <div class="title-block border-right">
-                <h2 class="title">Calendar</h2>
+                <h2 class="title">{{ 'Calendar' | escape }}</h2>
                 <div class="links flex justify-between">
-                    <span>(Upcoming Events)</span>
+                    <span>{{ '(Upcoming Events)' | escape }}</span>
                     <a href="/apps/events/calendar/" title="View all">View All</a>
                 </div>
             </div>
@@ -96,14 +98,19 @@
   "settings": [
       {
         "type": "video",
-        "id": "video-mp4",
+        "id": "videomp4",
         "label": "Video - MP4"
       },
       {
         "type": "video",
-        "id": "video-webm",
+        "id": "videowebm",
         "label": "Video - WEBM"    
     }
   ]
 }
 {% endschema %}
+
+<script>
+    var video = document.getElementById('background-video');
+    video.play();
+</script>
