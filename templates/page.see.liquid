@@ -1,4 +1,4 @@
-<div data-page--default class="page">
+<div data-page--see class="page">
 
     <div class="topper">
         <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
@@ -15,19 +15,23 @@
 
     <div class="content">
 
-        <div class="text main-content">
-            <p>{{ page.content }}</p>
-        </div>
+        <div class="video-archive">
+            <div class="row">
+                <div class="date-column">2022</div>
 
-        {% if page.metafields.pages.gallery %}
-            {% assign image_gallery = page.metafields.pages.gallery.value %}
-            <ul class="page-gallery">
-                {% for image in image_gallery %}
-                    <li class="image-item" style="background: url('{{ image | image_url }}'); background-size: cover; background-position: center center;">
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+                <div class="video-loop">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="date-column">2021</div>
+
+                <div class="video-loop">
+
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -35,6 +39,9 @@
 
 
 <style>
+    .topper {
+        border-bottom: 2px solid var(--white);
+    }
     footer,
     footer a  {
         color: var(--white) !important;
