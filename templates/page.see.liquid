@@ -1,0 +1,60 @@
+<div data-page--default class="page">
+
+    <div class="topper">
+        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+        <div>
+            {{ "today" | date: "%B %d, %Y" }}
+        </div>
+    </div>
+    <header>
+        {% render 'navbar' %}
+        {% render 'navbar--mobile' %}
+    </header>
+    
+    <div class="anime-line">&nbsp;</div>
+
+    <div class="content">
+
+        <div class="text main-content">
+            <p>{{ page.content }}</p>
+        </div>
+
+        {% if page.metafields.pages.gallery %}
+            {% assign image_gallery = page.metafields.pages.gallery.value %}
+            <ul class="page-gallery">
+                {% for image in image_gallery %}
+                    <li class="image-item" style="background: url('{{ image | image_url }}'); background-size: cover; background-position: center center;">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<style>
+    footer,
+    footer a  {
+        color: var(--white) !important;
+    }
+    footer.desktop .row {
+        border-top: 2px solid var(--white);
+        border-bottom: 2px solid var(--white);
+    }
+    footer svg {
+        fill: var(--white) !important;
+    }
+</style>
+
+<script>
+    var logoHolder = $('div[data-logo]');
+    logoHolder.html('<h1>{{ page.title }}</h1>')
+    (function() {
+
+        $('body').css('background', '#191919');
+
+
+    }(jQuery))
+</script>
