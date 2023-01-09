@@ -1,6 +1,13 @@
 <section data-module--calendar class="module">
 
-    <div class="background" style="background: url('{{ 'background-placeholder.jpg' | asset_url }}'); background-size: cover;"></div>
+    {% assign see_video = post.metafields.see.video_file.value %}
+    <video controls class="background">
+
+        <source class="mp4" format="mp4" src="{{ section.settings.video-mp4 }}">
+    
+        <source class="webm" src="{{ url.url }}">
+         
+    </video>
 
     <header>
       {% render 'navbar' %}
@@ -20,7 +27,7 @@
                 <h2 class="title">Calendar</h2>
                 <div class="links flex justify-between">
                     <span>(Upcoming Events)</span>
-                    <a href="">View All</a>
+                    <a href="/apps/events/calendar/" title="View all">View All</a>
                 </div>
             </div>
 
@@ -87,7 +94,16 @@
   "tag": "section",
   "class": "module",
   "settings": [
-
+      {
+        "type": "video",
+        "id": "video-mp4",
+        "label": "Video - MP4"
+      },
+      {
+        "type": "video",
+        "id": "video-webm",
+        "label": "Video - WEBM"    
+    }
   ]
 }
 {% endschema %}

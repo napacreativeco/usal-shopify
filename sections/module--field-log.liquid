@@ -29,7 +29,7 @@
             
             <div class="links flex justify-between">
                 <span>(Latest Posts)</span>
-                <a href="">View All</a>
+                <a href="/blogs/field-log/" title="View all">View All</a>
             </div>
             <div class="anime-line">&nbsp;</div>
             <h2 class="title">Field Log</h2>
@@ -41,7 +41,7 @@
     {% endcomment %}
     <div class="wrapper desktop">
         <div class="blog-grid">
-            <div class="row grid g-5fr g-wgap-20">
+            <div class="wrapper">
                 {% for article in blogs.field-log.articles limit: 10 %}
                     <article class="item">
 
@@ -49,17 +49,21 @@
                             <h3>{{ article.title }}</h3>
                             <span>{{ article.published_at | date: '%D' }}</span>
                         </div>
-                        <div class="image">
-                            <img src={{ article | img_url: 'medium' }} alt={{ article.title }} />
+
+                        <div class="image" style="background: url('{{ article.image | img_url: 'medium' }}'); background-size: cover; background-position: center center;">          
                         </div>
+
                         <div class="content">
-                            <p>
-                                {{ article.content }}
-                            </p>
+                            <div class="excerpt">
+                                <p>
+                                    {{ article.excerpt }}
+                                </p>
+                            </div>
+                            <div class="link">
+                                <a href="{{ article.url }}" title="Full post">Full post</a>
+                            </div>
                         </div>
-                        <div class="link">
-                            <a href="" title="Full post">full post</a>
-                        </div>
+ 
 
                     </article>
                 {% endfor %}
@@ -72,7 +76,7 @@
     {% endcomment %}
     <div class="wrapper mobile">
         <div class="blog-grid">
-            <div class="blog grid g-5fr g-gap-20">
+            <div class="wrapper">
                 {% for article in blogs.field-log.articles limit: 6 %}
                     <article class="item">
 
@@ -80,9 +84,10 @@
                             <h3>{{ article.title }}</h3>
                             <span>{{ article.published_at | date: '%D' }}</span>
                         </div>
-                        <div class="image">
-                            <img src={{ article | img_url: 'medium' }} alt={{ article.title }} />
+
+                        <div class="image" style="background: url('{{ article.image | img_url: 'medium' }}'); background-size: cover; background-position: center center;">          
                         </div>
+
                         <div class="content">
                             <p>
                                 {{ article.content }}

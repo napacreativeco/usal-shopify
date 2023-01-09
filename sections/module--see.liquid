@@ -8,35 +8,51 @@
 
     <header class="grid g-2fr-4fr">
       <div class="title-block border-right">
-        <h2 class="title">See</h2>
+        <h2 class="title">{{ 'See' | escape }}</h2>
         <div class="links flex justify-between">
-          <span>(Latest Videos)</span>
-          <a href="">View All</a>
+          <span>{{ '(Latest Videos)' | escape }}</span>
+          <a href="/blogs/see-tv" title="View all">View All</a>
         </div>
       </div>
 
       <div class="content-block">
         <div class="videos">
 
-          <div class="video">
-            <div class="info">
-              <span>001</span>
-              <h2>Video Title</h2>
-            </div>
-            <div class="video-placeholder">
-              placeholder video
-            </div>
-          </div>
+          <ul class="video-loop">
+            {% for post in blogs.see-tv.articles %}
 
-          <div class="video">
-            <div class="info">
-              <span>002</span>
-              <h2>Video Title</h2>
-            </div>
-            <div class="video-placeholder">
-              placeholder video
-            </div>
-          </div>
+                <li class="video-item">
+                    {% if forloop.length < 10 %}
+                        00{{ forloop.index }}
+                    {% else %}
+                        0{{ forloop.index }}
+                    {% endif %}
+                    <h3>{{ post.title }}</h3>
+                    <div class="video">
+                        {% assign see_video = post.metafields.see.video_file.value %}
+                        <video controls>
+                            {% for video in see_video limit: 2 %}
+                                
+                                    {% for url in video.sources %}
+                                        {% case url.height %}
+                                            {% when 1080 %}
+                                                {% case url.format %}
+                                                    {% when 'mp4' %}
+                                                        <source data-format="{{ url.format }}" class="url mp4" src="{{ url.url }}">
+                                                    {% when 'm3u8' %}
+                                                        <source data-format="{{ url.format }}" class="url webm" src="{{ url.url }}">
+                                                {% endcase %}
+                                        {% endcase %}
+                                    {% endfor %}
+                                </video>
+                            {% endfor %}
+                        </video>
+
+                    </div>
+                </li>
+
+            {% endfor %}
+          </ul>
 
         </div>
 

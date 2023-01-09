@@ -61,16 +61,15 @@
         {{ content_for_layout }}
       </main>
 
-     
+
       <script defer src={{ 'moment.js' | asset_url }}></script>
       <script defer src='https://cdn.jsdelivr.net/npm/moment@2.27.0/min/moment.min.js'></script>
       <script defer src={{ 'fullcalendar.js' | asset_url }}></script>
       <script defer src={{ 'calendar-scripts.js' | asset_url }}></script>
 
 
-      <footer>
-        {% render 'footer' %}
-      </footer>
+      {% render 'footer' %}
+
 
     </div>
 

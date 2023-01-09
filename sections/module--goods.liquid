@@ -6,10 +6,14 @@
 
     <header class="grid g-2fr-4fr align-stretch">
       <div class="title-block border-right">
-        <h2 class="title">Goods</h2>
+        <h2 class="title">
+          {{ 'Goods' | escape }}
+        </h2>
         <div class="links flex justify-between">
-          <span>(Latest Goods)</span>
-          <a href="">View All</a>
+          <span>{{ '(Latest Goods)' | escape }}</span>
+          <a href="/collections/goods" title="View all">
+            {{ 'View All' | escape }}
+          </a>
         </div>
       </div>
 
@@ -27,8 +31,8 @@
           </div>
           <div class="image">
             <img
-              width="100%"
-              height="100%"
+              width="100"
+              height="100"
               src="{{ 'circles.svg' | asset_url }}"
               alt="Balance" />
           </div>
@@ -46,7 +50,11 @@
         {% assign prodCount = prodCount | plus: 1 %}
 
         <div class="item">
-          <div class="index">{{ prodCount }}</div>
+          <div class="index">
+            <a href="{{ product.url }}" title="{{ product.title }}">
+              {{ prodCount }}
+            </a>
+          </div>
           <div class="image">
             <a href="{{ product.url }}" title="{{ product.title }}">
               <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">
@@ -60,11 +68,15 @@
             </div>
             <div class="details">
               <div class="size">
-                {% for option in product.options %}
-                  {{ option.title }}
-                {% endfor %}
+                <a href="{{ product.url }}" title="{{ product.title }}">
+                  {{ product.variants.first.title }}-{{ product.variants.last.title }}
+                </a>
               </div>
-              <div class="price">{{ product.price | money_without_trailing_zeros }}</div>
+              <div class="price">
+                <a href="{{ product.url }}" title="{{ product.title }}">
+                  {{ product.price | money_without_trailing_zeros }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
