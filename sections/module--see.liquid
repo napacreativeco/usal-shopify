@@ -19,7 +19,7 @@
         <div class="videos">
 
           <ul class="video-loop">
-            {% for post in blogs.see-tv.articles %}
+            {% for post in blogs.see-tv.articles limit: 2 %}
 
                 <li class="video-item">
                     {% if forloop.length < 10 %}

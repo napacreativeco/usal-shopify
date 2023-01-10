@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var eventInfoCloseDelay = false;
 
   var calendarEl = document.getElementById('calendar');
+  var calendarMobile = document.getElementById('mobile-calendar');
 
   container.parentNode.style.position = 'relative';
 
@@ -68,6 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
     views: {
         dayGridMonth: { 
             titleFormat: { month: 'long' }
+        },
+        listMonth: {
+          titleFormat: { month: 'long' },
+          listDaySideFormat: { day: '2-digit' }
         }
     },
     dayHeaders: false,
@@ -98,18 +103,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // or
             // Try matching them by Title string?
             var eventTitle = document.querySelector('.fc-event-title');
+            var listEventTitle = document.querySelector('.fc-list-event-title');
             var eventHolder = [];
             var prodOBJ = [];
             for (let i = 0; i < result.events.length; i++) {
               eventHolder.push(result.events[i]);                
             }
-            console.log(eventHolder);
+       
 
             fetch(window.Shopify.routes.root + 'products.json')
             .then(response => response.json())
             .then(data => {
-              var prodData = JSON.stringify(data)
-              console.log(prodData);
+              var prodData = JSON.stringify(data);
               
               for (let x = 0; x < eventHolder.length; x++) {
                 
@@ -117,10 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             });
             eventTitle.insertAdjacentHTML('afterend', '<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
+            listEventTitle.insertAdjacentHTML('afterend', '<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
 
-
-            
-            
         }).catch(function (error) {
             console.log('[Evey] Failed to fetch events', error);
             onFailure(error);
@@ -157,8 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         eventInfoImageElement.style.display = 'none';
       }
-
-
+      
       // Show Pop-up
       eventInfoElement.style.visibility = 'visible';
 
@@ -168,20 +170,43 @@ document.addEventListener('DOMContentLoaded', function() {
       },
   });
   calendar.render();
-  
+
+  if ( jQuery(window).width() < 700) {
+    calendar.changeView('listMonth', {
+      views: {
+        listMonth: {
+          listDaySideFormat: { day: 'numeric' }
+        }
+      }
+    });
+  }
+  else {
+    calendar.changeView('dayGridMonth');
+  }
+  jQuery(window).on('resize', function() {
+    if ( jQuery(window).width() < 700) {
+      calendar.changeView('listMonth', {
+        views: {
+          listMonth: {
+            listDaySideFormat: { day: 'numeric' }
+          }
+        }
+      });
+    }
+    else {
+      calendar.changeView('dayGridMonth');
+    }
+  });
+
   // Place Year in Title Bar
   var myLocationElement = document.querySelector('.fc-custom3-button');
-  // var date = calendar.getDate();
   var date = calendar.view.currentEnd;
   myLocationElement.innerText = date.getFullYear();
-
-
-  console.log(calendar.view.currentEnd)
-
+  
   $('.fc-button').on('click', function() {
     var date = calendar.getDate();
     myLocationElement.innerText = date.getFullYear();
-  })
+  });
 
   //  Close Overlay
   document.addEventListener('click', function (e) {
@@ -196,3 +221,27 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
+
+jQuery('#hamburger').on( 'click', function() {
+  jQuery('.navbar-mobile--modal').css({
+    display: 'block'
+  })
+  jQuery('.navbar-mobile--modal').animate({
+    opacity: 1,
+    right: 0
+  })
+})
+jQuery('.closer').on( 'click', function() {
+  jQuery('.navbar-mobile--modal').animate({
+    opacity: 0,
+    right: '100%'
+  })
+
+  setTimeout(function() {
+    jQuery('.navbar-mobile--modal').css({
+      display: 'none'
+    })
+  }, 300);
+} );
+

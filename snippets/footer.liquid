@@ -137,3 +137,14 @@
     <div>{{ settings.business-address }}</div>
   </div>
 </footer>
+
+
+
+<script type="text/javascript">
+      jQuery('.has-dropdown').on('mouseenter', function() {
+        jQuery(this).find('.submenu').addClass('show-dropdown');
+      });
+      jQuery('.has-dropdown').on('mouseleave', function() {
+        jQuery('.submenu').removeClass('show-dropdown');
+      });
+</script>

@@ -46,7 +46,7 @@
             <a href="{{ link.url }}">
               <span class="counter">[{{ counter }}]</span>
               {{ link.title }}{% if has_sub_menu or has_sub_categories %}
-                <i class="fa fa-angle-down"></i>
+                <i class="plus">+</i>
               {% endif %}
             </a>
 
@@ -54,11 +54,11 @@
               * Sub-Menu
             {% endcomment %}
             {% if has_sub_menu or has_sub_categories %}
-              <ul>
+              <ul class="submenu">
                 {% if has_sub_menu %}
                   {% for l in linklists[child_list_handle].links %}
                     <li class="{% if l.active %} active{% endif %}">
-                      <a href="{{ l.url }}">{{ l.title }}</a>
+                      <a class="dropdown-link" href="{{ l.url }}">{{ l.title }}</a>
                     </li>
                   {% endfor %}
 

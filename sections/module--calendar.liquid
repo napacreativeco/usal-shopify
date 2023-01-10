@@ -20,11 +20,10 @@
         TO DO:
         -- Sort Calendar Items in chronological order by variant.value
     {% endcomment %}
-    <div class="header--desktop">
+    <div class="calendar-container">
 
-        <div class="anime-line">&nbsp;</div>
+        <div class="row">
 
-        <header class="grid g-2fr-4fr align-stretch">
             <div class="title-block border-right">
                 <h2 class="title">{{ 'Calendar' | escape }}</h2>
                 <div class="links flex justify-between">
@@ -34,7 +33,7 @@
             </div>
 
             <div>
-               <div class="calendar-grid" >  
+               <div class="calendar-grid">  
 
                         {% for product in collections.all.products %}
 
@@ -67,23 +66,6 @@
                         
                </div>
             </div>
-        </header>
-    </div>
-
-    {% comment %}
-    Header > Mobile
-    {% endcomment %}
-    <div class="header--mobile justify-between align-top">
-        <div class="title-block flex flex-column justify-between">
-            
-            <div class="links flex justify-between align-bottom">
-                <span>(Upcoming Events)</span>
-                <a href="">View All</a>
-            </div>
-
-            <div class="anime-line">&nbsp;</div>
-
-            <h2 class="title">Calendar</h2>
         </div>
     </div>
 

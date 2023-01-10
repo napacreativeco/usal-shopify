@@ -85,7 +85,7 @@ tr:last-child {
     border-right: 0px;
 }
 .fc-theme-standard th {
-    border: 0px !important;
+    border: 0px;
 }
 .fc-liquid-hack td,
 .fc-liquid-hack th {
@@ -385,8 +385,8 @@ tr:last-child {
 }
 .fc .fc-cell-shaded,
 .fc .fc-day-disabled {
-    background: rgba(208, 208, 208, 0.3);
-    background: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3));
+    /* background: rgba(208, 208, 208, 0.3);
+    background: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3)); */
 }
 .fc-event .fc-event-main {
     position: relative;
@@ -554,11 +554,11 @@ tr:last-child {
 .fc-theme-standard .fc-popover {
     /* border: 1px solid #ddd;
     border: 1px solid var(--fc-border-color, #ddd); */
-    background: var(--fc-page-bg-color, #fff);
+    /* background: var(--fc-page-bg-color, #fff); */
 }
 .fc-theme-standard .fc-popover-header {
-    background: rgba(208, 208, 208, 0.3);
-    background: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3));
+    /* background: rgba(208, 208, 208, 0.3);
+    background: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3)); */
 }
 :root {
     --fc-daygrid-event-dot-width: 8px;
@@ -1082,8 +1082,8 @@ tr:last-child {
     display: table;
 }
 .fc-theme-standard .fc-list-day-cushion {
-    background-color: rgba(208, 208, 208, 0.3);
-    background-color: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3));
+    /* background-color: rgba(208, 208, 208, 0.3); */
+    /* background-color: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3)); */
 }
 .fc-direction-ltr .fc-list-day-text,
 .fc-direction-rtl .fc-list-day-side-text {
@@ -1116,10 +1116,10 @@ tr:last-child {
     box-sizing: content-box;
     width: 0;
     height: 0;
-    border: 5px solid #3788d8;
-    border: calc(var(--fc-list-event-dot-width, 10px) / 2) solid var(--fc-event-border-color, #3788d8);
-    border-radius: 5px;
-    border-radius: calc(var(--fc-list-event-dot-width, 10px) / 2);
+    /* border: 5px solid #3788d8; */
+    /* border: calc(var(--fc-list-event-dot-width, 10px) / 2) solid var(--fc-event-border-color, #3788d8); */
+    /* border-radius: 5px;
+    border-radius: calc(var(--fc-list-event-dot-width, 10px) / 2); */
 }
 .fc .fc-list-event-title a {
     color: inherit;
