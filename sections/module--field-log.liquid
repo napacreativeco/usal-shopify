@@ -1,6 +1,6 @@
 
 <div class="fieldlog-coordinates">
-    <img src="{{ 'fieldlog-coordinates.svg' | asset_url }}" alt="Usal Project" />
+    {% render 'fieldlog-coordinates' %}
 </div>
 
 <section data-module--field-log class="home--module">
@@ -9,7 +9,6 @@
     Header > Desktop
     {% endcomment %}
     <div class="fieldlog--header">
-        <div class="anime-line">&nbsp;</div>
 
         <header class="flex flex-row justify-between w-100">
             <div>
@@ -108,5 +107,5 @@
 </section>
 
 <div class="footer-coordinates">
-    <img src="{{ 'footer-coordinates.svg' | asset_url }}" alt="Usal Project" />
+    {% render 'footer-coordinates' %}
 </div>

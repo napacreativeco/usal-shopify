@@ -29,11 +29,7 @@
             <span>Balance</span>
           </div>
           <div class="image">
-            <img
-              width="100"
-              height="100"
-              src="{{ 'circles.svg' | asset_url }}"
-              alt="Balance" />
+            {% render 'circles' %}
           </div>
         </div>
       </div>
@@ -53,9 +49,7 @@
             </a>
           </div>
           <div class="image">
-            <a href="{{ product.url }}" title="{{ product.title }}">
-              <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">
-            </a>
+              <img onclick="window.location='{{ product.url }}';" src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">     
           </div>
           <div class="info">
             <div class="title">
