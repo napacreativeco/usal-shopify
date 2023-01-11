@@ -1,17 +1,19 @@
-<nav class="large-menu" role="navigation">
-  <ul>
+<div data-module--largenav class="home--module">
+  <nav class="large-menu" role="navigation">
+    <ul>
 
-    {% for link in linklists.homepage-menu.links %}
+      {% for link in linklists.homepage-menu.links %}
 
-      {% assign counter = counter | plus: 1 %}
+        {% assign counter = counter | plus: 1 %}
 
-      <li class="nav-link {% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
-        <a href="{{ link.url }}">
-          {{ link.title }}{% if has_sub_menu or has_sub_categories %}
-            <i class="fa fa-angle-down"></i>
-          {% endif %}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-</nav>
+        <li class="nav-link {% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
+          <a href="{{ link.url }}">
+            {{ link.title }}{% if has_sub_menu or has_sub_categories %}
+              <i class="fa fa-angle-down"></i>
+            {% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>

@@ -1,6 +1,6 @@
 <div class="navbar">
 
-  <div class="row">
+  <div class="navbar-row">
 
     {% comment %}
       * Logo
@@ -16,7 +16,7 @@
     {% comment %}
       * Nav
     {% endcomment %}
-    <nav role="navigation">
+    <nav class="desktop-nav" role="navigation">
       <ul>
         {% assign counter = 0 %}
 
@@ -58,7 +58,9 @@
                 {% if has_sub_menu %}
                   {% for l in linklists[child_list_handle].links %}
                     <li class="{% if l.active %} active{% endif %}">
-                      <a class="dropdown-link" href="{{ l.url }}">{{ l.title }}</a>
+                      <a class="dropdown-link" href="{{ l.url }}">
+                        <span>{{ l.title }}</span>
+                      </a>
                     </li>
                   {% endfor %}
 

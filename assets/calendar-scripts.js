@@ -172,6 +172,10 @@ document.addEventListener('DOMContentLoaded', function() {
   calendar.render();
 
   if ( jQuery(window).width() < 700) {
+
+    $('.product--loop--five').css('display', 'block');
+    $('.product--loop--six').css('display', 'none');
+
     calendar.changeView('listMonth', {
       views: {
         listMonth: {
@@ -185,6 +189,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   jQuery(window).on('resize', function() {
     if ( jQuery(window).width() < 700) {
+
+      $('.product--loop--five').css('display', 'none');
+      $('.product--loop--six').css('display', 'block');
+
       calendar.changeView('listMonth', {
         views: {
           listMonth: {
@@ -231,7 +239,8 @@ jQuery('#hamburger').on( 'click', function() {
     opacity: 1,
     right: 0
   })
-})
+});
+
 jQuery('.closer').on( 'click', function() {
   jQuery('.navbar-mobile--modal').animate({
     opacity: 0,
@@ -243,5 +252,6 @@ jQuery('.closer').on( 'click', function() {
       display: 'none'
     })
   }, 300);
-} );
+
+});
 

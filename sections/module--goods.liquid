@@ -1,6 +1,6 @@
-<section data-module--goods class="module">
+<section data-module--goods class="home--module">
 
-  <div class="goods-container">
+  <div class="module-content goods-container">
     <div class="row">
 
       <div class="title-block">
@@ -41,8 +41,7 @@
     </div>
   </div>
 
-  <div class="wrapper desktop">
-    <div class="product-grid">
+    <div class="product-grid five">
       {% assign prodCount = 0 %}
       {% for product in collections.goods.products limit: 5 %}
         {% assign prodCount = prodCount | plus: 1 %}
@@ -84,7 +83,51 @@
         <p>There are no products to see here.</p>
       {% endfor %}
     </div>
-  </div>
+
+    
+    <div class="product-grid six">
+      {% assign prodCount = 0 %}
+      {% for product in collections.goods.products limit: 6 %}
+        {% assign prodCount = prodCount | plus: 1 %}
+
+        <div class="item">
+          <div class="index">
+            <a href="{{ product.url }}" title="{{ product.title }}">
+              {{ prodCount }}
+            </a>
+          </div>
+          <div class="image">
+            <a href="{{ product.url }}" title="{{ product.title }}">
+              <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">
+            </a>
+          </div>
+          <div class="info">
+            <div class="title">
+              <a href="{{ product.url }}" title="{{ product.title }}">
+                <h3>{{ product.title }}</h3>
+              </a>
+            </div>
+            <div class="details">
+              <div class="size">
+                <a href="{{ product.url }}" title="{{ product.title }}">
+                  {{ product.variants.first.title }}-{{ product.variants.last.title }}
+                </a>
+              </div>
+              <div class="price">
+                <a href="{{ product.url }}" title="{{ product.title }}">
+                  {{ product.price | money_without_trailing_zeros }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        <h2>Sorry</h2>
+        <p>There are no products to see here.</p>
+      {% endfor %}
+    </div>
+
 
 
 {% schema %}

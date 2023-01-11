@@ -1,19 +1,17 @@
-<section data-module--hear class="module">
+<section data-module--hear class="home--module">
 
 
-  {% comment %}
-    Header > Desktop
-  {% endcomment %}<div class="header--desktop">
+  <div class="module-content hear-container">
 
-    <div class="anime-line">&nbsp;</div>
+    <div class="row">
 
-    <header class="grid g-2fr-4fr">
+      <div class="title-block">
 
-      <div class="title-block flex flex-column justify-between border-right">
-        <h2 class="title">Hear</h2>
-        <div class="links flex justify-between">
-          <span>(Latest Show)</span>
-          <a href="">View All</a>
+        <h2 class="title">{{ 'Hear' | escape }}</h2>
+
+        <div class="links">
+          <span>{{ '(Latest Show)' | escape }}</span>
+          <a href="/blogs/hear/" title="View all">{{ 'View All' | escape }}</a>
         </div>
       </div>
 
@@ -77,7 +75,8 @@
         </div>
 
       </div>
-    </header>
+    </div>
+
   </div>
 
   {% comment %}

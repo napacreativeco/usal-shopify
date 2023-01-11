@@ -1,17 +1,14 @@
-<section data-module--see class="module">
+<section data-module--see class="home--module">
 
-  {% comment %}
-    Header > Desktop
-  {% endcomment %}<div class="header--desktop">
+  <div class="module-content see-container">
 
-    <div class="anime-line">&nbsp;</div>
+    <div class="row">
 
-    <header class="grid g-2fr-4fr">
-      <div class="title-block border-right">
+      <div class="title-block">
         <h2 class="title">{{ 'See' | escape }}</h2>
-        <div class="links flex justify-between">
+        <div class="links">
           <span>{{ '(Latest Videos)' | escape }}</span>
-          <a href="/blogs/see-tv" title="View all">View All</a>
+          <a href="/blogs/see-tv" title="View all">{{ 'View All' | escape }}</a>
         </div>
       </div>
 
@@ -70,45 +67,7 @@
           </div>
         </div>
       </div>
-    </header>
-  </div>
-
-  {% comment %}
-    Header > Mobile
-  {% endcomment %}<div class="header--mobile justify-between align-top">
-    <div class="title-block flex flex-column justify-between">
-
-      <div class="links flex justify-between align-bottom">
-        <span>(Latest Videos)</span>
-        <a href="">View All</a>
-      </div>
-
-      <div class="anime-line">&nbsp;</div>
-
-      <h2 class="title">See</h2>
     </div>
-
-    <div class="videos">
-      <div class="video">
-        <div class="info">
-          <span>002</span>
-          <h2>Video Title</h2>
-        </div>
-        <div class="video-placeholder">
-          placeholder video
-        </div>
-      </div>
-      <div class="video">
-        <div class="info">
-          <span>002</span>
-          <h2>Video Title</h2>
-        </div>
-        <div class="video-placeholder">
-          placeholder video
-        </div>
-      </div>
-    </div>
-
   </div>
 
 </section>
