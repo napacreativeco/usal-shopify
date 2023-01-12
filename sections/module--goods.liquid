@@ -38,6 +38,7 @@
   </div>
 
     <div class="product-grid five">
+      
       {% assign prodCount = 0 %}
       {% for product in collections.goods.products limit: 5 %}
         {% assign prodCount = prodCount | plus: 1 %}

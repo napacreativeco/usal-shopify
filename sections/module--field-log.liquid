@@ -5,33 +5,13 @@
 
 <section data-module--field-log class="home--module">
 
-    {% comment %}
-    Header > Desktop
-    {% endcomment %}
-    <div class="fieldlog--header">
+    <div class="title-block">
 
-        <header class="flex flex-row justify-between w-100">
-            <div>
-                <h2 class="title">Field Log</h2>
-            </div>
-            <div class="links">
-                <a href="">View All</a>
-            </div>
-        </header>
-    </div>
+        <h2 class="title">{{ 'Field Log' | escape }}</h2>
 
-    {% comment %}
-    Header > Mobile
-    {% endcomment %}
-    <div class="header--mobile justify-between align-top">
-        <div class="title-block flex flex-column justify-between">
-            
-            <div class="links flex justify-between">
-                <span>(Latest Posts)</span>
-                <a href="/blogs/field-log/" title="View all">View All</a>
-            </div>
-            <div class="anime-line">&nbsp;</div>
-            <h2 class="title">Field Log</h2>
+        <div class="links">
+            <span>{{ '(Latest Entries)' | escape }}</span>
+            <a href="/blogs/field-log/" title="View all">{{ 'View All' | escape }}</a>
         </div>
     </div>
 
@@ -76,27 +56,26 @@
     <div class="wrapper mobile">
         <div class="blog-grid">
             <div class="wrapper">
-                {% for article in blogs.field-log.articles limit: 6 %}
+                {% for article in blogs.field-log.articles limit: 4 %}
                     <article class="item">
 
                         <div class="title">
                             <h3>{{ article.title }}</h3>
-                            <span class="date">{{ article.published_at | date: '%D' }}</span>
+                            <span>{{ article.published_at | date: '%D' }}</span>
                         </div>
 
                         <div class="image" style="background: url('{{ article.image | img_url: 'medium' }}'); background-size: cover; background-position: center center;">          
                         </div>
 
-                        <div class="text-content">
-                            <div class="excerpt">
-                                <p>
-                                    {{ article.content }}
-                                </p>
-                            </div>
-                            
-                            <div class="link">
-                                <a href="" title="Full post">Full post</a>
-                            </div>
+                    
+                        <div class="excerpt">
+                            <p>
+                                {{ article.excerpt }}
+                            </p>
+                        </div>
+
+                        <div class="link">
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
                         </div>
 
                     </article>
