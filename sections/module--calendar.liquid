@@ -43,7 +43,13 @@
 
                                         <div class="calendar-item">
                                             <div class="top">
-                                                <div class="date">{{ product.first_available_variant.title }}</div>
+                                                <div class="date">
+                                                    {% if product.first_available_variant.title %}
+                                                        {{ product.first_available_variant.title }}
+                                                    {% else %}
+                                                        TBD
+                                                    {% endif %}
+                                                </div>
                                                 <div class="counter supply">
                                                 </div>
                                             </div>
