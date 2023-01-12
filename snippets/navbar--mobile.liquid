@@ -3,7 +3,9 @@
     <div>
       <button id="hamburger">Menu</button>
     </div>
-    <div data-logo class="flex justify-center">Usal <span class="registered">&reg;</span> Los Angeles, CA</div>
+    <div data-logo class="flex justify-center">Usal
+      <span class="registered">&reg;</span>
+      Los Angeles, CA</div>
     <div class="flex justify-right" data-cart-mobile>
       <a href="/cart">
         <span>Cart</span>
@@ -14,14 +16,25 @@
 </div>
 
 {% comment %} 
-*
-* Navbar Modal
-*
-{% endcomment %}
-<div class="navbar-mobile--modal">
-  <div class="row">
+  *
+  * Navbar Modal
+  *
+{% endcomment %}<div class="navbar-mobile--modal">
+  <div class="modal-row">
     <div class="closer">[close]</div>
+
+    <div class="logo">
+      {% render 'logo-simple' %}
+    </div>
+
+
     <nav role="navigation">
+
+      <div class="flex flex-row justify-between" style="padding-bottom: 10px;">
+        <div>{{ "today" | date: "%B %d" }}</div>
+        <div>{{ "today" | date: "%Y" }}</div>
+      </div>
+
       <ul>
         <li>
           <a href="/" title="Home">
@@ -46,20 +59,20 @@
             <span class="counter">[4]</span>
             <span class="link-text">Experiences</span>
           </a>
-          <ul class="submenu">
+          <ul class="modal-submenu">
             <li>
               <a href="/collections/escape" title="Escape">
-              <span class="link-text">Escape</span>
+                <span class="link-text">Escape</span>
               </a>
             </li>
             <li>
               <a href="/collections/learn" title="Learn">
-              <span class="link-text">Learn</span>
+                <span class="link-text">Learn</span>
               </a>
             </li>
             <li>
               <a href="/collections/retreats" title="Retreats">
-              <span class="link-text">Retreats</span>
+                <span class="link-text">Retreats</span>
               </a>
             </li>
           </ul>
@@ -70,18 +83,30 @@
             Membership
           </a>
         </li>
-        <li class="has-dropdown">
+        <li class="">
           <a href="/pages/connect" title="Connect">
             <span class="counter">[6]</span>
             Connect
           </a>
-          <ul class="submenu">
-            <li><a href="/pages/mission" title="Mission">Mission</a></li>
-            <li><a href="/blogs/field-log" title="Field Log">Field Log</a></li>
-            <li><a href="/pages/connect" title="Contact">Contact</a></li>
-            <li><a href="/pages/hear" title="Hear">Hear</a></li>
-            <li><a href="/pages/see" title="See">See</a></li>
-            <li><a href="/pages/mailing-list" title="Mailing List">Mailing List</a></li>
+          <ul class="modal-submenu">
+            <li>
+              <a href="/pages/mission" title="Mission">Mission</a>
+            </li>
+            <li>
+              <a href="/blogs/field-log" title="Field Log">Field Log</a>
+            </li>
+            <li>
+              <a href="/pages/connect" title="Contact">Contact</a>
+            </li>
+            <li>
+              <a href="/pages/hear" title="Hear">Hear</a>
+            </li>
+            <li>
+              <a href="/pages/see" title="See">See</a>
+            </li>
+            <li>
+              <a href="/pages/mailing-list" title="Mailing List">Mailing List</a>
+            </li>
           </ul>
         </li>
       </ul>
