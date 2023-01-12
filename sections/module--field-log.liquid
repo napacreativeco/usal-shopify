@@ -52,17 +52,17 @@
                         <div class="image" style="background: url('{{ article.image | img_url: 'medium' }}'); background-size: cover; background-position: center center;">          
                         </div>
 
-                        <div class="content">
-                            <div class="excerpt">
-                                <p>
-                                    {{ article.excerpt }}
-                                </p>
-                            </div>
-                            <div class="link">
-                                <a href="{{ article.url }}" title="Full post">Full post</a>
-                            </div>
+                     
+                        <div class="excerpt">
+                            <p>
+                                {{ article.excerpt }}
+                            </p>
                         </div>
- 
+
+                        <div class="link">
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                        </div>
+                         
 
                     </article>
                 {% endfor %}
@@ -81,19 +81,22 @@
 
                         <div class="title">
                             <h3>{{ article.title }}</h3>
-                            <span>{{ article.published_at | date: '%D' }}</span>
+                            <span class="date">{{ article.published_at | date: '%D' }}</span>
                         </div>
 
                         <div class="image" style="background: url('{{ article.image | img_url: 'medium' }}'); background-size: cover; background-position: center center;">          
                         </div>
 
-                        <div class="content">
-                            <p>
-                                {{ article.content }}
-                            </p>
-                        </div>
-                        <div class="link">
-                            <a href="" title="Full post">Full post</a>
+                        <div class="text-content">
+                            <div class="excerpt">
+                                <p>
+                                    {{ article.content }}
+                                </p>
+                            </div>
+                            
+                            <div class="link">
+                                <a href="" title="Full post">Full post</a>
+                            </div>
                         </div>
 
                     </article>
