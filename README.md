@@ -6,9 +6,14 @@ Shopify Theme Docs
 
 ## Padding
 
-Current padding is set to 24px. Rather than putting padding on the containers, we are using calc() to compensate for the margin we're adding.
+### Pages
+top: 12px;
 
-### example:
+### Main Containers
+left: 24px
+right: 24px
+
+example:
 ```
 element {
     width: calc(100% - 48px);

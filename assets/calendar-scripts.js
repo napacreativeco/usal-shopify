@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // or
             // Try matching them by Title string?
             var eventTitle = document.querySelector('.fc-event-title');
-            var listEventTitle = document.querySelector('.fc-list-event-title');
+            var listEventTitle = document.querySelector('.fc-list-event');
             var eventHolder = [];
             var prodOBJ = [];
             for (let i = 0; i < result.events.length; i++) {
@@ -115,14 +115,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
               var prodData = JSON.stringify(data);
-              
-              for (let x = 0; x < eventHolder.length; x++) {
-                
-              }
 
             });
+
+            jQuery('.fc-list-event').append('<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
             eventTitle.insertAdjacentHTML('afterend', '<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
-            listEventTitle.insertAdjacentHTML('afterend', '<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
+            
 
         }).catch(function (error) {
             console.log('[Evey] Failed to fetch events', error);
