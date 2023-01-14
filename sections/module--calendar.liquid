@@ -1,13 +1,16 @@
+
+    
+
+
+
 <section data-module--calendar class="home--module">
     
-
-    <video id="background-video" autoplay="true" loop muted playsinline preload="metadata" class="background">
-
-        <source class="mp4" format="mp4" src="{{ sections.settings.videomp4 }}">
-    
-        <source class="webm" src="{{ sections.settings.videowebm }}">
-         
-    </video>
+   
+        <video id="background-video" autoplay="true" loop muted playsinline preload="metadata" class="background">
+            <source class="mp4" format="mp4" src="{{ section.settings.videomp4 }}">
+            <source class="webm" src="{{ section.settings.videowebm }}"> 
+        </video>
+ 
 
     <header>
       {% render 'navbar' %}
