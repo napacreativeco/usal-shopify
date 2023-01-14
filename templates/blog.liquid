@@ -11,72 +11,434 @@
     {% render 'navbar--mobile' %}
   </header>
 
+  {% for article in blog.articles %}
+    {% assign articleYear = article.published_at | date: '%Y' | times: 1 %}
+
+    {% if articleYear == 2018 %}
+      <style>
+        #blog-2018 {
+          display: flex;
+        }
+      </style>
+    {% endif %}
+
+    {% if articleYear == 2019 %}
+      <style>
+        #blog-2019 {
+          display: flex;
+        }
+      </style>
+    {% endif %}
+
+    {% if articleYear == 2020 %}
+      <style>
+        #blog-2020 {
+          display: flex;
+        }
+      </style>
+    {% endif %}
+
+    {% if articleYear == 2021 %}
+      <style>
+        #blog-2021 {
+          display: flex;
+        }
+      </style>
+    {% endif %}
+
+    {% if articleYear == 2022 %}
+      <style>
+        #blog-2022 {
+          display: flex;
+        }
+      </style>
+    {% endif %}
+
+    {% if articleYear == 2023 %}
+      <style>
+        #blog-2023 {
+          display: flex;
+        }
+      </style>
+    {% endif %}
+
+  {% endfor %}
+
+  
   <div class="archive-container">
 
-      {% comment %} 2023 {% endcomment %}
-      <div class="blog-list">
-        <div class="blog-list--row">
+    {% comment %} 2023 {% endcomment %}
+    <div id="blog-2023" class="blog-list">
+      <div class="blog-list--row">
+  
+        <div class="month-column">
+          <span class="month">2023</span>
+        </div>
+  
+        <ul class="posts-column">
+          {% for article in blog.articles %}
 
-          <div class="month-column">
-            <span class="month">2022</span>
-          </div>
+            {% assign postYear = article.published_at | date: '%Y' | times: 1 %}
+            
+              {% case postYear %}
+            
+                {% when 2023 %}
+                  <li class="post-item">
+                    <div class="item-row">
 
-          <ul class="posts-column">
-            {% for article in blog.articles %}
-
-              {% capture postYear %}
-                {{ article.published_at | date: '%Y' }}
-              {% endcapture %}
-
-                {% if article %}    
-                
-                    
-                    <li class="post-item">
-                      <div class="item-row">
-
-                        <div class="top">
-                          <div>
-                            <h2>
-                              {{ article.published_at }} <a href="{{ article.url }}">{{ article.title }}</a>
-                            </h2>
-                          </div>
-                          <div>
-                            <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
-                          </div>
+                      <div class="top">
+                        <div>
+                          <h2>
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                          </h2>
                         </div>
-
-                        <div
-                          class="image"
-                          onclick="window.location='{{ article.url }}';"
-                          style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
-
-                        <div class="bottom">
-                          <div class="excerpt">
-                            {% if article.excerpt.size > 0 %}
-                              {{ article.excerpt }}
-                            {% else %}
-                              <p>{{ article.content | strip_html | truncatewords: 120 }}
-                            {% endif %}
-                          </div>
-                          <div>
-                              <a href="{{ article.url }}" title="Full post">Full post</a>
-                          </div>
+                        <div>
+                          <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
                         </div>
-
                       </div>
 
-                    </li>
-         
-                            
-                {% else %}
-                  <li><p>Sorry, there are no posts.</p></li>
-                {% endif %}
+                      <div
+                        class="image"
+                        onclick="window.location='{{ article.url }}';"
+                        style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
 
-            {% endfor %}
-          </ul>
-    
+                      <div class="bottom">
+                        <div class="excerpt">
+                          {% if article.excerpt.size > 0 %}
+                            {{ article.excerpt }}
+                          {% else %}
+                            <p>{{ article.content | strip_html | truncatewords: 120 }}
+                          {% endif %}
+                        </div>
+                        <div>
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </li>
+        
+                          
+              {% endcase %}
+
+          {% endfor %}
+        </ul>
+      
       </div>
     </div>
+
+    {% comment %} 2022 {% endcomment %}
+    <div id="blog-2022" class="blog-list">
+      <div class="blog-list--row">
+
+        <div class="month-column">
+          <span class="month">2022</span>
+        </div>
+
+        <ul class="posts-column">
+          {% for article in blog.articles %}
+
+            {% assign postYear = article.published_at | date: '%Y' | times: 1 %}
+            
+              {% case postYear %}
+            
+                {% when 2022 %}
+                  <li class="post-item">
+                    <div class="item-row">
+
+                      <div class="top">
+                        <div>
+                          <h2>
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                          </h2>
+                        </div>
+                        <div>
+                          <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+                        </div>
+                      </div>
+
+                      <div
+                        class="image"
+                        onclick="window.location='{{ article.url }}';"
+                        style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+
+                      <div class="bottom">
+                        <div class="excerpt">
+                          {% if article.excerpt.size > 0 %}
+                            {{ article.excerpt }}
+                          {% else %}
+                            <p>{{ article.content | strip_html | truncatewords: 120 }}
+                          {% endif %}
+                        </div>
+                        <div>
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </li>
+        
+                          
+              {% endcase %}
+
+          {% endfor %}
+        </ul>
+
+      </div>
+
+    </div>
+
+    {% comment %} 2021 {% endcomment %}
+    <div id="blog-2021" class="blog-list">
+      <div class="blog-list--row">
+
+        <div class="month-column">
+          <span class="month">2021</span>
+        </div>
+
+        <ul class="posts-column">
+          {% for article in blog.articles %}
+
+            {% assign postYear = article.published_at | date: '%Y' | times: 1 %}
+            
+              {% case postYear %}
+            
+                {% when 2021 %}
+                  <li class="post-item">
+                    <div class="item-row">
+
+                      <div class="top">
+                        <div>
+                          <h2>
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                          </h2>
+                        </div>
+                        <div>
+                          <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+                        </div>
+                      </div>
+
+                      <div
+                        class="image"
+                        onclick="window.location='{{ article.url }}';"
+                        style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+
+                      <div class="bottom">
+                        <div class="excerpt">
+                          {% if article.excerpt.size > 0 %}
+                            {{ article.excerpt }}
+                          {% else %}
+                            <p>{{ article.content | strip_html | truncatewords: 120 }}
+                          {% endif %}
+                        </div>
+                        <div>
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </li>
+        
+                          
+              {% endcase %}
+
+          {% endfor %}
+        </ul>
+
+      </div>
+
+    </div>
+
+    {% comment %} 2020 {% endcomment %}
+    <div id="blog-2020" class="blog-list">
+      <div class="blog-list--row">
+
+        <div class="month-column">
+          <span class="month">2020</span>
+        </div>
+
+        <ul class="posts-column">
+          {% for article in blog.articles %}
+
+            {% assign postYear = article.published_at | date: '%Y' | times: 1 %}
+            
+              {% case postYear %}
+            
+                {% when 2020 %}
+                  <li class="post-item">
+                    <div class="item-row">
+
+                      <div class="top">
+                        <div>
+                          <h2>
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                          </h2>
+                        </div>
+                        <div>
+                          <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+                        </div>
+                      </div>
+
+                      <div
+                        class="image"
+                        onclick="window.location='{{ article.url }}';"
+                        style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+
+                      <div class="bottom">
+                        <div class="excerpt">
+                          {% if article.excerpt.size > 0 %}
+                            {{ article.excerpt }}
+                          {% else %}
+                            <p>{{ article.content | strip_html | truncatewords: 120 }}
+                          {% endif %}
+                        </div>
+                        <div>
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </li>
+        
+                          
+              {% endcase %}
+
+          {% endfor %}
+        </ul>
+
+      </div>
+
+    </div>
+
+    {% comment %} 2019 {% endcomment %}
+    <div id="blog-2020" class="blog-list">
+      <div class="blog-list--row">
+
+        <div class="month-column">
+          <span class="month">2019</span>
+        </div>
+
+        <ul class="posts-column">
+          {% for article in blog.articles %}
+
+            {% assign postYear = article.published_at | date: '%Y' | times: 1 %}
+            
+              {% case postYear %}
+            
+                {% when 2020 %}
+                  <li class="post-item">
+                    <div class="item-row">
+
+                      <div class="top">
+                        <div>
+                          <h2>
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                          </h2>
+                        </div>
+                        <div>
+                          <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+                        </div>
+                      </div>
+
+                      <div
+                        class="image"
+                        onclick="window.location='{{ article.url }}';"
+                        style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+
+                      <div class="bottom">
+                        <div class="excerpt">
+                          {% if article.excerpt.size > 0 %}
+                            {{ article.excerpt }}
+                          {% else %}
+                            <p>{{ article.content | strip_html | truncatewords: 120 }}
+                          {% endif %}
+                        </div>
+                        <div>
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </li>
+        
+                          
+              {% endcase %}
+
+          {% endfor %}
+        </ul>
+
+      </div>
+
+    </div>
+
+    {% comment %} 2018 {% endcomment %}
+    <div id="blog-2018" class="blog-list">
+      <div class="blog-list--row">
+
+        <div class="month-column">
+          <span class="month">2018</span>
+        </div>
+
+        <ul class="posts-column">
+          {% for article in blog.articles %}
+
+            {% assign postYear = article.published_at | date: '%Y' | times: 1 %}
+            
+              {% case postYear %}
+            
+                {% when 2018 %}
+                  <li class="post-item">
+                    <div class="item-row">
+
+                      <div class="top">
+                        <div>
+                          <h2>
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                          </h2>
+                        </div>
+                        <div>
+                          <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+                        </div>
+                      </div>
+
+                      <div
+                        class="image"
+                        onclick="window.location='{{ article.url }}';"
+                        style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+
+                      <div class="bottom">
+                        <div class="excerpt">
+                          {% if article.excerpt.size > 0 %}
+                            {{ article.excerpt }}
+                          {% else %}
+                            <p>{{ article.content | strip_html | truncatewords: 120 }}
+                          {% endif %}
+                        </div>
+                        <div>
+                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </li>
+        
+                          
+              {% endcase %}
+
+          {% endfor %}
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
   
 </div>
 
