@@ -1,16 +1,24 @@
 
     
 
+    <div class="video-container--mobile">
 
+        {% render 'logo' %}
 
-<section data-module--calendar class="home--module">
-    
-   
         <video id="background-video" autoplay="true" loop muted playsinline preload="metadata" class="background">
             <source class="mp4" format="mp4" src="{{ section.settings.videomp4 }}">
             <source class="webm" src="{{ section.settings.videowebm }}"> 
         </video>
- 
+    </div>
+
+<section data-module--calendar class="home--module">
+    
+    <div class="video-container">
+        <video id="background-video" autoplay="true" loop muted playsinline preload="metadata" class="background">
+            <source class="mp4" format="mp4" src="{{ section.settings.videomp4 }}">
+            <source class="webm" src="{{ section.settings.videowebm }}"> 
+        </video>
+    </div>
 
     <header>
       {% render 'navbar' %}
