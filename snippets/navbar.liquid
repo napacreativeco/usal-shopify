@@ -7,7 +7,7 @@
     {% endcomment %}
     <div data-logo>
       {% if template == 'index' %}
-        <img src="{{ 'logo-simple.svg' | asset_url }}" alt="Usal Project" />
+        {% render 'logo-simple' %}
       {% else %}
         {{ page.title }}
       {% endif %}

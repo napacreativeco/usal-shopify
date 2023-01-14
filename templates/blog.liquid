@@ -1,156 +1,106 @@
 <div data-blog--fieldlog class="blog">
 
-    <div class="topper">
-        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
-        <div>
-            {{ "today" | date: "%B %d, %Y" }}
-        </div>
+  <div class="topper">
+    <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+    <div>
+      {{ "today" | date: "%B %d, %Y" }}
     </div>
-    <header>
-        {% render 'navbar' %}
-        {% render 'navbar--mobile' %}
-    </header>
+  </div>
+  <header>
+    {% render 'navbar' %}
+    {% render 'navbar--mobile' %}
+  </header>
 
-    <div class="anime-line">&nbsp;</div>
+  <div class="archive-container">
 
-    <div class="archive-container">
+      {% comment %} 2023 {% endcomment %}
+      <div class="blog-list">
+        <div class="blog-list--row">
 
-    <ul class="blog-list">
+          <div class="month-column">
+            <span class="month">2022</span>
+          </div>
 
+          <ul class="posts-column">
+            {% for article in blog.articles %}
 
-    <li class="blog-item">
-      <div class="blog-item--row">
-    
-        <div class="month-column">
-          <span class="month">Dec.</span>
-        </div>
-    
-        <div class="posts-column">
-          {% for article in blog.articles %}
-    
-            {% assign monthVAR = article.published_at | date: '%B' %}
-            {% assign yearVAR = article.published_at | date: '%Y' %}
-    
-            {% case monthVAR %}
-              {% when 'December' limit: 6 %}
-                {% if article %}
-                  <article class="post-item">
-                    <div class="item-row">
-    
-                      <div class="top">
-                        <div><h2><a href="{{ article.url }}">{{ article.title }}</a></h2></div>
-                        <div><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time></div>
-                      </div>
-    
-                      <div class="image" onclick="window.location='{{ article.url }}';" style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
-                      
-                      <div class="bottom">
-                        <div class="excerpt">
-                          {% if article.excerpt.size > 0 %}
-                            {{ article.excerpt }}
-                          {% else %}
-                            <p>{{ article.content | strip_html | truncatewords: 120 }}
-                          {% endif %}
+              {% capture postYear %}
+                {{ article.published_at | date: '%Y' }}
+              {% endcapture %}
+
+                {% if article %}    
+                
+                    
+                    <li class="post-item">
+                      <div class="item-row">
+
+                        <div class="top">
+                          <div>
+                            <h2>
+                              {{ article.published_at }} <a href="{{ article.url }}">{{ article.title }}</a>
+                            </h2>
+                          </div>
+                          <div>
+                            <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+                          </div>
                         </div>
-                        <div>
-                          <a href="{{ article.url }}" title="Full post">Full post</a>
+
+                        <div
+                          class="image"
+                          onclick="window.location='{{ article.url }}';"
+                          style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
+
+                        <div class="bottom">
+                          <div class="excerpt">
+                            {% if article.excerpt.size > 0 %}
+                              {{ article.excerpt }}
+                            {% else %}
+                              <p>{{ article.content | strip_html | truncatewords: 120 }}
+                            {% endif %}
+                          </div>
+                          <div>
+                              <a href="{{ article.url }}" title="Full post">Full post</a>
+                          </div>
                         </div>
+
                       </div>
-    
-                    </div>
-                  </article>
+
+                    </li>
+         
+                            
                 {% else %}
-                  <p>Sorry, there are no posts.</p>
+                  <li><p>Sorry, there are no posts.</p></li>
                 {% endif %}
-    
-            {% endcase %}
-    
-          {% endfor %}
-        </div>
+
+            {% endfor %}
+          </ul>
     
       </div>
-    </li>
-    
-    <li class="blog-item">
-      <div class="blog-item--row">
-    
-        <div class="month-column">
-          <span class="month">Nov.</span>
-        </div>
-    
-        <div class="posts-column">
-          {% for article in blog.articles %}
-    
-            {% assign monthVAR = article.published_at | date: '%B' %}
-            {% assign yearVAR = article.published_at | date: '%Y' %}
-    
-            {% case monthVAR %}
-              {% when 'November' limit: 6 %}
-                {% if article %}
-                  <article class="post-item">
-                    <div class="item-row">
-    
-                      <div class="top">
-                        <div><h2><a href="{{ article.url }}">{{ article.title }}</a></h2></div>
-                        <div><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time></div>
-                      </div>
-    
-                      <div class="image" onclick="window.location='{{ article.url }}';" style="background: url('{{ article.image | image_url }}'); background-size: cover;"></div>
-                      
-                      <div class="bottom">
-                        <div class="excerpt">
-                          {% if article.excerpt.size > 0 %}
-                            {{ article.excerpt }}
-                          {% else %}
-                            <p>{{ article.content | strip_html | truncatewords: 120 }}
-                          {% endif %}
-                        </div>
-                        <div>
-                          <a href="{{ article.url }}" title="Full post">Full post</a>
-                        </div>
-                      </div>
-    
-                    </div>
-                  </article>
-                {% else %}
-                  <p>Sorry, there are no posts.</p>
-                {% endif %}
-    
-            {% endcase %}
-    
-          {% endfor %}
-        </div>
-    
-      </div>
-    </li>
-    
-    
-    </ul>
     </div>
+  
 </div>
 
 
 <style>
-    footer,
-    footer a  {
-        color: var(--white) !important;
-    }
-    footer.desktop .row {
-        border-top: 2px solid var(--white);
-        border-bottom: 2px solid var(--white);
-    }
-    footer svg {
-        fill: var(--white) !important;
-    }
+  footer,
+  footer a {
+    color: var(--white) !important;
+  }
+  footer.desktop .row {
+    border-top: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+  }
+  footer svg {
+    fill: var(--white) !important;
+  }
 </style>
 
 <script>
-    var logoHolder = $('div[data-logo]');
-    logoHolder.html('<h1>Field Log</h1>')
-    (function() {
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h1>Field Log</h1>')(function() {
 
-        $('body').css('background', '#191919');
+    $('body').css('background', '#191919');
 
 
-    }(jQuery))
+  }(jQuery))
 </script>
