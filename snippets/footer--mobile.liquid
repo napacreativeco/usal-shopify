@@ -1,0 +1,12 @@
+<div class="footer-mobile--links">
+  <ul>
+    {% for link in linklists.footer-mobile-menu.links %}
+
+      <li class="nav-link {% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
+        <a href="{{ link.url }}">
+          <span>{{ link.title }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

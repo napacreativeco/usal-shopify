@@ -1,66 +1,64 @@
 <div data-page--contact class="page">
 
-    <div class="topper">
-        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
-        <div>
-            {{ "today" | date: "%B %d, %Y" }}
-        </div>
+  <div class="topper">
+    <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+    <div>
+      {{ "today" | date: "%B %d, %Y" }}
     </div>
-    <header>
-        {% render 'navbar' %}
-        {% render 'navbar--mobile' %}
-    </header>
+  </div>
+  <header>
+    {% render 'navbar' %}
+    {% render 'navbar--mobile' %}
+  </header>
 
-    <div class="content">
+  <div class="content">
 
-        <div class="header">
-            <div class="row">
-                <div class="email">
-                    <a href="mailto:{{ 'info@usalproject.com' | escape }}" title="Email">
-                        info@<br />
-                        usalproject.com
-                    </a>
-                </div>
-                <div class="text disclaimer">
-                    <p>{{ page.metafields.contact.disclaimer }}</p>
-                </div>
-            </div>
+    <div class="header">
+      <div class="row">
+        <div class="email">
+          <a href="mailto:{{ 'info@usalproject.com' | escape }}" title="Email">
+            info@<br/>
+            usalproject.com
+          </a>
         </div>
-
-        {% assign featured_image = page.metafields.pages.featured_image.value %}
-        <div class="image" style="background: url('{{ featured_image | image_url }}'); background-size: cover; background-position: center center;">
+        <div class="text disclaimer">
+          <p>{{ page.metafields.contact.disclaimer }}</p>
         </div>
-
-        <div class="text main-content">
-            <p>{{ page.content }}</p>
-        </div>
-
+      </div>
     </div>
+
+    {% assign featured_image = page.metafields.pages.featured_image.value %}
+    <div class="image" style="background: url('{{ featured_image | image_url }}'); background-size: cover; background-position: center center;"></div>
+
+    <div class="text main-content">
+      <p>{{ page.content }}</p>
+    </div>
+
+  </div>
 
 </div>
 
 
 <style>
-    footer,
-    footer a  {
-        color: var(--white) !important;
-    }
-    footer.desktop .row {
-        border-top: 2px solid var(--white);
-        border-bottom: 2px solid var(--white);
-    }
-    footer svg {
-        fill: var(--white) !important;
-    }
+  footer,
+  footer a {
+    color: var(--white) !important;
+  }
+  footer.desktop .row {
+    border-top: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+  }
+  footer svg {
+    fill: var(--white) !important;
+  }
 </style>
 
 <script>
-    var logoHolder = $('div[data-logo]');
-    logoHolder.html('<h1>{{ page.title }}</h1>')
-    (function() {
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h1>  {{ page.title }} </h1>')(function() {
 
-        $('body').css('background', '#191919');
+    $('body').css('background', '#191919');
 
 
-    }(jQuery))
+  }(jQuery))
 </script>
