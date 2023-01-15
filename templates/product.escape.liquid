@@ -16,7 +16,7 @@
 
   {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
 
-  <div class="single-product-page" data-product--learn>
+  <div data-product--escape class="single-product escape" itemscope itemtype="http://schema.org/Product">
 
     {% comment %} Header {% endcomment %}
     <div class="topper">
@@ -31,7 +31,7 @@
         {% render 'navbar--mobile' %}
     </header>
 
-    <div class="single-product escape" itemscope itemtype="http://schema.org/Product">
+    <div class="product">
 
       {% comment %} 1  {% endcomment %}
       <section class="section-one">
@@ -291,6 +291,7 @@
 
   (function() {
     $('body').css('background', '#B78268');
+    $('body').css('escape-product');
   }(jQuery));
 </script>
 
