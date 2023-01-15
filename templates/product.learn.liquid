@@ -38,15 +38,52 @@
 
         <div class="anime-line" style="background: var(--black);">&nbsp;</div>
 
+        {% comment %} Title Cell: Mobile {% endcomment %}
+        <div class="cell title-cell mobile">
+            
+          <div class="top">
+            <div class=" title-variant"></div>
+
+            <div class="view-all">
+              <a href="/collections/learn" title="View All">{{ '[View All]' | escape }} </a>
+            </div>
+          </div>
+
+
+
+          <div class="bottom description">
+            <div class="title">
+              <h1>{{ product.title }}</h1>
+            </div>
+            <div>
+              <p>{{ product.description }}</p>
+            </div>
+          </div>
+
+          <div class="slideshow-cell--mobile">
+
+            <div class="wrappy">              
+              <div class="swiper-container">
+                <div class="swiper-wrapper">
+                  {% for image in product.images %}
+                    <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
+                  {% endfor %}
+                </div> 
+              </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+          </div>
+        
+        </div>
+
         <div class="row">
           
-          {% comment %} Cell {% endcomment %}
-          <div class="cell title-cell">
+          {% comment %} Title Cell: Desktop {% endcomment %}
+          <div class="cell title-cell desktop">
 
             <div class="top">
-              <div class=" title-variant">
-                {% comment %} filled in via JS {% endcomment %}
-              </div>
+              <div class=" title-variant"></div>
               <div class="title">
                 <h1>{{ product.title }}</h1>
               </div>
@@ -55,7 +92,7 @@
               </div>
             </div>
 
-            <div class="bottom">
+            <div class="bottom description">
                 <p>{{ product.description }}</p>
             </div>
             
@@ -199,7 +236,7 @@
           <div class="cell info-cell">
             <div class="list-item">
               <div class="top">
-                <span class="title about--guide-name">About                     
+                <span class="title about--guide-name product-details--label">About                     
                   {% assign variant = product.selected_or_first_available_variant %}
                   <span>{{ variant.metafields.learn.guide_name }}</span>
                 </span>
@@ -213,7 +250,7 @@
             <div class="anime-line" style="background: var(--black);">&nbsp;</div>
             <div class="list-item">
               <div class="top">
-                <span class="title">Objective</span>
+                <span class="title product-details--label">Objective</span>
               </div>
               <div class="bottom">
                 <p>
@@ -224,7 +261,7 @@
             <div class="anime-line" style="background: var(--black);">&nbsp;</div>
             <div class="list-item">
               <div class="top">
-                <span class="title">What's<br />included</span>
+                <span class="title product-details--label">What's<br />included</span>
               </div>
               <div class="bottom">
                 <ul data-whats-included>
