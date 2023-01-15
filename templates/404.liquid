@@ -1,2 +1,50 @@
-<h1>404 Page Not Found</h1>
-<h2>The page you requested does not exist. Click <a href="/collections/all">here</a> to continue shopping.</h2>
+<div data-page--default class="page">
+
+    <div class="topper">
+        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+        <div>
+            {{ "today" | date: "%B %d, %Y" }}
+        </div>
+    </div>
+    <header>
+        {% render 'navbar' %}
+        {% render 'navbar--mobile' %}
+    </header>
+    
+    <div class="anime-line">&nbsp;</div>
+
+    <div class="content">
+
+        <div class="four-oh-four text main-content">
+            <p>The page you requested cannot be found</p>
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+    footer,
+    footer a  {
+        color: var(--white) !important;
+    }
+    footer.desktop .row {
+        border-top: 2px solid var(--white);
+        border-bottom: 2px solid var(--white);
+    }
+    footer svg {
+        fill: var(--white) !important;
+    }
+</style>
+
+<script>
+    var logoHolder = $('div[data-logo]');
+    logoHolder.html('<h1>404</h1>')
+    (function() {
+
+        $('body').css('background', 'var(--black)');
+
+
+    }(jQuery))
+</script>

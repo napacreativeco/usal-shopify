@@ -328,6 +328,10 @@ RADIO BUTTON FUNCTIONS
     {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
     {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
+    // Check first variant
+    var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
+    jQuery(firstVariantID).attr('checked', true);
+
     // Title 
     jQuery(".title-variant").html('{{ variant.title }}');
     // Location
@@ -337,7 +341,20 @@ RADIO BUTTON FUNCTIONS
     // Time
     jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
     // Capacity
-    jQuery('.capacity-text').html('{{ variant.inventory_quantity }}');  
+    jQuery('.capacity-text').html('{{ variant.inventory_quantity }}'); 
+    if (jQuery('.capacity-text').text() == '0') {
+      jQuery('.sold-out--status').html('SOLD OUT');
+      jQuery('#product-add').css({
+        borderBottom: '0px'
+      })
+      jQuery('input#add').css({
+        textDecoration: 'line-through',
+        pointerEvents: 'none'
+      })
+    } else {
+      jQuery('.sold-out--status').html('OPEN');
+    }
+
     // Guide
     jQuery('.guided-by--text').html(variant_guide);
     jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
@@ -376,6 +393,26 @@ RADIO BUTTON FUNCTIONS
       jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
       // Capacity
       jQuery('.capacity-text').html(variant_cap);
+      if (jQuery('.capacity-text').text() == '0') {
+        jQuery('.sold-out--status').html('SOLD OUT');
+        jQuery('#product-add').css({
+          borderBottom: '0px'
+        });
+        jQuery('input#add').css({
+          textDecoration: 'line-through',
+          pointerEvents: 'none'
+        });
+      } else {
+        jQuery('.sold-out--status').html('OPEN');
+        jQuery('#product-add').css({
+          borderBottom: 'var(--border-black)'
+        });
+        jQuery('input#add').css({
+          textDecoration: 'none',
+          pointerEvents: 'auto'
+        });
+      }
+      
       // Guide
       jQuery('.guided-by--text').html(variant_guide);
       jQuery('.about--guide-name').html('About ' + variant_guide);
@@ -426,10 +463,9 @@ RADIO BUTTON FUNCTIONS
         
       } else {
         // Variant is sold out.
-        jQuery('.sold-out--status').html('SOLD OUT');
         jQuery('#backorder').addClass('hidden');
         jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);    
-        jQuery('.sold-out--status').html('SOLD OUT');   
+         
       }
       
       // Whether the variant is in stock or not, we can update the price and compare at price.

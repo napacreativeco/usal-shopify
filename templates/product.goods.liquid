@@ -265,6 +265,10 @@ RADIO BUTTON FUNCTIONS
     // Set underline
     jQuery('.date-radio').first().addClass('active');
 
+    // Check first variant
+    var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
+    jQuery(firstVariantID).attr('checked', true);
+
     // Click Function
     jQuery("input.date-radio").click(function() {
 
@@ -329,6 +333,7 @@ var selectCallback = function(variant, selector) {
     } else {
       // Variant is sold out.
 
+      
       jQuery('#backorder').addClass('hidden');
       jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);    
 

@@ -55,6 +55,8 @@
 
       <script src={{ 'jquery.min.js' | asset_url }}></script>
 
+      <script src={{ 'cookie.js' | asset_url }}></script>
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
 
       <main role="main">
@@ -68,8 +70,58 @@
       <script defer src={{ 'calendar-scripts.js' | asset_url }}></script>
 
 
+      {% render 'newsletter-modal' %}
+
       {% render 'footer' %}
 
+      <script type="text/javascript">
+        (function($) {
+
+          $(document).ready(function() {
+
+            // Get the modal
+            const modal = $('#myModal');
+            const closer = $('.modal-close');
+
+            // Open after [5] seconds
+            setTimeout(function() {
+
+              // If no Cookie, open
+              if ($.cookie('newsletter-modal') == 'yes') {
+                $(modal).css('display', 'none');
+                console.log('Cookie present. Will not show modal.');
+              } else {
+                $(modal).css('display', 'flex');
+                console.log('No Cookie present. Will show modal.');
+              }
+              
+            }, 1000);
+
+            // Close Modal
+            $('.modal-close').on('click', function() {
+              $(modal).css('display', 'none');
+
+              // Set Cookie for 7 days
+              $.cookie('newsletter-modal', 'yes', { expires: 7 });
+              console.log('Cookie set. Will no longer show modal.');
+            });
+
+            // Remove cookie for testing
+            $.removeCookie('newsletter-modal');
+
+            // Click outside box to close
+            $(window).on('click', function(event) {
+              if (event.currentTarget == modal) {
+                $(modal).css('display', 'none');
+              }
+            });
+
+          });
+
+        }(jQuery));
+
+
+      </script>
 
     </div>
 

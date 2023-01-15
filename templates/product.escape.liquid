@@ -148,6 +148,8 @@
                         <ul class="intensity-dots five">
                     {% elsif val == 6 %}
                         <ul class="intensity-dots six">
+                    {% else %}
+                        <ul class="intensity-dots one"> 
                     {% endif %}
                         <li><span class="dot dot1">&nbsp;</span></li>
                         <li><span class="dot dot2">&nbsp;</span></li>
@@ -337,6 +339,7 @@ RADIO BUTTON FUNCTIONS
 {% endcomment %}
 <script type="text/javascript" charset="utf-8">
   jQuery(function() { 
+    
     var first_variant_title = jQuery("input[checked='checked'] > label").text();
     var first_variant_price = jQuery("ul li input[type='radio']:checked").attr("data-price");
     var first_variant_compare_at_price = jQuery("ul li input[type='radio']:checked").attr("data-compare-at-price") || ''; 
@@ -362,29 +365,53 @@ RADIO BUTTON FUNCTIONS
     {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
     {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
+    // Check first variant
+    var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
+    jQuery(firstVariantID).attr('checked', true);
+
     // Title 
     jQuery(".title-variant").html('{{ variant.title }}');
+    
     // Location
     jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
+    
     // Date
     jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
+    
     // Time
     jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
+    
     // Capacity
     jQuery('.capacity-text').html('{{ variant.inventory_quantity }}');  
+    if (jQuery('.capacity-text').text() == '0') {
+      jQuery('.sold-out--status').html('SOLD OUT');
+      jQuery('#product-add').css({
+        borderBottom: '0px'
+      })
+      jQuery('input#add').css({
+        textDecoration: 'line-through',
+        pointerEvents: 'none'
+      })
+    } else {
+      jQuery('.sold-out--status').html('OPEN');
+    }
+    
     // Guide
     jQuery('.guided-by--text').html(variant_guide);
     jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
+    
     // Guide Bio
     jQuery('.guide-bio--content').html('<p>{{ variant.metafields.learn.guide_bio }}</p>');
+    
     // Price
     jQuery(".product-price").html(variant_price);
-
 
     /*
      * Click Function
      */
-    jQuery("input[type='radio']").click(function() {
+    jQuery("input[type='radio']").click(function(e) {
+
+      e.currentTarget.classList.add('active-radio');
 
       var variant_google_maps_url = jQuery(this).attr("data-google-maps");
       var variant_location = jQuery(this).attr("data-location");
@@ -409,6 +436,25 @@ RADIO BUTTON FUNCTIONS
       jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
       // Capacity
       jQuery('.capacity-text').html(variant_cap);
+      if (jQuery('.capacity-text').text() == '0') {
+        jQuery('.sold-out--status').html('SOLD OUT');
+        jQuery('#product-add').css({
+          borderBottom: '0px'
+        });
+        jQuery('input#add').css({
+          textDecoration: 'line-through',
+          pointerEvents: 'none'
+        });
+      } else {
+        jQuery('.sold-out--status').html('OPEN');
+        jQuery('#product-add').css({
+          borderBottom: 'var(--border-black)'
+        });
+        jQuery('input#add').css({
+          textDecoration: 'none',
+          pointerEvents: 'auto'
+        });
+      }
       // Guide
       jQuery('.guided-by--text').html(variant_guide);
       jQuery('.about--guide-name').html('About ' + variant_guide);
