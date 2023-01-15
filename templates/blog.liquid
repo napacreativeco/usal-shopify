@@ -137,6 +137,7 @@
         </div>
 
         <ul class="posts-column">
+          
           {% for article in blog.articles %}
 
             {% assign postYear = article.published_at | date: '%Y' | times: 1 %}

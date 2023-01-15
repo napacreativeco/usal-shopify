@@ -22,7 +22,10 @@
         </div>
     </div>
 
-    <div class="loop--learn">
+    {% comment %} 
+    Desktop Loop
+    {% endcomment %}
+    <div class="loop--learn desktop">
         {% for product in collections.learn.products %}
 
             <div data-name="{{ product.handle }}" class="loop-learn--item">
@@ -104,15 +107,53 @@
         {% endfor %}
     </div>
 
+    <div class="loop--learn mobile">
+        <div class="top">
+            <div class="title">
+                <h1>{{ '/Learn' | escape }}</h1>
+            </div>
+            <div class="image">
+                <img src="{{ collection.featured_image | image_url }}" alt="{{ collection.title }}" />
+            </div>
+        </div>
+
+        <div class="loop">
+            <ul class="row">
+                {% for product in collections.learn.products %}
+                    <li class="loop-item">
+                        <div class="top">
+                            <span class="counter supply"></span>
+
+                            <h2 class="title">
+                                {% for variant in product.variants limit: 1 %}
+                                    {{ variant.title }}
+                                {% endfor %}
+                            </h2>
+                        </div>
+
+                        <div class="bottom">
+                            <div class="title">
+                                <h3><a href="" title="{{ product.title }}">{{ product.title }}</a></h3>
+                            </div>
+                            <div class="price">
+                                {{ product.price | money_without_trailing_zeros }}
+                            </div>
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 
 </div>
 
 <script>
-
     var logoHolder = $('div[data-logo]');
     logoHolder.html('<h1>{{ template.suffix | capitalize }}</h1>')
     (function() {
-        $('body').css('background', '#B78268');
+        $('body').css('background', 'var(--salmon)');
         $('.learn-item--date').on('mouseenter', function() {
             $(this).siblings('.tooltip').css({
                 display: 'flex',

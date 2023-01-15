@@ -16,6 +16,9 @@
 
       {% paginate article.comments by 50 %}
 
+        <script>
+          console.log('{{ article }}');
+        </script>
         <article class="blog-post">
 
           {% comment %} Header {% endcomment %}
@@ -36,12 +39,23 @@
           <div class="metadata">
             <div class="row">
               <div class="left">
-                {{ article.created_at | date: '%B %d, %Y' }}
+                {{ article.published_at | date: '%B %d, %Y' }}
               </div>
               <div class="right">
-                <div>Blog entry no.</div>
-                <div>{{ article.created_at | date: '%I:%M%P [%Z]' }}</div>
-                <div>Location?</div>
+                <div>Blog entry no. 
+
+                  {% assign entryNo = article.metafields.fieldlog.entry_number | times: 1 %}
+                  
+                  {% if entryNo < 10 %}
+                    00{{ article.metafields.fieldlog.entry_number }}
+                  {% elsif entryNo >= 10 %}
+                    0{{ article.metafields.fieldlog.entry_number }}
+                  {% elsif entryNo >= 100 %}
+                    {{ article.metafields.fieldlog.entry_number }}
+                  {% endif %}
+                </div>
+                <div>{{ article.published_at | date: '%I:%M%P [%Z]' }}</div>
+                <div>{{ article.metafields.fieldlog.location }}</div>
               </div>
             </div>
           </div>
