@@ -37,7 +37,7 @@
     <div class="product">
         <div class="row">
             {% comment %} Slideshow {% endcomment %}
-            <div class="cell slideshow-cell">
+            <div class="cell slideshow-cell desktop">
 
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
@@ -51,7 +51,7 @@
             </div>
             <div class="details">
                 <div class="top">
-                    <div>
+                    <div class="title desktop">
                         <h1>
                             {{ product.title }}
                         </h1>
@@ -88,7 +88,10 @@
                     </div>
                 </div>
                 <div class="bottom">
-                    <div>
+                    <div class="title-price-details">
+                        <div class="title mobile">
+                          <h1>{{ product.title }}</h1>
+                        </div>
                         <div class="price">
                             {{ product.price | money_without_trailing_zeros }}
                         </div>
@@ -96,6 +99,20 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante viverra, scelerisque libero sit amet, gravida neque. Aenean aliquet in libero nec vestibulum. Aliquam cursus lacus ac diam suscipit elementum. Vivamus id consectetur dui. Aenean quis metus posuere, pharetra eros in, suscipit magna.</p>
                         </div>
                     </div>
+
+                    <div class="cell slideshow-cell mobile">
+
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                {% for image in product.images %}
+                                  <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
+                                {% endfor %}
+                            </div> 
+                        </div>
+                
+                        <div class="swiper-pagination"></div>
+                    </div>
+
                     <div class="quantity">
                         <div>
                           <span class="title">Quantity:</span>
