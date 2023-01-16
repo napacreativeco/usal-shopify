@@ -179,51 +179,59 @@
                 </div>
               </div>
 
+              <div class="quantity">
+                <div>
+                  <span class="label">Quantity</span>
+                </div>
+                <input type="number" name="quantity" min="1" value="1">
+              </div>
+
+
               <div class="bottom">
 
-                  <div class="variants">
-                    {% comment %}
-                      VARIANT RADIO BUTTONS
-                    {% endcomment %}
+                <div class="variants">
+                  {% comment %}
+                    VARIANT RADIO BUTTONS
+                  {% endcomment %}
 
-                      <ul class="variants-list">
-                        {% for variant in product.variants %}
+                    <ul class="variants-list">
+                      {% for variant in product.variants %}
 
-                          <li class="switch-field" data-link="{{ variant.id }}">
-                            {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
-                            {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+                        <li class="switch-field" data-link="{{ variant.id }}">
+                          {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                          {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
-                              <input
-                                class="date-radio"
-                                type="radio"
-                                data-google-maps="{{ variant.metafields.learn.location_google_url }}"
-                                data-date="{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}"
-                                data-start-time="{{ variant.metafields.learn.event_start_time | date: '%I:%M %P' }}" 
-                                data-end-time="{{ variant.metafields.learn.event_end_time | date: '%I:%M %P' }}"                   
-                                data-location="{{ variant.metafields.learn.location_address }}"
-                                data-guide-name="{{ variant.metafields.learn.guide_name }}"
-                                data-guide-bio="{{ variant.metafields.learn.guide_bio }}"
-                                data-capacity="{{ variant.inventory_quantity }}"
-                                data-price="{{ variant.price | money_without_trailing_zeros }}"
-                                id="{{ variant.id }}" value="{{ variant.id }}"
-                                name="id"
-                                {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
-                              
-                              <label for="{{ variant.id }}">
-                                {{ variant.title }}
-                              </label>
+                            <input
+                              class="date-radio"
+                              type="radio"
+                              data-google-maps="{{ variant.metafields.learn.location_google_url }}"
+                              data-date="{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}"
+                              data-start-time="{{ variant.metafields.learn.event_start_time | date: '%I:%M %P' }}" 
+                              data-end-time="{{ variant.metafields.learn.event_end_time | date: '%I:%M %P' }}"                   
+                              data-location="{{ variant.metafields.learn.location_address }}"
+                              data-guide-name="{{ variant.metafields.learn.guide_name }}"
+                              data-guide-bio="{{ variant.metafields.learn.guide_bio }}"
+                              data-capacity="{{ variant.inventory_quantity }}"
+                              data-price="{{ variant.price | money_without_trailing_zeros }}"
+                              id="{{ variant.id }}" value="{{ variant.id }}"
+                              name="id"
+                              {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
+                            
+                            <label for="{{ variant.id }}">
+                              {{ variant.title }}
+                            </label>
 
-                          </li>
+                        </li>
 
-                        {% endfor %}
-                      </ul>
-                  </div>
+                      {% endfor %}
+                    </ul>
+                </div>
 
-                  <div class="add-to-cart">
-                    <div id="product-add">
-                      <input type="submit" name="add" id="add" value="{{ add_to_cart | escape }}">
-                    </div>          
-                  </div>
+                <div class="add-to-cart">
+                  <div id="product-add">
+                    <input type="submit" name="add" id="add" value="{{ add_to_cart | escape }}">
+                  </div>          
+                </div>
 
               </div>
 
