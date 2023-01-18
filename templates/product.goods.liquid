@@ -2,8 +2,11 @@
 {% assign sold_out = 'Sold Out' %}
 {% assign unavailable = 'Unavailable' %}
 
-<form action="/cart/add" method="post" enctype="multipart/form-data">
-      
+<form
+  action="/cart/add"
+  method="post"
+  enctype="multipart/form-data">
+
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
   <meta itemprop="image" content="{{ product | image_url: 'grande' }}" />
   <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
@@ -17,220 +20,224 @@
   {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
 
 
-
-  <div data-product--goods class="single-product goods" itemscope itemtype="http://schema.org/Product">
+  <div
+    data-product--goods
+    class="single-product goods"
+    itemscope
+    itemtype="http://schema.org/Product">
 
     <div class="topper">
-        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
-        <div>
-            {{ "today" | date: "%B %d, %Y" }}
-        </div>
+      <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+      <div>
+        {{ "today" | date: "%B %d, %Y" }}
+      </div>
     </div>
-    
+
     <header>
-        {% render 'navbar' %}
-        {% render 'navbar--mobile' %}
+      {% render 'navbar' %}
+      {% render 'navbar--mobile' %}
     </header>
 
     <div class="anime-line">&nbsp;</div>
 
     <div class="product">
-        <div class="row">
-            {% comment %} Slideshow {% endcomment %}
-            <div class="cell slideshow-cell desktop">
+      <div class="row">
+        {% comment %} 
+          * Slideshow Desktop
+        {% endcomment %}
+        <div class="cell slideshow-cell desktop">
+          <div class="wrappy">
+            <div class="swiper-container desktop">
+              <div class="swiper-wrapper">
+                {% for image in product.images %}
+                  <div class="swiper-slide" style="background: url('{{ image | img_url: '1024x' }}'); background-size: cover; background-position: center;"></div>
+                {% endfor %}
+              </div>
 
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        {% for image in product.images %}
-                          <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
-                        {% endfor %}
-                    </div> 
-                </div>
-         
-                <div class="swiper-pagination"></div>
             </div>
-            <div class="details">
-                <div class="top">
-                    <div class="title desktop">
-                        <h1>
-                            {{ product.title }}
-                        </h1>
-                    </div>
-                    <div>
-                        <ul class="variants-list">
-                            {% for variant in product.variants %}
+            <div class="swiper-pagination desktop"></div>
+          </div>
 
-                                <li class="switch-field" data-link="{{ variant.id }}">
-
-                                    <input
-                                    class="date-radio"
-                                    type="radio"
-                                    data-price="{{ variant.price | money_without_trailing_zeros }}"
-                                    id="{{ variant.id }}" value="{{ variant.id }}"
-                                    name="id"
-                                    {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
-                                    
-                                    <label class="label" for="{{ variant.id }}">
-                                        {{ variant.title }}
-                                    </label>
-
-                                </li>
-
-                            {% endfor %}
-                            </ul>
-                    </div>
-                    <div class="add-to-cart">
-                       
-                      <div id="product-add">
-                        <input type="submit" name="add" id="add" value="{{ add_to_cart | escape }}">
-                      </div>          
-                  
-                    </div>
-                </div>
-                <div class="bottom">
-                    <div class="title-price-details">
-                        <div class="title mobile">
-                          <h1>{{ product.title }}</h1>
-                        </div>
-                        <div class="price">
-                            {{ product.price | money_without_trailing_zeros }}
-                        </div>
-                        <div class="price-details">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante viverra, scelerisque libero sit amet, gravida neque. Aenean aliquet in libero nec vestibulum. Aliquam cursus lacus ac diam suscipit elementum. Vivamus id consectetur dui. Aenean quis metus posuere, pharetra eros in, suscipit magna.</p>
-                        </div>
-                    </div>
-
-                    <div class="cell slideshow-cell mobile">
-
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                {% for image in product.images %}
-                                  <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
-                                {% endfor %}
-                            </div> 
-                        </div>
-                
-                        <div class="swiper-pagination"></div>
-                    </div>
-
-                    <div class="quantity">
-                        <div>
-                          <span class="title">Quantity:</span>
-                        </div>
-                        
-
-                        <div class="quantity-list switch-field">
-                         
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-1" 
-                              name="quantity"
-                              min="1"
-                              value="1"   
-                              checked="checked"                          
-                              >
-                              <label for="quantity-1">01</label>                  
-                  
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-2" 
-                              name="quantity"
-                              min="2"
-                              value="2"
-                              >
-                              <label for="quantity-2">02</label>
-              
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-3" 
-                              name="quantity"
-                              min="3"
-                              value="3"
-                              >
-                              <label for="quantity-3">03</label>
-
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-4" 
-                              name="quantity"
-                              min="4"
-                              value="4"
-                              >
-                              <label for="quantity-4">04</label>
-           
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-5" 
-                              name="quantity"
-                              min="5"
-                              value="5"
-                              >
-                              <label for="quantity-5">05</label>
-           
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-6" 
-                              name="quantity"
-                              min="6"
-                              value="6"
-                              >
-                              <label for="quantity-6">06</label>
-
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-7" 
-                              name="quantity"
-                              min="7"
-                              value="7"
-                              >
-                              <label for="quantity-7">07</label>
-           
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-8" 
-                              name="quantity"
-                              min="8"
-                              value="8"
-                              >
-                              <label for="quantity-8">08</label>
-
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-9" 
-                              name="quantity"
-                              min="9"
-                              value="9"
-                              >
-                              <label for="quantity-9">09</label>
-           
-                              <input
-                              class="quantity-input"
-                              type="radio"
-                              id="quantity-10" 
-                              name="quantity"
-                              min="10"
-                              value="10"
-                              >
-                              <label for="quantity-10">10</label>
-                                      
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+        <div class="details">
+          <div class="top">
+            <div class="title desktop">
+              <h1>
+                {{ product.title }}
+              </h1>
+            </div>
+            <div>
+              <ul class="variants-list">
+                {% for variant in product.variants %}
+
+                  <li class="switch-field" data-link="{{ variant.id }}">
+
+                    <input
+                      class="date-radio"
+                      type="radio"
+                      data-price="{{ variant.price | money_without_trailing_zeros }}"
+                      id="{{ variant.id }}"
+                      value="{{ variant.id }}"
+                      name="id"
+                      {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
+
+                    <label class="label" for="{{ variant.id }}">
+                      {{ variant.title }}
+                    </label>
+
+                  </li>
+
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="add-to-cart">
+
+              <div id="product-add">
+                <input
+                  type="submit"
+                  name="add"
+                  id="add"
+                  value="{{ add_to_cart | escape }}">
+              </div>
+
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="title-price-details">
+              <div class="title mobile">
+                <h1>{{ product.title }}</h1>
+              </div>
+              <div class="price">
+                {{ product.price | money_without_trailing_zeros }}
+              </div>
+              <div class="price-details">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante viverra, scelerisque libero sit amet, gravida neque. Aenean aliquet in libero nec vestibulum. Aliquam cursus lacus ac diam suscipit elementum. Vivamus id consectetur dui. Aenean quis metus posuere, pharetra eros in, suscipit magna.</p>
+              </div>
+            </div>
+
+            {% comment %} 
+              * Slideshow Mobile
+            {% endcomment %}
+            <div class="cell slideshow-cell mobile">
+
+              <div class="wrappy">
+                <div class="swiper-container mobile">
+                  <div class="swiper-wrapper">
+                    {% for image in product.images %}
+                      <div class="swiper-slide" style="background: url('{{ image | img_url: '700x' }}'); background-size: cover; background-position: center;"></div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="swiper-pagination mobile"></div>
+              </div>
+
+            </div>
+
+            <div class="quantity">
+              <div>
+                <span class="title">Quantity:</span>
+              </div>
+
+
+              <div class="quantity-list switch-field">
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-1"
+                  name="quantity"
+                  min="1"
+                  value="1"
+                  checked="checked">
+                <label for="quantity-1">01</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-2"
+                  name="quantity"
+                  min="2"
+                  value="2">
+                <label for="quantity-2">02</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-3"
+                  name="quantity"
+                  min="3"
+                  value="3">
+                <label for="quantity-3">03</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-4"
+                  name="quantity"
+                  min="4"
+                  value="4">
+                <label for="quantity-4">04</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-5"
+                  name="quantity"
+                  min="5"
+                  value="5">
+                <label for="quantity-5">05</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-6"
+                  name="quantity"
+                  min="6"
+                  value="6">
+                <label for="quantity-6">06</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-7"
+                  name="quantity"
+                  min="7"
+                  value="7">
+                <label for="quantity-7">07</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-8"
+                  name="quantity"
+                  min="8"
+                  value="8">
+                <label for="quantity-8">08</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-9"
+                  name="quantity"
+                  min="9"
+                  value="9">
+                <label for="quantity-9">09</label>
+
+                <input
+                  class="quantity-input"
+                  type="radio"
+                  id="quantity-10"
+                  name="quantity"
+                  min="10"
+                  value="10">
+                <label for="quantity-10">10</label>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-
 
 
   </div>
@@ -244,7 +251,7 @@
   * Page Title
   */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title">{{ template.suffix | capitalize }}</h2>');
+  logoHolder.html('<h2 class="page-title">                      {{ template.suffix | capitalize }} </h2>');
 
   (function() {
     $('body').css('background', '#191919');
@@ -253,125 +260,125 @@
 </script>
 
 {% comment %}
-RADIO BUTTON FUNCTIONS
-{% endcomment %}
-<script type="text/javascript" charset="utf-8">
+  RADIO BUTTON FUNCTIONS
+{% endcomment %}<script type="text/javascript" charset="utf-8">
   jQuery(function() { 
+  /*
+                                                 * Variants
+                                                 */
+                                            
+                                                // Set underline
+                                                jQuery('.date-radio').first().addClass('active');
+                                            
+                                                // Check first variant
+                                                var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
+  jQuery(firstVariantID).attr('checked', true);
+                                            
+                                                // Click Function
+                                                jQuery("input.date-radio").click(function() {
+                                            
+                                                  jQuery('.date-radio').removeClass('active');
+                                                  jQuery(this).addClass('active');
+                                            
+                                                });
+                                            
+                                              });</script>
 
-    /*
-     * Variants
-     */
 
-    // Set underline
-    jQuery('.date-radio').first().addClass('active');
+<script type="text/javascript" charset="utf-8">
+  //Quantity Inputs
+  jQuery('.field').first().addClass('active-button');
+                            
+                              jQuery('.field').on('click', function(e) {
+                            
+                                jQuery('.field').removeClass('active-button');
+                                
+                                jQuery(this).addClass('active-button');
+                            
+                                jQuery(this).children('input').attr('checked');
+                            
+                              });</script>
 
-    // Check first variant
-    var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
-    jQuery(firstVariantID).attr('checked', true);
+<script>
+  /*
+  * Variant Selection
+  */
+  var selectCallback = function(variant, selector) {
+    if (variant) { // Swap image.
+      if (variant.featured_image) {
+        var newImage = variant.featured_image; // New image object.
+        var mainImageDomEl = jQuery('.product-photo-container img')[0]; // DOM element of main image we need to swap.
+        Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+      }
 
-    // Click Function
-    jQuery("input.date-radio").click(function() {
 
-      jQuery('.date-radio').removeClass('active');
-      jQuery(this).addClass('active');
+      // Selected a valid variant that is available.
+      if (variant.available) { // Enabling add to cart button.
+        jQuery('#add').removeClass('disabled').prop('disabled', false).val({{ add_to_cart | json }});
 
+        // If item is backordered yet can still be ordered, we'll show special message.
+        if (variant.inventory_management && variant.inventory_quantity <= 0) {
+          jQuery('#selected-variant').html(
+            {{ product.title | json }}
+            {% unless hide_default_title %} + ' - ' + variant.title{% endunless %}
+          );
+          jQuery('#backorder').removeClass("hidden");
+        } else {
+          jQuery('#backorder').addClass("hidden");
+        }
+
+      } else { // Variant is sold out.
+
+
+        jQuery('#backorder').addClass('hidden');
+        jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);
+
+      }
+
+      // Whether the variant is in stock or not, we can update the price and compare at price.
+      if (variant.compare_at_price > variant.price) {
+        jQuery('#product-price').html('<span class="product-price on-sale">' + Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' + '&nbsp;<s class="product-compare-price">' + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + '</s>');
+      } else {
+        jQuery('#product-price').html('<span class="product-price">' + Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>');
+      }
+    } else { // variant doesn't exist.
+      jQuery('#product-price').empty();
+      jQuery('#backorder').addClass('hidden');
+      jQuery('#add').val({{ unavailable | json }}).addClass('disabled').prop('disabled', true);
+    }
+  };
+
+  jQuery(function($) {
+    new Shopify.OptionSelectors('product-select', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
     });
 
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                      {{ product.options.first }} </label>');{% endif %}
   });
-</script>
-
-{% comment %} 
-*
-* Quantity Inputs
-*
-{% endcomment %}
-<script type="text/javascript" charset="utf-8">
-
-  jQuery('.field').first().addClass('active-button');
-
-  jQuery('.field').on('click', function(e) {
-
-    jQuery('.field').removeClass('active-button');
-    
-    jQuery(this).addClass('active-button');
-
-    jQuery(this).children('input').attr('checked');
-
-  });
-
-</script> 
-
-<script>
-/*
- * Variant Selection
- */
-var selectCallback = function(variant, selector) {
-  if (variant) {
-
-    // Swap image.
-    if (variant.featured_image) {
-      var newImage = variant.featured_image; // New image object.
-      var mainImageDomEl = jQuery('.product-photo-container img')[0]; // DOM element of main image we need to swap.
-      Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
-    }
-
-
-    // Selected a valid variant that is available.
-    if (variant.available) {
-
-      // Enabling add to cart button.
-      jQuery('#add').removeClass('disabled').prop('disabled', false).val({{ add_to_cart | json }});
-    
-      // If item is backordered yet can still be ordered, we'll show special message.
-      if (variant.inventory_management && variant.inventory_quantity <= 0) {
-        jQuery('#selected-variant').html({{ product.title | json }}{% unless hide_default_title %} + ' - ' + variant.title{% endunless %});
-        jQuery('#backorder').removeClass("hidden");
-      } else {
-        jQuery('#backorder').addClass("hidden");
-      }
-      
-    } else {
-      // Variant is sold out.
-
-      
-      jQuery('#backorder').addClass('hidden');
-      jQuery('#add').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);    
-
-    }
-    
-    // Whether the variant is in stock or not, we can update the price and compare at price.
-    if ( variant.compare_at_price > variant.price ) {
-      jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<s class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</s>');
-    } else {
-      jQuery('#product-price').html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );
-    }        
-  } else {
-    // variant doesn't exist.
-    jQuery('#product-price').empty();
-    jQuery('#backorder').addClass('hidden');
-    jQuery('#add').val({{ unavailable | json }}).addClass('disabled').prop('disabled', true);
-  }
-};
-  
-jQuery(function($) {
-  new Shopify.OptionSelectors('product-select', { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
-  
-  // Add label if only one product option and it isn't 'Title'.
-  {% if product.options.size == 1 and product.options.first != 'Title' %}
-    $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
-  {% endif %}
-});
-Shopify.Image.preload({{ product.images | json }}, 'grande');
-Shopify.Image.preload({{ product.images | json }}, '1024x1024');
+  Shopify.Image.preload({{ product.images | json }}, 'grande');
+  Shopify.Image.preload({{ product.images | json }}, '1024x1024');
 </script>
 
 
 <script>
-var Swipes = new Swiper('.swiper-container', {
-  loop: true,
-  pagination: {
-      el: '.swiper-pagination',
-  },
-});
+  var Swipes = new Swiper('.swiper-container.desktop', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination.desktop',
+      clickable: true
+    }
+  });
 </script>
 
+<script>
+  var Swipes = new Swiper('.swiper-container.mobile', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination.mobile',
+      clickable: true
+    }
+  });
+</script>

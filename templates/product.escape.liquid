@@ -61,16 +61,17 @@
           <div class="slideshow-cell--mobile">
 
             <div class="wrappy">              
-              <div class="swiper-container">
+              <div class="swiper-container mobile">
                 <div class="swiper-wrapper">
                   {% for image in product.images %}
-                    <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
+                    <div class="swiper-slide" style="background: url('{{ image | img_url: '700x' }}'); background-size: cover; background-position: center;"></div>
                   {% endfor %}
                 </div> 
               </div>
+              
+              <div class="swiper-pagination mobile"></div>
             </div>
 
-            <div class="swiper-pagination"></div>
           </div>
         
         </div>
@@ -129,7 +130,7 @@
                   </span>
                 </div>
                 <div class="capacity">
-                  <h4 class="product-details--label">Capacity</h4>
+                  <h4 class="product-details--label">Spots Left</h4>
                     <div class="capacity-text product-detail"></div>
                 </div>
                 <div class="length">
@@ -248,20 +249,20 @@
 
         <div class="row">
 
-          {% comment %} Slideshow {% endcomment %}
+          {% comment %} Slideshow Desktop {% endcomment %}
           <div class="cell slideshow-cell">
 
               <div class="wrappy">              
-                <div class="swiper-container">
+                <div class="swiper-container desktop">
                   <div class="swiper-wrapper">
                     {% for image in product.images %}
-                      <div class="swiper-slide" style="background: url('{{ image | img_url: 'large' }}'); background-size: cover;"></div>
+                      <div class="swiper-slide" style="background: url('{{ image | img_url: '1024x' }}'); background-size: cover; background-position: center;"></div>
                     {% endfor %}
                   </div> 
                 </div>
+                <div class="swiper-pagination desktop"></div>
               </div>
 
-              <div class="swiper-pagination"></div>
           </div>
           {% comment %} Guide {% endcomment %}
           <div class="cell info-cell">
@@ -573,11 +574,21 @@ RADIO BUTTON FUNCTIONS
 
 
 <script>
-  var Swipes = new Swiper('.swiper-container', {
+  var Swipes = new Swiper('.swiper-container.desktop', {
     loop: true,
     pagination: {
-        el: '.swiper-pagination',
-    },
+      el: '.swiper-pagination.desktop',
+      clickable: true
+    }
   });
 </script>
 
+<script>
+  var Swipes = new Swiper('.swiper-container.mobile', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination.mobile',
+      clickable: true
+    }
+  });
+</script>

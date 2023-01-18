@@ -25,7 +25,7 @@
           <div class="audioplayer">
             <audio id="myAudio" preload="metadata">
               <source src="{{ section.settings.audio-url }}" type="audio/mpeg">
-              Your browser does not support the audio element.
+              {{ 'Your browser does not support the audio element.' | escape }}
             </audio>
 
             <div class="playbox">
@@ -64,8 +64,8 @@
 
         <div class="icon">
           <div class="info">
-            <span>[C]</span>
-            <span>Foundation</span>
+            <span>{{ '[C]' | escape }}</span>
+            <span>{{ 'Foundation' | escape }}</span>
           </div>
           <div class="image">
             {% render 'discs' %}

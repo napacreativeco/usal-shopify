@@ -1,11 +1,6 @@
 {
   "wrapper": "div#index.page-wrapper",
   "sections": {
-    "code": {
-      "type": "codeloop",
-      "settings": {
-      }
-    },
     "calendar": {
       "type": "module--calendar",
       "settings": {
@@ -44,7 +39,6 @@
     }
   },
   "order": [
-    "code",
     "calendar",
     "large-nav",
     "home-goods",

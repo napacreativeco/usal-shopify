@@ -1,95 +1,88 @@
 <div data-collection--goods class="collection">
 
-    <div class="topper">
-        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
-        <div>
-            {{ "today" | date: "%B %d, %Y" }}
-        </div>
+  <div class="topper">
+    <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+    <div>
+      {{ "today" | date: "%B %d, %Y" }}
     </div>
-    <header>
-        {% render 'navbar' %}
-        {% render 'navbar--mobile' %}
-    </header>
+  </div>
+  <header>
+    {% render 'navbar' %}
+    {% render 'navbar--mobile' %}
+  </header>
 
-    <div class="anime-line">&nbsp;</div>
+  <div class="anime-line">&nbsp;</div>
 
-    <ul class="loop--goods">
+  <ul class="loop--goods">
 
-        <li class="intro">
-            <div class="wrapper">
-                <h2>
-                    Introducing Usal Goods, printed & designed in Los Angeles, California.
-                </h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum quis dui vel auctor. Mauris sit amet consequat est, non ultrices magna. Etiam dapibus dui sit amet odio lacinia porttitor. Integer sit amet vestibulum felis, ac ullamcorper risus. Pellentesque vitae dictum justo, id sodales enim. Cras cursus felis ac tempus vehicula. Ut bibendum luctus libero, sed accumsan enim scelerisque vel. Sed porta consequat congue.
-                </p>
+    <li class="intro">
+      <div class="wrapper">
+        <h2>
+          {{ collection.metafields.categories.info_title }}
+        </h2>
+        <p>
+          {{ collection.metafields.categories.info_text }}
+        </p>
+      </div>
+    </li>
+
+    {% for product in collections.goods.products %}
+
+      <li data-name="{{ product.handle }}" class="loop-goods--item">
+        <div class="row">
+          <div class="counter"></div>
+
+          <div class="image" onclick="window.location='{{ product.url }}';">
+            <img src="{{ product.featured_image | img_url: '400x400' }}" />
+          </div>
+
+          <div class="details">
+            <div class="title">
+              <h3>
+                <a href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a>
+              </h3>
             </div>
-        </li>
+            <div class="pricing">
+              <div class="variants">
+                <a href="{{ product.url }}" title="{{ product.price }}">
+                  {{ product.variants.first.title }}-{{ product.variants.last.title }}
+                </a>
+              </div>
+              <div class="price">
+                <a href="{{ product.url }}" title="{{ product.price }}">{{ product.price | money_without_trailing_zeros }}</a>
+              </div>
+            </div>
+          </div>
 
-        {% for product in collections.goods.products %}
-            
-            <li data-name="{{ product.handle }}" class="loop-goods--item">
+        </div>
+      </li>
 
-                <div class="counter"></div>
-
-                <div class="image" onclick="window.location='{{ product.url }}';">
-                    <img src="{{ product.featured_image | image_url }}" />
-                </div>
-                
-                <div class="details">
-                    <div class="title">
-                        <h3>
-                            <a href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a>
-                        </h3>
-                    </div>
-                    <div class="pricing">
-                        <div class="variants">
-                            <a href="{{ product.url }}" title="{{ product.price }}">
-                                {{ product.variants.first.title }}-{{ product.variants.last.title }}
-                            </a>
-                        </div>
-                        <div class="price">
-                            <a href="{{ product.url }}" title="{{ product.price }}">{{ product.price | money_without_trailing_zeros }}</a>
-                        </div>
-                    </div>
-                </div>
-                
-                        
-            </li> 
-
-            <script>
-                console.log('{{ product | json }}')
-            </script>
-                   
-        {% endfor %}
-    </ul>
+    {% endfor %}
+  </ul>
 
 
 </div>
 
 <style>
-    footer,
-    footer a  {
-        color: var(--white) !important;
-    }
-    footer.desktop .row {
-        border-top: 2px solid var(--white);
-        border-bottom: 2px solid var(--white);
-    }
-    footer svg {
-        fill: var(--white) !important;
-    }
+  footer,
+  footer a {
+    color: var(--white) !important;
+  }
+  footer.desktop .row {
+    border-top: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+  }
+  footer svg {
+    fill: var(--white) !important;
+  }
 </style>
 
 <script>
-    var logoHolder = $('div[data-logo]');
-    logoHolder.html('<h1>{{ template.suffix | capitalize }}</h1>')
-    (function() {
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h1>      {{ template.suffix | capitalize }} </h1>')(function() {
 
-        $('body').css('background', '#191919');
+    $('body').css('background', '#191919');
 
 
-    }(jQuery))
+  }(jQuery))
 </script>
-
-

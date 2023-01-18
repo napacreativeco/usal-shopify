@@ -1,148 +1,145 @@
 <div data-blog--article class="article">
 
-    <div class="topper">
-        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
-        <div>
-            {{ "today" | date: "%B %d, %Y" }}
-        </div>
+  <div class="topper">
+    <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+    <div>
+      {{ "today" | date: "%B %d, %Y" }}
     </div>
-    <header>
-        {% render 'navbar' %}
-        {% render 'navbar--mobile' %}
-    </header>
+  </div>
+  <header>
+    {% render 'navbar' %}
+    {% render 'navbar--mobile' %}
+  </header>
 
-    <div class="anime-line">&nbsp;</div>
+  <div class="anime-line">&nbsp;</div>
 
 
-      {% paginate article.comments by 50 %}
+  {% paginate article.comments by 50 %}
 
-        <script>
-          console.log('{{ article }}');
-        </script>
-        <article class="blog-post">
+    <script>
+      console.log('{{ article }}');
+    </script>
+    <article class="blog-post">
 
-          {% comment %} Header {% endcomment %}
-          <div class="header">
-            <div class="row">
-              <div class="title">
-                <h1>"{{ article.title }}"</h1>
-              </div>
-              <div class="view-all">
-                <a href="/blogs/field-log/" title="View all">
-                  View All
-                </a>
-              </div>
-            </div>
+      {% comment %} Header {% endcomment %}
+      <div class="header">
+        <div class="row">
+          <div class="title">
+            <h1>{{ article.title }}</h1>
           </div>
+          <div class="view-all">
+            <a href="/blogs/field-log/" title="View all">
+              View All
+            </a>
+          </div>
+        </div>
+      </div>
 
-          {% comment %} Metadata {% endcomment %}
-          <div class="metadata">
-            <div class="row">
-              <div class="left">
-                {{ article.published_at | date: '%B %d, %Y' }}
-              </div>
-              <div class="right">
-                <div>Blog entry no. 
+      {% comment %} Metadata {% endcomment %}
+      <div class="metadata">
+        <div class="row">
+          <div class="left">
+            {{ article.published_at | date: '%B %d, %Y' }}
+          </div>
+          <div class="right">
+            <div>
+              <span class="label">Blog entry no.</span>
 
-                  {% assign entryNo = article.metafields.fieldlog.entry_number | times: 1 %}
-                  
-                  {% if entryNo < 10 %}
-                    00{{ article.metafields.fieldlog.entry_number }}
-                  {% elsif entryNo >= 10 %}
-                    0{{ article.metafields.fieldlog.entry_number }}
-                  {% elsif entryNo >= 100 %}
-                    {{ article.metafields.fieldlog.entry_number }}
-                  {% endif %}
+              {% assign entryNo = article.metafields.fieldlog.entry_number | times: 1 %}
+
+              {% if entryNo < 10 %}
+                00{{ article.metafields.fieldlog.entry_number }}
+              {% elsif entryNo >= 10 %}
+                0{{ article.metafields.fieldlog.entry_number }}
+              {% elsif entryNo >= 100 %}
+                {{ article.metafields.fieldlog.entry_number }}
+              {% endif %}
+            </div>
+            <div>{{ article.published_at | date: '%I:%M%P' }}
+              <span class="timezone">{{ article.published_at | date: '[%Z]' }}</span>
+            </div>
+            <div class="location">{{ article.metafields.fieldlog.location }}</div>
+          </div>
+        </div>
+      </div>
+
+      {% comment %} Post Content {% endcomment %}
+      <div class="post-content">
+        <div class="row">
+          <div class="gallery">
+
+            <div class="wrappy">
+              <div class="swiper-container">
+                <div class="swiper-wrapper">
+                  {% assign gallery = article.metafields.fieldlog.gallery.value %}
+                  {% for image in gallery %}
+                    <div class="swiper-slide" style="background: url('{{ image | image_url }}'); background-size: cover;"></div>
+                  {% endfor %}
                 </div>
-                <div>{{ article.published_at | date: '%I:%M%P [%Z]' }}</div>
-                <div>{{ article.metafields.fieldlog.location }}</div>
               </div>
             </div>
+
+            <div class="swiper-pagination"></div>
+
           </div>
-
-          {% comment %} Post Content {% endcomment %}
-          <div class="post-content">
-            <div class="row">
-              <div class="gallery">
-
-                    <div class="wrappy">              
-                      <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                          {% assign gallery = article.metafields.fieldlog.gallery.value %}
-                          {% for image in gallery %}
-                            <div class="swiper-slide" style="background: url('{{ image | image_url }}'); background-size: cover;"></div>
-                          {% endfor %}
-                        </div> 
-                      </div>
-                    </div>
-
-                    <div class="swiper-pagination"></div>
-               
-              </div>
-              <div class="text">
-                {{ article.content }}
-              </div>
-            </div>
-            <div class="fullwidth">
-              <div class="text text-cont">
-                {{ article.metafields.fieldlog.content_wide }}
-              </div>
-              <div class="author">
-                Written by {{ article.author }}
-              </div>
-            </div>
+          <div class="text">
+            {{ article.content }}
           </div>
+        </div>
+        <div class="fullwidth">
+          <div class="author">
+            Written by {{ article.author }}
+          </div>
+        </div>
+      </div>
 
 
-          
-        </article>
-        
+    </article>
 
 
-        {% if blog.next_article or blog.previous_article %}
-          {% if blog.next_article %}
-            {{ 'Next Post' | link_to: blog.next_article }}
-          {% endif %}    
-          {% if blog.previous_article %}
-            {{ 'Previous Post' | link_to: blog.previous_article }}
-          {% endif %}
-        {% endif %}
+    {% if blog.next_article or blog.previous_article %}
+      {% if blog.next_article %}
+        {{ 'Next Post' | link_to: blog.next_article }}
+      {% endif %}
+      {% if blog.previous_article %}
+        {{ 'Previous Post' | link_to: blog.previous_article }}
+      {% endif %}
+    {% endif %}
 
-      {% endpaginate %}
+  {% endpaginate %}
 
 </div>
 
 
 <style>
-    footer,
-    footer a  {
-        color: var(--white) !important;
-    }
-    footer.desktop .row {
-        border-top: 2px solid var(--white);
-        border-bottom: 2px solid var(--white);
-    }
-    footer svg {
-        fill: var(--white) !important;
-    }
+  footer,
+  footer a {
+    color: var(--white) !important;
+  }
+  footer.desktop .row {
+    border-top: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+  }
+  footer svg {
+    fill: var(--white) !important;
+  }
 </style>
 
 <script>
-    var logoHolder = $('div[data-logo]');
-    logoHolder.html('<h1>Field Log</h1>')
-    (function() {
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h1>Field Log</h1>')(function() {
 
-        $('body').css('background', '#191919');
+    $('body').css('background', '#191919');
 
 
-    }(jQuery))
+  }(jQuery))
 </script>
 
 <script>
-var Swipes = new Swiper('.swiper-container', {
-  loop: true,
-  pagination: {
-      el: '.swiper-pagination',
-  },
-});
+  var Swipes = new Swiper('.swiper-container', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination'
+    }
+  });
 </script>

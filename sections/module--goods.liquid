@@ -5,9 +5,7 @@
 
       <div class="title-block">
 
-        <h2 class="title">
-          {{ 'Goods' | escape }}
-        </h2>
+        <h2 class="title">{{ 'Goods' | escape }}</h2>
         <div class="links">
           <span>{{ '(Latest Goods)' | escape }}</span>
           <a href="/collections/goods" title="View all">
@@ -25,8 +23,8 @@
 
         <div class="icon">
           <div class="info">
-            <span>[A]</span>
-            <span>Balance</span>
+            <span>{{ '[A]' | escape }}</span>
+            <span>{{ 'Balance' | escape }}</span>
           </div>
           <div class="image">
             {% render 'circles' %}
@@ -50,7 +48,7 @@
             </a>
           </div>
           <div class="image">
-              <img onclick="window.location='{{ product.url }}';" src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">     
+              <img onclick="window.location='{{ product.url }}';" src="{{ product.featured_image | img_url: '700x' }}" alt="{{ product.featured_image.alt }}">     
           </div>
           <div class="info">
             <div class="title">
@@ -93,7 +91,7 @@
           </div>
           <div class="image">
             <a href="{{ product.url }}" title="{{ product.title }}">
-              <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt }}">
+              <img src="{{ product.featured_image | img_url: '700x' }}" alt="{{ product.featured_image.alt }}">
             </a>
           </div>
           <div class="info">

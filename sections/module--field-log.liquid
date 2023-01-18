@@ -1,8 +1,3 @@
-
-<div class="fieldlog-coordinates">
-    {% render 'fieldlog-coordinates' %}
-</div>
-
 <section data-module--field-log class="home--module">
 
     <div class="title-block">
@@ -29,7 +24,7 @@
                             <span>{{ article.published_at | date: '%D' }}</span>
                         </div>
 
-                        <div onclick="window.location='{{ article.url }}';" class="image" style="background: url('{{ article.image | img_url: 'medium' }}'); background-size: cover; background-position: center center;">          
+                        <div onclick="window.location='{{ article.url }}';" class="image" style="background: url('{{ article.image | img_url: '700x' }}'); background-size: cover; background-position: center center;">          
                         </div>
 
                      
@@ -40,7 +35,7 @@
                         </div>
 
                         <div class="link">
-                            <a href="{{ article.url }}" title="Full post">Full post</a>
+                            <a href="{{ article.url }}" title="Full post">{{ 'Full post' | escape }}</a>
                         </div>
                          
 
@@ -64,7 +59,7 @@
                             <span>{{ article.published_at | date: '%D' }}</span>
                         </div>
 
-                        <div class="image" style="background: url('{{ article.image | img_url: 'medium' }}'); background-size: cover; background-position: center center;">          
+                        <div class="image" style="background: url('{{ article.image | img_url: '700x' }}'); background-size: cover; background-position: center center;">          
                         </div>
 
                     
@@ -88,6 +83,8 @@
     </div>
 </section>
 
-<div class="footer-coordinates">
+
+<div class="fieldlog-coordinates">
+    {% render 'fieldlog-coordinates' %}
     {% render 'footer-coordinates' %}
 </div>

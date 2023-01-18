@@ -37,7 +37,7 @@
                 <h2 class="title">{{ 'Calendar' | escape }}</h2>
                 <div class="links flex justify-between">
                     <span>{{ '(Upcoming Events)' | escape }}</span>
-                    <a href="/apps/events/calendar/" title="View all">View All</a>
+                    <a href="/apps/events/calendar/" title="View all">{{ 'View All' | escape }}</a>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                                                     {% if product.first_available_variant.title %}
                                                         {{ product.first_available_variant.title }}
                                                     {% else %}
-                                                        TBD
+                                                        {{ 'TBD' | escape }}
                                                     {% endif %}
                                                 </div>
                                                 <div class="counter supply">

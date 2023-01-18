@@ -3,9 +3,9 @@
     <div>
       <span id="hamburger">Menu</span>
     </div>
-    <div data-logo--mobile class="flex justify-center">Usal
-      <span class="registered">&reg;</span>
-      Los Angeles, CA</div>
+    <div data-logo--mobile class="flex justify-center">
+      {% render 'mobile-logo-text' %}
+    </div>
     <div class="flex justify-right" data-cart-mobile>
       <a href="/cart">
         <span>Cart</span>
@@ -27,8 +27,7 @@
       {% render 'logo-simple' %}
     </div>
 
-
-    <nav role="navigation">
+    <nav class="modal-nav" role="navigation">
 
       <div class="flex flex-row justify-between" style="padding-bottom: 10px;">
         <div>{{ "today" | date: "%B %d" }}</div>
@@ -36,75 +35,68 @@
       </div>
 
       <ul>
-        <li>
-          <a href="/" title="Home">
-            <span class="counter">[1]</span>
-            <span class="link-text">Home</span>
-          </a>
-        </li>
-        <li>
-          <a href="/apps/events/calendar" title="Calendar">
-            <span class="counter">[2]</span>
-            <span class="link-text">Calendar</span>
-          </a>
-        </li>
-        <li>
-          <a href="/collections/goods" title="Goods">
-            <span class="counter">[3]</span>
-            <span class="link-text">Goods</span>
-          </a>
-        </li>
-        <li class="has-dropdown">
-          <a href="/collections/experiences" title="Experiences">
-            <span class="counter">[4]</span>
-            <span class="link-text">Experiences</span>
-          </a>
-          <ul class="modal-submenu">
-            <li>
-              <a href="/collections/escape" title="Escape">
-                <span class="link-text">Escape</span>
-              </a>
-            </li>
-            <li>
-              <a href="/collections/learn" title="Learn">
-                <span class="link-text">Learn</span>
-              </a>
-            </li>
-            <li>
-              <a href="/collections/retreats" title="Retreats">
-                <span class="link-text">Retreats</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="">
-          <a href="#" title="Connect">
-            <span class="counter">[6]</span>
-            Connect
-          </a>
-          <ul class="modal-submenu">
-            <li>
-              <a href="/pages/mission" title="Mission">Mission</a>
-            </li>
-            <li>
-              <a href="/blogs/field-log" title="Field Log">Field Log</a>
-            </li>
-            <li>
-              <a href="/pages/contact" title="Contact">Contact</a>
-            </li>
-            <li>
-              <a href="/pages/hear" title="Hear">Hear</a>
-            </li>
-            <li>
-              <a href="/pages/see" title="See">See</a>
-            </li>
-            <li>
-              <a href="/pages/mailing-list" title="Mailing List">Mailing List</a>
-            </li>
-          </ul>
-        </li>
+        {% assign counter = 0 %}
+
+        {% for link in linklists.main-menu.links %}
+
+          {% assign counter = counter | plus: 1 %}
+
+          {% assign has_sub_menu = false %}
+          {% assign has_sub_categories = false %}
+          {% assign parent_link_active = false %}
+          {% assign child_list_handle = link.title | handle %}
+
+          {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+            {% assign has_sub_menu = true %}
+
+            {% for l in linklists[child_list_handle].links %}
+              {% if handle != blank and handle == l.object.handle %}
+                {% assign parent_link_active = true %}
+              {% elsif page_title == l.title %}
+                {% assign parent_link_active = true %}
+              {% endif %}
+            {% endfor %}
+
+          {% endif %}
+
+          <li class="nav-link {% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
+            <a href="{{ link.url }}">
+              <span class="counter">[{{ counter }}]</span>
+              {{ link.title }}{% if has_sub_menu or has_sub_categories %}
+                <i class="plus">+</i>
+              {% endif %}
+            </a>
+
+            {% comment %}
+              * Sub-Menu
+            {% endcomment %}
+            {% if has_sub_menu or has_sub_categories %}
+              <ul class="submenu">
+                {% if has_sub_menu %}
+                  {% for l in linklists[child_list_handle].links %}
+                    <li class="{% if l.active %} active{% endif %}">
+                      <a class="dropdown-link" href="{{ l.url }}">
+                        <span>{{ l.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+
+                {% elsif has_sub_categories %}
+
+                  {% for tag in link.object.all_tags %}
+                    <li class="{% if current_tags contains tag %} active{% endif %}">
+                      <a href="{{ link.url }}/{{ tag | handle }}">{{ tag }}</a>
+                    </li>
+                  {% endfor %}
+
+                {% endif %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
       </ul>
     </nav>
+
   </div>
 </div>
 
