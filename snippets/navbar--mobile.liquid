@@ -7,6 +7,14 @@
       {% render 'mobile-logo-text' %}
     </div>
     <div class="flex justify-right" data-cart-mobile>
+      {%- liquid          
+          assign countCart = cart.item_count
+          if cart.item_count < 10 and cart.item_count > 1
+              assign countCart = cart.item_count | prepend: '0'
+          elsif cart.item_count == 0  
+              assign countCart = cart.item_count 
+          endif
+      -%}
       <a href="/cart">
         <span>Cart</span>
         ({{ countCart }})
