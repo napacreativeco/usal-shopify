@@ -27,8 +27,8 @@
     "home-hear": {
       "type": "module--hear",
       "settings": {
-        "audio-description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        "audio-title": "Mountain System Researcg Episode 15",
+        "audio-description": "Usal foraging wizard Ethan DeLorenzo takes over our monthly NTS show with a selection of records dedicated to his new life at Salmon Creek Farm, an old commune near the Mendocino coast of California. A sonic ode to communes past and present.",
+        "audio-title": "Mountain System Research: Ethan DeLorenzo",
         "audio-url": "https:\/\/samplelib.com\/lib\/preview\/mp3\/sample-3s.mp3"
       }
     },
