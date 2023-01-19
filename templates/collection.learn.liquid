@@ -14,7 +14,7 @@
   <div class="view-all--container">
     <div class="row">
       <div>
-        <span>Happening this month</span>
+        <span>{{ 'Upcoming Events' | escape }}</span>
       </div>
       <div>
         <a href="#" title="View all">[View All]</a>
@@ -157,7 +157,7 @@
 
 <script>
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h1>   {{ template.suffix | capitalize }} </h1>')(function() {
+  logoHolder.html('<h1>    {{ template.suffix | capitalize }} </h1>')(function() {
     $('body').css('background', 'var(--salmon)');
     $('.learn-item--date').on('mouseenter', function() {
       $(this).siblings('.tooltip').css({display: 'flex', marginLeft: '0px', opacity: '1'})
