@@ -27,7 +27,7 @@
     itemtype="http://schema.org/Product">
 
     <div class="topper">
-      <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+      <div class="topper-logo">{% render 'mobile-logo-text' %}</div>
       <div>
         {{ "today" | date: "%B %d, %Y" }}
       </div>
@@ -251,7 +251,7 @@
   * Page Title
   */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title">                      {{ template.suffix | capitalize }} </h2>');
+  logoHolder.html('<h2 class="page-title">                       {{ template.suffix | capitalize }} </h2>');
 
   (function() {
     $('body').css('background', '#191919');
@@ -264,40 +264,40 @@
 {% endcomment %}<script type="text/javascript" charset="utf-8">
   jQuery(function() { 
   /*
-                                                 * Variants
-                                                 */
-                                            
-                                                // Set underline
-                                                jQuery('.date-radio').first().addClass('active');
-                                            
-                                                // Check first variant
-                                                var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
+                                                   * Variants
+                                                   */
+                                              
+                                                  // Set underline
+                                                  jQuery('.date-radio').first().addClass('active');
+                                              
+                                                  // Check first variant
+                                                  var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
   jQuery(firstVariantID).attr('checked', true);
-                                            
-                                                // Click Function
-                                                jQuery("input.date-radio").click(function() {
-                                            
-                                                  jQuery('.date-radio').removeClass('active');
-                                                  jQuery(this).addClass('active');
-                                            
-                                                });
-                                            
-                                              });</script>
+                                              
+                                                  // Click Function
+                                                  jQuery("input.date-radio").click(function() {
+                                              
+                                                    jQuery('.date-radio').removeClass('active');
+                                                    jQuery(this).addClass('active');
+                                              
+                                                  });
+                                              
+                                                });</script>
 
 
 <script type="text/javascript" charset="utf-8">
   //Quantity Inputs
   jQuery('.field').first().addClass('active-button');
-                            
-                              jQuery('.field').on('click', function(e) {
-                            
-                                jQuery('.field').removeClass('active-button');
-                                
-                                jQuery(this).addClass('active-button');
-                            
-                                jQuery(this).children('input').attr('checked');
-                            
-                              });</script>
+                              
+                                jQuery('.field').on('click', function(e) {
+                              
+                                  jQuery('.field').removeClass('active-button');
+                                  
+                                  jQuery(this).addClass('active-button');
+                              
+                                  jQuery(this).children('input').attr('checked');
+                              
+                                });</script>
 
 <script>
   /*
@@ -356,7 +356,7 @@
     });
 
     // Add label if only one product option and it isn't 'Title'.
-    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                      {{ product.options.first }} </label>');{% endif %}
+    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                       {{ product.options.first }} </label>');{% endif %}
   });
   Shopify.Image.preload({{ product.images | json }}, 'grande');
   Shopify.Image.preload({{ product.images | json }}, '1024x1024');

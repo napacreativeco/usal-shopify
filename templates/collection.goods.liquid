@@ -1,7 +1,7 @@
 <div data-collection--goods class="collection">
 
   <div class="topper">
-    <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+    <div class="topper-logo">{% render 'mobile-logo-text' %}</div>
     <div>
       {{ "today" | date: "%B %d, %Y" }}
     </div>
@@ -79,7 +79,7 @@
 
 <script>
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h1>      {{ template.suffix | capitalize }} </h1>')(function() {
+  logoHolder.html('<h1>       {{ template.suffix | capitalize }} </h1>')(function() {
 
     $('body').css('background', '#191919');
 

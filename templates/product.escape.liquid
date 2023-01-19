@@ -20,7 +20,7 @@
 
     {% comment %} Header {% endcomment %}
     <div class="topper">
-        <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+        <div class="topper-logo">{% render 'mobile-logo-text' %}</div>
         <div>
             {{ "today" | date: "%B %d, %Y" }}
         </div>
@@ -45,7 +45,7 @@
             <div class=" title-variant"></div>
 
             <div class="view-all">
-              <a href="/collections/learn" title="View All">{{ '[View All]' | escape }} </a>
+              <a href="/collections/escape" title="View All">{{ '[View All]' | escape }} </a>
             </div>
           </div>
 

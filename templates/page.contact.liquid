@@ -1,7 +1,7 @@
 <div data-page--contact class="page">
 
   <div class="topper">
-    <div>Usal&reg; &nbsp; &nbsp; &nbsp; &nbsp; Los Angeles, California</div>
+    <div class="topper-logo">{% render 'mobile-logo-text' %}</div>
     <div>
       {{ "today" | date: "%B %d, %Y" }}
     </div>
@@ -55,7 +55,7 @@
 
 <script>
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h1>  {{ page.title }} </h1>')(function() {
+  logoHolder.html('<h1>   {{ page.title }} </h1>')(function() {
 
     $('body').css('background', '#191919');
 

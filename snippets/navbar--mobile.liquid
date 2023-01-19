@@ -76,7 +76,7 @@
                   {% for l in linklists[child_list_handle].links %}
                     <li class="{% if l.active %} active{% endif %}">
                       <a class="dropdown-link" href="{{ l.url }}">
-                        <span>{{ l.title }}</span>
+                        <span>{{ '/' | escape }}{{ l.title }}</span>
                       </a>
                     </li>
                   {% endfor %}
