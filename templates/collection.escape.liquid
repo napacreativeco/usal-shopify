@@ -76,8 +76,8 @@
 
         </div>
 
-        <div class="{{ collection.handle }} image-container collection-image" style="background: url('{{ collection.featured_image | img_url: '1024x' }}'); background-size: cover;">&nbsp;</div>
-        <div class="{{ product.handle }} image-container product-image" style="background: url('{{ product.featured_image | img_url: '1024x' }}'); background-size: cover;">&nbsp;</div>
+
+        <div class="{{ product.handle }} image-container--item product-image" style="background: url('{{ product.featured_image | img_url: '1024x' }}'); background-size: cover;">&nbsp;</div>
 
         <script>
           (function($) {
@@ -96,7 +96,7 @@
               $(k).css({opacity: '1', height: '100%'});
             });
             $('.loop-learn--item').on('mouseleave', function(e) {
-              $('.image-container').css({opacity: '0', height: '0px'});
+              $('.image-container--item').css({opacity: '0', height: '0px'});
             });
 
           })(jQuery);
@@ -105,6 +105,7 @@
       {% endfor %}
     </div>
 
+    <div class="{{ collection.handle }} image-container--collection" style="background: url('{{ collection.featured_image | img_url: '1024x' }}'); background-size: cover;">&nbsp;</div>
   </div>
 
 
@@ -159,7 +160,7 @@
 
 <script>
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h1>            {{ template.suffix | capitalize }} </h1>')(function() {
+  logoHolder.html('<h1>                {{ template.suffix | capitalize }} </h1>')(function() {
     $('body').css('background', 'var(--blue)');
     $('body').addClass('collection--escape');
     $('.learn-item--date').on('mouseenter', function() {

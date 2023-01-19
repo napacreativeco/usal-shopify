@@ -97,31 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         }).then(function (result) {
             onSuccess(result.schedule); // DONT DELETE
-
-            // James
-            // Try to use .indexOf() to find the index number of the matching Product Id.
-            // or
-            // Try matching them by Title string?
-            var eventTitle = document.querySelector('.fc-event-title');
-            var listEventTitle = document.querySelector('.fc-list-event');
-            var eventHolder = [];
-            var prodOBJ = [];
-            for (let i = 0; i < result.events.length; i++) {
-              eventHolder.push(result.events[i]);                
-            }
-       
-
-            fetch(window.Shopify.routes.root + 'products.json')
-            .then(response => response.json())
-            .then(data => {
-              var prodData = JSON.stringify(data);
-
-            });
-
-            jQuery('.fc-list-event').append('<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
-            eventTitle.insertAdjacentHTML('afterend', '<span class="day-event--price">$' + eventHolder[2].min_price + '</p>'); 
-            
-
         }).catch(function (error) {
             console.log('[Evey] Failed to fetch events', error);
             onFailure(error);
