@@ -5,7 +5,7 @@
         <span class="modal-close">[<u>close</u>]</span>
         <div class="top">
             <div class="title">
-                <span>Sign up to our Newsletter</span>
+                <span>{{ 'Sign up to join the community' | escape }}</span>
             </div>
             <div class="date">
                 <div>{{ "today" | date: "%B %d, %Y" }}</div>
@@ -21,7 +21,7 @@
 
                 <div class="mc-field-group email">
                   <label for="mce-EMAIL">
-                    Email
+                    {{ 'Email' | escape }}
                   </label>
                   <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
                   <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
@@ -29,7 +29,7 @@
 
                 <div class="mc-field-group">
                   <label for="mce-NAME">
-                    Name
+                    {{ 'Name' | escape }}
                   </label>
                   <input type="text" value="" name="NAME" class="required" id="mce-NAME" required>
                   <span id="mce-NAME-HELPERTEXT" class="helper_text"></span>
@@ -37,7 +37,7 @@
 
                 <div class="mc-field-group size1of2">
                   <label for="mce-PHONE">
-                    Phone
+                    {{ 'Phone' | escape }}
                   </label>
                   <input type="text" name="PHONE" class="required" value="" id="mce-PHONE" required>
                   <span id="mce-PHONE-HELPERTEXT" class="helper_text"></span>
@@ -50,7 +50,7 @@
 
                 <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                 <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_95b1d5fd8d201f77c6ee5505c_6907775198" tabindex="-1" value=""></div>
-                <div class="clear"><input type="submit" value="/Submit" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                <div class="clear"><input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
               
               </div>
             </form>

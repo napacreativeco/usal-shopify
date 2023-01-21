@@ -1072,10 +1072,10 @@ tr:last-child {
 .fc .fc-list-table th {
     padding: 0;
 }
-.fc .fc-list-day-cushion,
+/* .fc .fc-list-day-cushion,
 .fc .fc-list-table td {
     padding: 8px 14px;
-}
+} */
 .fc .fc-list-day-cushion:after {
     content: "";
     clear: both;

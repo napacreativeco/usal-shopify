@@ -15,7 +15,7 @@
         "id": "business-address",
         "type": "text",
         "label": "Business Address",
-        "default": "1111 Example Ave. Los Angeles, California"
+        "default": "3021 Rowena Ave Los Angeles CA 90039"
       }
     ]
   }

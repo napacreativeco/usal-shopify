@@ -460,7 +460,7 @@
 
 <script>
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h1>Field Log</h1>')(function() {
+  logoHolder.html('<h1>   {{ '/' | escape }}{{ 'Field Log' | escape }} </h1>')(function() {
 
     $('body').css('background', '#191919');
 

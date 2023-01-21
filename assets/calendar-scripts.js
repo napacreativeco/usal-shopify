@@ -1,4 +1,23 @@
 
+    jQuery( document ).ready(function() {
+        jQuery('body').addClass('calendar-page');
+    });
+
+  var countHolder = document.getElementById('thecount');
+  var countHolderMobile = document.getElementById('thecount-mobile');
+  var cartContents = fetch(window.Shopify.routes.root + 'cart.js').then(response => response.json()).then(data => {
+    var datax = JSON.stringify(data.item_count);
+    
+    if ( datax == '0' ) {
+      countHolder.innerHTML = datax;
+      countHolderMobile.innerHTML = datax;
+    } else {
+      countHolder.innerHTML = datax.padStart(2, '0');
+      countHolderMobile.innerHTML = datax.padStart(2, '0');
+    }
+    
+  });
+
 function offsetLocalTimezone (d) {
     return new Date(d.getTime() + d.getTimezoneOffset() * 60000);
 }
