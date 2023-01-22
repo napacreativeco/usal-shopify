@@ -33,10 +33,10 @@
 
     <div class="product">
 
-      {% comment %} 1  {% endcomment %}
+      {% comment %} 
+      // SECTION ONE ===================================================================================
+      {% endcomment %}
       <section class="section-one">
-
-        <div class="anime-line" style="background: var(--black);">&nbsp;</div>
 
         {% comment %} Title Cell: Mobile {% endcomment %}
         <div class="cell title-cell mobile">
@@ -89,7 +89,7 @@
                 <h1>{{ product.title }}</h1>
               </div>
               <div class="view-all">
-                [<a href="" title="View All">View All</a>]
+                [<a href="/collections/escape" title="View All">{{ 'View All' | escape }}</a>]
               </div>
             </div>
 
@@ -99,42 +99,48 @@
             
           </div>
 
-          {% comment %} Details {% endcomment %}
+          {% comment %}
+          * Details ===
+          {% endcomment %}
           <div class="cell details-cell">
+
             <div class="top">
-              <span class="product-details--label">Event Details</span>
+              <h4 class="product-details--label">
+                {{ 'Event Details' | escape }}
+              </h4>
             </div>
+
             <div class="bottom">
               <div class="row">
                 <div class="where">
-                  <h4 class="product-details--label">Where</h4>
+                  <h4 class="product-details--label">{{ 'Where' | escape }}</h4>
                   <span class="where--text product-detail"></span>
                 </div>
                 <div class="guided-by">
-                  <h4 class="product-details--label">Guided by</h4>
+                  <h4 class="product-details--label">{{ 'Guided by' | escape }}</h4>
                   <span class="guided-by--text">
                     {% assign variant = product.selected_or_first_available_variant %}
                     <span class="product-detail product-price" itemprop="price">{{ variant.metafields.learn.guide_name }}</span>
                   </span>
                 </div>
                 <div class="time">
-                  <h4 class="product-details--label">Time</h4>
+                  <h4 class="product-details--label">{{ 'Time' | escape }}</h4>
                   <span class="product-detail time--text"></span>               
                 </div>
               </div>
               <div class="row">
                 <div class="when">
-                  <h4 class="product-details--label">When</h4>
+                  <h4 class="product-details--label">{{ 'When' | escape }}</h4>
                   <span class="when--text product-detail">
                     {{ event.start_at | date: "%B %e, %Y" }}
                   </span>
                 </div>
                 <div class="capacity">
-                  <h4 class="product-details--label">Spots Left</h4>
+                  <h4 class="product-details--label">{{ 'Spots Left' | escape }}</h4>
                     <div class="capacity-text product-detail"></div>
                 </div>
                 <div class="length">
-                  <h4 class="product-details--label">Intensity</h4>
+                  <h4 class="product-details--label">{{ 'Intensity' | escape }}</h4>
                   <span class="intensity--text product-detail">
                     {% assign val = product.metafields.escape.intensity.value %}
                     {% if val == 1 %}
@@ -165,29 +171,34 @@
             </div>
           </div>
 
-          {% comment %} Pricing {% endcomment %}
+          {% comment %}
+          * Pricing
+          {% endcomment %}
           <div class="cell pricing-cell">
             <div class="inner">
 
               <div class="top">
                 <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                  <span>Ticket Price: </span>
+                  <h4 class="product-details--label">{{ 'Ticket Price: ' | escape }}</h4>
                     {% assign variant = product.selected_or_first_available_variant %}
                     <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
                 </div>
-                <div class="sold-out--status">
-                  Open
+                <div class="sold-out--status product-details--label">
+                  {{ 'Open' | escape }}
                 </div>
               </div>
 
               <div class="quantity">
                 <div>
-                  <span class="label">Quantity</span>
+                  <span class="label product-details--label">{{ 'Quantity:' | escape }}</span>
                 </div>
                 <input type="number" name="quantity" min="1" value="1">
               </div>
 
 
+              {% comment %} 
+              // BOTTOM =======
+              {% endcomment %}
               <div class="bottom">
 
                 <div class="variants">
@@ -242,10 +253,10 @@
         </div>
       </section>
 
-      {% comment %} SECTION 2  {% endcomment %}
+      {% comment %}
+      // SECTION 2 ======================================================================
+      {% endcomment %}
       <section class="section-two">
-
-        <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
 
         <div class="row">
 
@@ -266,23 +277,26 @@
           </div>
           {% comment %} Guide {% endcomment %}
           <div class="cell info-cell">
+
             <div class="list-item guide-bio">
               <div class="top">
-                <span class="title about--guide-name product-details--label">About                     
+                <h4 class="about--guide-name product-details--label">{{ 'About' | escape }}                     
                   {% assign variant = product.selected_or_first_available_variant %}
                   <span>{{ variant.metafields.learn.guide_name }}</span>
-                </span>
+                </h4>
               </div>
               <div class="bottom">
                 <div class="guide-bio--content">
-                  [GUIDE_BIO]
+                  {% comment %} Replaced by Guide Bio {% endcomment %}
                 </div>
               </div>
             </div>
-            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+            
             <div class="list-item objective">
               <div class="top">
-                <span class="title product-details--label">Objective</span>
+                <h4 class="product-details--label">
+                  {{ 'Objective' | escape }}
+                </h4>
               </div>
               <div class="bottom">
                 <p>
@@ -290,10 +304,12 @@
                 </p>
               </div>
             </div>
-            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+            
             <div class="list-item whats-included">
               <div class="top">
-                <span class="title product-details--label">What's<br />included</span>
+                <h4 class="product-details--label">
+                  {{ "What's included" | escape }}
+                </h4>
               </div>
               <div class="bottom">
                 <ul data-whats-included>
@@ -304,10 +320,12 @@
                 </ul>
               </div>
             </div>
-            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+            
             <div class="list-item what-to-bring">
               <div class="top">
-                <span class="title product-details--label">What<br /> to bring</span>
+                <h4 class="product-details--label">
+                  {{ 'What to bring' | escape }}
+                </h4>
               </div>
               <div class="bottom">
                 <ul data-what-to-bring>
@@ -318,6 +336,7 @@
                 </ul>
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -335,10 +354,10 @@
    * Page Title
    */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title">{{ template.suffix | capitalize }}</h2>');
+  logoHolder.html('<h2 class="page-title">{{ '/Escape' | escape }}</h2>');
 
   (function() {
-    $('body').css('background', '#B78268');
+    $('body').css('background', 'var(--blue)');
     $('body').addClass('escape-product');
   }(jQuery));
 </script>
@@ -549,7 +568,7 @@ RADIO BUTTON FUNCTIONS
 <script>
 
     var logoHolder = $('div[data-logo]');
-    logoHolder.html('<h1>{{ template.suffix | capitalize }}</h1>')
+    logoHolder.html('<h1>/{{ template.suffix | capitalize }}</h1>')
     (function() {
         $('body').css('background', '#2F5B9E');
         $('.learn-item--date').on('mouseenter', function() {

@@ -59,39 +59,24 @@
           </div>
 
         </div>
+
+        {% comment %} 
+        * TOP ===========================================================
+        {% endcomment %}
         <div class="details">
           <div class="top">
+
+            {% comment %} Title {% endcomment %}
             <div class="title desktop">
               <h1>
                 {{ product.title }}
               </h1>
             </div>
-            <div>
-              <ul class="variants-list">
-                {% for variant in product.variants %}
 
-                  <li class="switch-field" data-link="{{ variant.id }}">
-
-                    <input
-                      class="date-radio"
-                      type="radio"
-                      data-price="{{ variant.price | money_without_trailing_zeros }}"
-                      id="{{ variant.id }}"
-                      value="{{ variant.id }}"
-                      name="id"
-                      {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
-
-                    <label class="label" for="{{ variant.id }}">
-                      {{ variant.title }}
-                    </label>
-
-                  </li>
-
-                {% endfor %}
-              </ul>
-            </div>
+            {% comment %} 
+            * Add To Cart
+            {% endcomment %}
             <div class="add-to-cart">
-
               <div id="product-add">
                 <input
                   type="submit"
@@ -99,9 +84,13 @@
                   id="add"
                   value="{{ add_to_cart | escape }}">
               </div>
-
             </div>
+
           </div>
+
+          {% comment %}
+          * BOTTOM ========================================================
+          {% endcomment %}
           <div class="bottom">
             <div class="title-price-details">
               <div class="title mobile">
@@ -111,7 +100,11 @@
                 {{ product.price | money_without_trailing_zeros }}
               </div>
               <div class="price-details">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante viverra, scelerisque libero sit amet, gravida neque. Aenean aliquet in libero nec vestibulum. Aliquam cursus lacus ac diam suscipit elementum. Vivamus id consectetur dui. Aenean quis metus posuere, pharetra eros in, suscipit magna.</p>
+                {% if product.description != '' %}
+                  <p>{{ product.description }}</p>
+                {% else %}
+                  <p>{{ 'Usal goods are designed and printed in Los Angeles, California. Produced with high quality, comfortable garments. Made for the Usal community and their adventures, with love. Shop our latest collection now.' | escape }}</p>
+                {% endif %}
               </div>
             </div>
 
@@ -133,107 +126,138 @@
 
             </div>
 
-            <div class="quantity">
-              <div>
-                <span class="title">Quantity:</span>
+            <div class="cell">
+              {% comment %} Quantity {% endcomment %}
+              <div class="quantity">
+                <div class="title">
+                  <span>{{ 'Quantity:' | escape }}</span>
+                </div>
+
+                <div class="quantity-list switch-field">
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-1"
+                    name="quantity"
+                    min="1"
+                    value="1"
+                    checked="checked">
+                  <label for="quantity-1">01</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-2"
+                    name="quantity"
+                    min="2"
+                    value="2">
+                  <label for="quantity-2">02</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-3"
+                    name="quantity"
+                    min="3"
+                    value="3">
+                  <label for="quantity-3">03</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-4"
+                    name="quantity"
+                    min="4"
+                    value="4">
+                  <label for="quantity-4">04</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-5"
+                    name="quantity"
+                    min="5"
+                    value="5">
+                  <label for="quantity-5">05</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-6"
+                    name="quantity"
+                    min="6"
+                    value="6">
+                  <label for="quantity-6">06</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-7"
+                    name="quantity"
+                    min="7"
+                    value="7">
+                  <label for="quantity-7">07</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-8"
+                    name="quantity"
+                    min="8"
+                    value="8">
+                  <label for="quantity-8">08</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-9"
+                    name="quantity"
+                    min="9"
+                    value="9">
+                  <label for="quantity-9">09</label>
+
+                  <input
+                    class="quantity-input"
+                    type="radio"
+                    id="quantity-10"
+                    name="quantity"
+                    min="10"
+                    value="10">
+                  <label for="quantity-10">10</label>
+
+                </div>
               </div>
 
+              {% comment %} Variants {% endcomment %}
+              <div class="sizes">
 
-              <div class="quantity-list switch-field">
+                <div class="title">
+                  <span>{{ 'Size:' | escape }}</span>
+                </div>
 
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-1"
-                  name="quantity"
-                  min="1"
-                  value="1"
-                  checked="checked">
-                <label for="quantity-1">01</label>
+                <div class="variants-list switch-field">
+                  {% for variant in product.variants %}
 
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-2"
-                  name="quantity"
-                  min="2"
-                  value="2">
-                <label for="quantity-2">02</label>
+                      <input
+                        class="date-radio"
+                        type="radio"
+                        data-price="{{ variant.price | money_without_trailing_zeros }}"
+                        id="{{ variant.id }}"
+                        value="{{ variant.id }}"
+                        name="id"
+                        {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
 
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-3"
-                  name="quantity"
-                  min="3"
-                  value="3">
-                <label for="quantity-3">03</label>
+                      <label class="label" for="{{ variant.id }}">
+                        {{ variant.title }}
+                      </label>
 
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-4"
-                  name="quantity"
-                  min="4"
-                  value="4">
-                <label for="quantity-4">04</label>
-
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-5"
-                  name="quantity"
-                  min="5"
-                  value="5">
-                <label for="quantity-5">05</label>
-
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-6"
-                  name="quantity"
-                  min="6"
-                  value="6">
-                <label for="quantity-6">06</label>
-
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-7"
-                  name="quantity"
-                  min="7"
-                  value="7">
-                <label for="quantity-7">07</label>
-
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-8"
-                  name="quantity"
-                  min="8"
-                  value="8">
-                <label for="quantity-8">08</label>
-
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-9"
-                  name="quantity"
-                  min="9"
-                  value="9">
-                <label for="quantity-9">09</label>
-
-                <input
-                  class="quantity-input"
-                  type="radio"
-                  id="quantity-10"
-                  name="quantity"
-                  min="10"
-                  value="10">
-                <label for="quantity-10">10</label>
+                  {% endfor %}
+                </div>
 
               </div>
+
             </div>
+
           </div>
         </div>
       </div>
@@ -251,7 +275,7 @@
   * Page Title
   */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title">                       {{ template.suffix | capitalize }} </h2>');
+  logoHolder.html('<h2 class="page-title">/{{ template.suffix | capitalize }} </h2>');
 
   (function() {
     $('body').css('background', '#191919');
@@ -302,7 +326,7 @@
 <script>
   /*
   * Variant Selection
-  */
+  */    
   var selectCallback = function(variant, selector) {
     if (variant) { // Swap image.
       if (variant.featured_image) {

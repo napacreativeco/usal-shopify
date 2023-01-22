@@ -48,10 +48,10 @@
             <div>
                <div class="calendar-grid">  
 
-                        {% for product in collections.all.products %}
+                        {% for product in collections.all.products limit: 12 %}
 
                             {% case product.type %}
-                                {% when 'Event' %}
+                                {% when 'Event'  %}
                                     
                                     {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
                                     {% if event %}

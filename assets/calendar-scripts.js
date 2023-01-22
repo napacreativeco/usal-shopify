@@ -1,8 +1,3 @@
-
-    jQuery( document ).ready(function() {
-        jQuery('body').addClass('calendar-page');
-    });
-
   var countHolder = document.getElementById('thecount');
   var countHolderMobile = document.getElementById('thecount-mobile');
   var cartContents = fetch(window.Shopify.routes.root + 'cart.js').then(response => response.json()).then(data => {

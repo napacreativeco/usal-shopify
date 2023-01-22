@@ -43,8 +43,6 @@
       {% comment %} 1  {% endcomment %}
       <section class="section-one">
 
-        <div class="anime-line" style="background: var(--black);">&nbsp;</div>
-
         {% comment %} Title Cell: Mobile {% endcomment %}
         <div class="cell title-cell mobile">
 
@@ -108,43 +106,56 @@
 
           {% comment %} Details {% endcomment %}
           <div class="cell details-cell">
+
             <div class="top">
-              <span class="product-details--label">Event Details</span>
+              <span class="product-details--label">{{ 'Event Details' | escape }}</span>
             </div>
+
             <div class="bottom">
               <div class="row">
+
                 <div class="where">
-                  <h4 class="product-details--label">Where</h4>
+                  <h4 class="product-details--label">{{ 'Where' | escape }}</h4>
                   <span class="where--text product-detail"></span>
                 </div>
+
                 <div class="guided-by">
-                  <h4 class="product-details--label">Guided by</h4>
+                  <h4 class="product-details--label">{{ 'Guided by' | escape }}</h4>
                   <span class="guided-by--text">
                     {% assign variant = product.selected_or_first_available_variant %}
                     <span class="product-detail product-price" itemprop="price">{{ variant.metafields.learn.guide_name }}</span>
                   </span>
                 </div>
+
                 <div class="time">
-                  <h4 class="product-details--label">Time</h4>
+                  <h4 class="product-details--label">{{ 'Time' | escape }}</h4>
                   <span class="product-detail time--text"></span>
                 </div>
+
               </div>
+
               <div class="row">
+
                 <div class="when">
-                  <h4 class="product-details--label">When</h4>
+                  <h4 class="product-details--label">{{ 'When' | escape }}</h4>
                   <span class="when--text product-detail">
                     {{ event.start_at | date: "%B %e, %Y" }}
                   </span>
                 </div>
+
                 <div class="capacity">
-                  <h4 class="product-details--label">Spots Left</h4>
+                  <h4 class="product-details--label">{{ 'Spots Left' | escape }}</h4>
                   <div class="capacity-text product-detail"></div>
                 </div>
+
                 <div class="length">
-                  <h4 class="product-details--label">Length</h4>
+                  <h4 class="product-details--label">{{ 'Length' | escape }}</h4>
                   <span class="length--text product-detail"></span>
                 </div>
+
               </div>
+
+
             </div>
           </div>
 
@@ -158,19 +169,18 @@
                   itemprop="offers"
                   itemscope
                   itemtype="http://schema.org/Offer">
-                  <span>Ticket Price:
-                  </span>
+                  <h4 class="product-details--label">{{ 'Ticket Price:' | escape }}</h4>
                   {% assign variant = product.selected_or_first_available_variant %}
                   <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
                 </div>
-                <div class="sold-out--status">
-                  Open
+                <div class="sold-out--status product-details--label">
+                  {{ 'Open' | escape }}
                 </div>
               </div>
 
               <div class="quantity">
                 <div>
-                  <span class="label">Quantity</span>
+                  <h4 class="label product-details--label">{{ 'Quantity:' | escape }}</h4>
                 </div>
                 <input
                   type="number"
@@ -179,12 +189,12 @@
                   value="1">
               </div>
 
+              {% comment %}
+                VARIANT RADIO BUTTONS ===
+              {% endcomment %}
               <div class="bottom">
 
                 <div class="variants">
-                  {% comment %}
-                    VARIANT RADIO BUTTONS
-                  {% endcomment %}
 
                   <ul class="variants-list">
                     {% for variant in product.variants %}
@@ -242,8 +252,6 @@
       {% comment %} SECTION 2  {% endcomment %}
       <section class="section-two">
 
-        <div class="anime-line" style="background: var(--black); margin: 10px 0;">&nbsp;</div>
-
         <div class="row">
 
           {% comment %} Slideshow {% endcomment %}
@@ -260,25 +268,28 @@
             </div>
             <div class="swiper-pagination desktop"></div>
           </div>
+
           {% comment %} Guide {% endcomment %}
           <div class="cell info-cell">
+
             <div class="list-item">
               <div class="top">
-                <span class="title about--guide-name product-details--label">About
+                <h4 class="about--guide-name product-details--label">
                   {% assign variant = product.selected_or_first_available_variant %}
-                  <span>{{ variant.metafields.learn.guide_name }}</span>
-                </span>
+                  <span>{{ 'About' | escape }} {{ variant.metafields.learn.guide_name }}</span>
+                </h4>
               </div>
               <div class="bottom">
-                <div class="guide-bio--content">
-                  [GUIDE_BIO]
+                <div class="guide-bio--content">{% comment %} Replaced by Guide Bio {% endcomment %}
                 </div>
               </div>
             </div>
-            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+
             <div class="list-item">
               <div class="top">
-                <span class="title product-details--label">Objective</span>
+                <h4 class="product-details--label">
+                  {{ 'Objective' | escape }}
+                </h4>
               </div>
               <div class="bottom">
                 <p>
@@ -286,10 +297,12 @@
                 </p>
               </div>
             </div>
-            <div class="anime-line" style="background: var(--black);">&nbsp;</div>
+
             <div class="list-item">
               <div class="top">
-                <span class="title product-details--label">What's<br/>included</span>
+                <h4 class="product-details--label">
+                  {{ "What's included" | escape }}
+                </h4>
               </div>
               <div class="bottom">
                 <ul data-whats-included>
@@ -300,6 +313,7 @@
                 </ul>
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -317,10 +331,10 @@
   * Page Title
   */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title">       {{ template.suffix | capitalize }} </h2>');
+  logoHolder.html('<h2 class="page-title">/           {{ template.suffix | capitalize }} </h2>');
 
   (function() {
-    $('body').css('background', '#B78268');
+    $('body').css('background', 'var(--salmon)');
     $('body').addClass('learn-product');
   }(jQuery));
 </script>
@@ -330,95 +344,45 @@
 {% endcomment %}<script type="text/javascript" charset="utf-8">
   jQuery(function() { 
   var first_variant_title = jQuery("input[checked='checked'] > label").text();
-                  var first_variant_price = jQuery("ul li input[type='radio']:checked").attr("data-price");
-                  var first_variant_compare_at_price = jQuery("ul li input[type='radio']:checked").attr("data-compare-at-price") || ''; 
-              
-                  jQuery(".product-price").html(first_variant_price);
-                  jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
+                                        var first_variant_price = jQuery("ul li input[type='radio']:checked").attr("data-price");
+                                        var first_variant_compare_at_price = jQuery("ul li input[type='radio']:checked").attr("data-compare-at-price") || ''; 
+                                    
+                                        jQuery(".product-price").html(first_variant_price);
+                                        jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
   jQuery(".price-field del").html(first_variant_compare_at_price);
-              
-                  /* 
-                   * Initial Hydration
-                   */
-                  var variant_google_maps_url = jQuery('.date-radio').attr("data-google-maps");
-                  var variant_location = jQuery(this).attr("data-location");
-                  var variant_date = jQuery(this).attr("data-date");
-                  var variant_guide_bio = jQuery(this).attr("data-guide-bio");
-                  var variant_guide = jQuery(this).attr("data-guide-name");
-                  var variant_cap = jQuery(this).attr("data-capacity");
-                  var variant_id = jQuery(this).attr("id");
-                  var variant_price = jQuery(this).attr("data-price");
-                  var variant_start_time = jQuery(this).attr("data-start-time");
-                  var variant_end_time = jQuery(this).attr("data-end-time");
-                  var variant_duration = jQuery(this).attr("data-duration");
-                  var variant_title = jQuery(this).closest('li').children("label").text();{% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                                    
+                                        /* 
+                                         * Initial Hydration
+                                         */
+                                        var variant_google_maps_url = jQuery('.date-radio').attr("data-google-maps");
+                                        var variant_location = jQuery(this).attr("data-location");
+                                        var variant_date = jQuery(this).attr("data-date");
+                                        var variant_guide_bio = jQuery(this).attr("data-guide-bio");
+                                        var variant_guide = jQuery(this).attr("data-guide-name");
+                                        var variant_cap = jQuery(this).attr("data-capacity");
+                                        var variant_id = jQuery(this).attr("id");
+                                        var variant_price = jQuery(this).attr("data-price");
+                                        var variant_start_time = jQuery(this).attr("data-start-time");
+                                        var variant_end_time = jQuery(this).attr("data-end-time");
+                                        var variant_duration = jQuery(this).attr("data-duration");
+                                        var variant_title = jQuery(this).closest('li').children("label").text();{% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
   {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
   // Check first variant
   var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
   jQuery(firstVariantID).attr('checked', true);
-              
-                  // Title 
-                  jQuery(".title-variant").html('{{ variant.title }}');
-  // Location
-                  jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
-  // Date
-                  jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
-  // Time
-                  jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
-  // Capacity
-                  jQuery('.capacity-text').html('{{ variant.inventory_quantity }}'); 
-  if (jQuery('.capacity-text').text() == '0') {
-                    jQuery('.sold-out--status').html('SOLD OUT');
-                    jQuery('#product-add').css({
-                      borderBottom: '0px'
-                    })
-                    jQuery('input#add').css({
-                      textDecoration: 'line-through',
-                      pointerEvents: 'none'
-                    })
-                  } else {
-                    jQuery('.sold-out--status').html('OPEN');
-                  }
-              
-                  // Guide
-                  jQuery('.guided-by--text').html(variant_guide);
-                  jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
-  // Guide Bio
-                  jQuery('.guide-bio--content').html('{{ variant.metafields.learn.guide_bio }}');
-  // Price
-                  jQuery(".product-price").html(variant_price);
-                  // Length
-                  jQuery(".length--text").html('{{ endHour | minus: startHour }} hrs');
-  /*
-                   * Click Function
-                   */
-                  jQuery("input[type='radio']").click(function() {
-              
-                    var variant_google_maps_url = jQuery(this).attr("data-google-maps");
-                    var variant_location = jQuery(this).attr("data-location");
-                    var variant_date = jQuery(this).attr("data-date");
-                    var variant_guide_bio = jQuery(this).attr("data-guide-bio");
-                    var variant_guide = jQuery(this).attr("data-guide-name");
-                    var variant_cap = jQuery(this).attr("data-capacity");
-                    var variant_id = jQuery(this).attr("id");
-                    var variant_price = jQuery(this).attr("data-price");
-                    var variant_start_time = jQuery(this).attr("data-start-time");
-                    var variant_end_time = jQuery(this).attr("data-end-time");
-                    var variant_duration = jQuery(this).attr("data-duration");
-                    var variant_title = jQuery(this).closest('li').children("label").text();
-                    
+                                    
                     // Title 
-                    jQuery(".title-variant").html(variant_title);
-                    // Location
-                    jQuery('.where--text').html(variant_location).wrap('<a href="'+ variant_google_maps_url +'" title="Location"></a>');
+                    jQuery(".title-variant").html('{{ variant.title }}');
+  // Location
+                    jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
   // Date
-                    jQuery('.when--text').html(variant_date);
-                    // Time
-                    jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
-                    // Capacity
-                    jQuery('.capacity-text').html(variant_cap);
-                    if (jQuery('.capacity-text').text() == '0') {
+                    jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
+  // Time
+                    jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
+  // Capacity
+                    jQuery('.capacity-text').html('{{ variant.inventory_quantity }}'); 
+  if (jQuery('.capacity-text').text() == '0') {
                       jQuery('.sold-out--status').html('SOLD OUT');
                       jQuery('#product-add').css({
                         borderBottom: '0px'
@@ -429,27 +393,80 @@
                       });
                     } else {
                       jQuery('.sold-out--status').html('OPEN');
-                      jQuery('#product-add').css({
-                        borderBottom: 'var(--border-black)'
-                      });
-                      jQuery('input#add').css({
-                        textDecoration: 'none',
-                        pointerEvents: 'auto'
-                      });
                     }
-                    
+                                    
                     // Guide
                     jQuery('.guided-by--text').html(variant_guide);
-                    jQuery('.about--guide-name').html('About ' + variant_guide);
-                    // Guide Bio
-                    jQuery('.guide-bio--content').html(variant_guide_bio);
-                    // Price
+                    jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
+  // Guide Bio
+                    jQuery('.guide-bio--content').html('<p>{{ variant.metafields.learn.guide_bio }}</p>');
+  // Price
                     jQuery(".product-price").html(variant_price);
                     // Length
-                    jQuery(".length--text").html(variant_duration + ' hrs');
-                    
-                    var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
-                    jQuery(".price-field del").html(variant_compare_at_price);
+                    jQuery(".length--text").html('{{ endHour | minus: startHour }} hrs');
+  /*
+                    * Click Function
+                    */
+                    jQuery("input[type='radio']").click(function() {
+              
+                        var variant_google_maps_url = jQuery(this).attr("data-google-maps");
+                        var variant_location = jQuery(this).attr("data-location");
+                        var variant_date = jQuery(this).attr("data-date");
+                        var variant_guide_bio = jQuery(this).attr("data-guide-bio");
+                        var variant_guide = jQuery(this).attr("data-guide-name");
+                        var variant_cap = jQuery(this).attr("data-capacity");
+                        var variant_id = jQuery(this).attr("id");
+                        var variant_price = jQuery(this).attr("data-price");
+                        var variant_start_time = jQuery(this).attr("data-start-time");
+                        var variant_end_time = jQuery(this).attr("data-end-time");
+                        var variant_duration = jQuery(this).attr("data-duration");
+                        var variant_title = jQuery(this).closest('li').children("label").text();
+                                          
+                        // Title 
+                        jQuery(".title-variant").html(variant_title);
+            
+                        // Location
+                        jQuery('.where--text').html(variant_location).wrap('<a href="'+ variant_google_maps_url +'" title="Location"></a>');
+  // Date
+                        jQuery('.when--text').html(variant_date);
+            
+                        // Time
+                        jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
+                        
+                        // Capacity
+                        jQuery('.capacity-text').html(variant_cap);
+                        if (jQuery('.capacity-text').text() == '0') {
+                          jQuery('.sold-out--status').html('SOLD OUT');
+                          jQuery('#product-add').css({
+                            borderBottom: '0px'
+                          });
+                          jQuery('input#add').css({
+                            textDecoration: 'line-through',
+                            pointerEvents: 'none'
+                          });
+                        } else {
+                          jQuery('.sold-out--status').html('OPEN');
+                          jQuery('#product-add').css({
+                            borderBottom: 'var(--border-black)'
+                          });
+                          jQuery('input#add').css({
+                            textDecoration: 'none',
+                            pointerEvents: 'auto'
+                          });
+                        }
+                                          
+                        // Guide
+                        jQuery('.guided-by--text').html(variant_guide);
+                        jQuery('.about--guide-name').html('About ' + variant_guide);
+                        // Guide Bio
+                        jQuery('.guide-bio--content').html('<p>' + variant_guide_bio + '</p>');
+  // Price
+                        jQuery(".product-price").html(variant_price);
+                        // Length
+                        jQuery(".length--text").html(variant_duration + ' hrs');
+                        
+                        var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
+                        jQuery(".price-field del").html(variant_compare_at_price);
               
                   });
                 });</script>
@@ -513,7 +530,7 @@
     });
 
     // Add label if only one product option and it isn't 'Title'.
-    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>       {{ product.options.first }} </label>');{% endif %}
+    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                  {{ product.options.first }} </label>');{% endif %}
   });
   Shopify.Image.preload({{ product.images | json }}, 'grande');
   Shopify.Image.preload({{ product.images | json }}, '1024x1024');
