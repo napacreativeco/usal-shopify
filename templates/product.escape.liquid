@@ -190,7 +190,7 @@
 
               <div class="quantity">
                 <div>
-                  <span class="label product-details--label">{{ 'Quantity:' | escape }}</span>
+                  <h4 class="label product-details--label">{{ 'Quantity:' | escape }}</h4>
                 </div>
                 <input type="number" name="quantity" min="1" value="1">
               </div>
@@ -202,41 +202,37 @@
               <div class="bottom">
 
                 <div class="variants">
-                  {% comment %}
-                    VARIANT RADIO BUTTONS
-                  {% endcomment %}
+                  <ul class="variants-list">
+                    {% for variant in product.variants %}
 
-                    <ul class="variants-list">
-                      {% for variant in product.variants %}
+                      <li class="switch-field" data-link="{{ variant.id }}">
+                        {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                        {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
-                        <li class="switch-field" data-link="{{ variant.id }}">
-                          {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
-                          {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+                          <input
+                            class="date-radio"
+                            type="radio"
+                            data-google-maps="{{ variant.metafields.learn.location_google_url }}"
+                            data-date="{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}"
+                            data-start-time="{{ variant.metafields.learn.event_start_time | date: '%I:%M %P' }}" 
+                            data-end-time="{{ variant.metafields.learn.event_end_time | date: '%I:%M %P' }}"                   
+                            data-location="{{ variant.metafields.learn.location_address }}"
+                            data-guide-name="{{ variant.metafields.learn.guide_name }}"
+                            data-guide-bio="{{ variant.metafields.learn.guide_bio }}"
+                            data-capacity="{{ variant.inventory_quantity }}"
+                            data-price="{{ variant.price | money_without_trailing_zeros }}"
+                            id="{{ variant.id }}" value="{{ variant.id }}"
+                            name="id"
+                            {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
+                          
+                          <label for="{{ variant.id }}">
+                            {{ variant.title }}
+                          </label>
 
-                            <input
-                              class="date-radio"
-                              type="radio"
-                              data-google-maps="{{ variant.metafields.learn.location_google_url }}"
-                              data-date="{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}"
-                              data-start-time="{{ variant.metafields.learn.event_start_time | date: '%I:%M %P' }}" 
-                              data-end-time="{{ variant.metafields.learn.event_end_time | date: '%I:%M %P' }}"                   
-                              data-location="{{ variant.metafields.learn.location_address }}"
-                              data-guide-name="{{ variant.metafields.learn.guide_name }}"
-                              data-guide-bio="{{ variant.metafields.learn.guide_bio }}"
-                              data-capacity="{{ variant.inventory_quantity }}"
-                              data-price="{{ variant.price | money_without_trailing_zeros }}"
-                              id="{{ variant.id }}" value="{{ variant.id }}"
-                              name="id"
-                              {% if found_available_variant == false %}{% assign found_available_variant = true %} checked="checked"{% endif %} />
-                            
-                            <label for="{{ variant.id }}">
-                              {{ variant.title }}
-                            </label>
+                      </li>
 
-                        </li>
-
-                      {% endfor %}
-                    </ul>
+                    {% endfor %}
+                  </ul>
                 </div>
 
                 <div class="add-to-cart">
@@ -246,9 +242,13 @@
                 </div>
 
               </div>
+              {% comment %} / BOTTOM {% endcomment %}
 
             </div>
+            {% comment %} / INNER {% endcomment %}
+            
           </div>
+          {% comment %} / CELL {% endcomment %}
         
         </div>
       </section>
@@ -278,7 +278,7 @@
           {% comment %} Guide {% endcomment %}
           <div class="cell info-cell">
 
-            <div class="list-item guide-bio">
+            <div class="list-item">
               <div class="top">
                 <h4 class="about--guide-name product-details--label">{{ 'About' | escape }}                     
                   {% assign variant = product.selected_or_first_available_variant %}
@@ -287,7 +287,7 @@
               </div>
               <div class="bottom">
                 <div class="guide-bio--content">
-                  {% comment %} Replaced by Guide Bio {% endcomment %}
+                  <p>{{ variant.metafields.learn.guide_bio }}</p>
                 </div>
               </div>
             </div>
@@ -486,10 +486,13 @@ RADIO BUTTON FUNCTIONS
       // Guide
       jQuery('.guided-by--text').html(variant_guide);
       jQuery('.about--guide-name').html('About ' + variant_guide);
+
       // Guide Bio
       jQuery('.guide-bio--content').html('<p>' + variant_guide_bio + '</p>');
+
       // Price
       jQuery(".product-price").html(variant_price);
+
       // Length
       jQuery(".length--text").html(variant_duration + ' hrs');
       
@@ -566,29 +569,28 @@ RADIO BUTTON FUNCTIONS
 </script>
 
 <script>
+  var logoHolder = $('div[data-logo]');
+  logoHolder.html('<h1>/{{ template.suffix | capitalize }}</h1>')
+  (function() {
+      $('body').css('background', '#2F5B9E');
+      $('.learn-item--date').on('mouseenter', function() {
+          $(this).siblings('.tooltip').css({
+              display: 'flex',
+              marginLeft: '0px',
+              opacity: '1'
+          })
+      });
+      $('.learn-item--date').on('mouseleave', function() {
+          $('.tooltip').css({
+              marginLeft: '20px',
+              opacity: '0'
+          });
+          setTimeout(function() {
+              $('.tooltip').css('display', 'none');
+          }, 1000);
+      });
 
-    var logoHolder = $('div[data-logo]');
-    logoHolder.html('<h1>/{{ template.suffix | capitalize }}</h1>')
-    (function() {
-        $('body').css('background', '#2F5B9E');
-        $('.learn-item--date').on('mouseenter', function() {
-            $(this).siblings('.tooltip').css({
-                display: 'flex',
-                marginLeft: '0px',
-                opacity: '1'
-            })
-        });
-        $('.learn-item--date').on('mouseleave', function() {
-            $('.tooltip').css({
-                marginLeft: '20px',
-                opacity: '0'
-            });
-            setTimeout(function() {
-                $('.tooltip').css('display', 'none');
-            }, 1000);
-        });
-
-    }(jQuery))
+  }(jQuery))
 </script>
 
 
