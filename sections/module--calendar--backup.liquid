@@ -1,0 +1,117 @@
+
+    
+
+    <div class="video-container--mobile">
+
+        {% render 'logo' %}
+
+        <div class="enter-button">
+            <a href="#calendar-module" title="Enter">Enter</a>
+        </div>
+
+        <video id="background-video" autoplay="true" loop muted playsinline preload="metadata" class="background">
+            <source class="mp4" format="mp4" src="{{ section.settings.videomp4 }}">
+            <source class="webm" src="{{ section.settings.videowebm }}"> 
+        </video>
+    </div>
+
+<section data-module--calendar class="home--module">
+    
+    <div class="video-container">
+        <video id="background-video" autoplay="true" loop muted playsinline preload="metadata" class="background">
+            <source class="mp4" format="mp4" src="{{ section.settings.videomp4 }}">
+            <source class="webm" src="{{ section.settings.videowebm }}"> 
+        </video>
+    </div>
+
+    <header>
+      {% render 'navbar' %}
+      {% render 'navbar--mobile' %}
+    </header>
+
+    {% comment %}
+        TO DO:
+        -- Sort Calendar Items in chronological order by variant.value
+    {% endcomment %}
+    <div id="calendar-module" class="module-content calendar-container">
+
+        <div class="row">
+
+            <div class="title-block">
+                <h2 class="title">{{ 'Calendar' | escape }}</h2>
+                <div class="links flex justify-between">
+                    <span>{{ '(Upcoming Events)' | escape }}</span>
+                    <a href="/apps/events/calendar/" title="View all">{{ 'View All' | escape }}</a>
+                </div>
+            </div>
+
+            <div>
+               <div class="calendar-grid">  
+
+                        {% for product in collections.all.products limit: 12 %}
+
+                            {% case product.type %}
+                                {% when 'Event'  %}
+                                    
+                                    {% assign event = product.metafields.evey.event.value | default: product.metafields.evey.event %}
+                                    {% if event %}
+
+                                        <div class="calendar-item">
+                                            <div class="top">
+                                                <div class="date">
+                                                    {% if product.first_available_variant.title %}
+                                                        {{ product.first_available_variant.title }}
+                                                    {% else %}
+                                                        {{ 'TBD' | escape }}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="counter supply">
+                                                </div>
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="title">
+                                                    <a class="supply" href={{ product.url }}>{{ event.title }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                    
+                                </li>
+                            {% endcase %}
+                        {% endfor %}
+                        
+               </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+{% schema %}
+{
+  "name": "Module - Calendar",
+  "tag": "section",
+  "class": "module",
+  "settings": [
+      {
+        "type": "text",
+        "id": "videomp4",
+        "label": "Video - MP4",
+        "default": "https://cdn.shopify.com/videos/c/o/v/92f84f13071649a3b1227f03a3db7f2d.mp4"
+      },
+      {
+        "type": "text",
+        "id": "videowebm",
+        "label": "Video - WEBM",
+        "default": "https://cdn.shopify.com/videos/c/o/v/2bccb1c0406a4040848e8a23956e942d.webm" 
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+    var video = document.getElementById('background-video');
+    video.play();
+</script>
+

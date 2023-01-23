@@ -31,7 +31,7 @@
                             <h3>{{ post.title }}</h3>
                             <div class="video">
 
-                                <div class="thumbnail" style="background: url('{{ post.image | image_url: '700x' }}'); background-size: cover; background-position: center;">&nbsp;</div>
+                                <div class="thumbnail" style="background: url('{{ shop.domain  }}/{{ post.image | image_url: '700x' }}'); background-size: cover; background-position: center;">&nbsp;</div>
 
                                 {% assign see_video = post.metafields.see.video_file.value %}
                                 <video controls>
