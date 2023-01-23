@@ -79,7 +79,7 @@
               * Sub-Menu
             {% endcomment %}
             {% if has_sub_menu or has_sub_categories %}
-              <ul class="submenu">
+              <ul class="modal-submenu">
                 {% if has_sub_menu %}
                   {% for l in linklists[child_list_handle].links %}
                     <li class="{% if l.active %} active{% endif %}">
