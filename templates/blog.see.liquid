@@ -29,7 +29,10 @@
               <h3>{{ post.title }}</h3>
               <div class="video">
 
-                <img src="{{ post.image | img_url: '700x'}}" alt="{{ post.title }}" />
+                <img
+                  class="video-thumbnail"
+                  src="{{ post.image | img_url: '700x'}}"
+                  alt="{{ post.title }}" />
                 <div class="play_button">
                   {% render 'play-button' %}
                 </div>
@@ -98,4 +101,15 @@
     $('body').css('background', 'var(--black)');
 
   }(jQuery))
+</script>
+
+
+<script>
+  jQuery('.play_button').on('click', function(e) {
+
+    jQuery(this).siblings('.video-thumbnail').hide();
+    jQuery(this).hide();
+    jQuery(this).siblings('video').get(0).play();
+
+  })
 </script>
