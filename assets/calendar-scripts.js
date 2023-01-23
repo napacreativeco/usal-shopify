@@ -117,12 +117,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     },
+    //
+    // CLICK FUNCTION
+    //
     eventClick: function (info) {
-      info.jsEvent.preventDefault();
+
+
+      // info.jsEvent.preventDefault();
+
       // Source
       var sourceEvent = info.event.extendedProps.source_data;
+
       // Title
       eventInfoTitleElement.innerHTML = info.event.title;
+
       // Date
       const dateString = new Intl.DateTimeFormat(Shopify.locale, {
         weekday: 'long',
@@ -132,14 +140,19 @@ document.addEventListener('DOMContentLoaded', function() {
         ...(info.event.allDay ? {} : { hour: 'numeric', minute: '2-digit' }),
       }).format(offsetLocalTimezone(new Date(info.event.start)));
       eventInfoDateElement.innerHTML = dateString;
+
       // Location
       eventInfoLocationElement.innerHTML = sourceEvent.location_url ? `<a href=${sourceEvent.location_url}>${sourceEvent.location}</a>` : sourceEvent.location;
+      
       // Pricing
       eventInfoPriceElement.innerHTML = sourceEvent.min_price == sourceEvent.max_price ? sourceEvent.min_price_formatted : `${sourceEvent.min_price_formatted} - ${sourceEvent.max_price_formatted}`;
+      
       // Sold Out
       eventInfoSoldoutElement.style.display = sourceEvent.is_available ? 'none' : 'block';
+
       // Event Link
       eventInfoViewButton.setAttribute('href', info.event.url);
+
       // Image
       if (sourceEvent.image_url) {
         eventInfoImageElement.querySelector('img').setAttribute('src', sourceEvent.image_url);
@@ -149,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // Show Pop-up
-      eventInfoElement.style.visibility = 'visible';
+      // eventInfoElement.style.visibility = 'visible';
 
       // Wait before allowing closeout
       setTimeout(function () { eventInfoCloseDelay = false; }, 500);
