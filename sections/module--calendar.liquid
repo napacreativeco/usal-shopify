@@ -3,7 +3,7 @@
   {% render 'logo' %}
 
   <div class="enter-button">
-    <a href="#calendar-module" title="Enter">Enter</a>
+    <a href="#headertarget" title="Enter">{{ 'Enter' | escape }}</a>
   </div>
 
   <video
@@ -41,7 +41,7 @@
     </video>
   </div>
 
-  <header>
+  <header id="headertarget">
     {% render 'navbar' %}
     {% render 'navbar--mobile' %}
   </header>

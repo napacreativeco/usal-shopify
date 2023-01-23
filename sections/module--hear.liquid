@@ -23,10 +23,28 @@
           </p>
 
           <div class="audioplayer">
+
+
             <audio id="myAudio" preload="metadata">
-              <source src="{{ section.settings.audio-url }}" type="audio/mpeg">
+              <source
+                class="audio-source"
+                src=""
+                type="audio/mpeg">
               {{ 'Your browser does not support the audio element.' | escape }}
             </audio>
+
+            <script>
+              var input = "https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/view?usp=share_link";
+
+              var res = input.match(/https:\/\/drive.google.com\/file\/d\/([a-zA-Z0-9_]+)\//)
+
+              var googleDriveFileID = res;
+
+              var player = document.querySelector('.audio-source');
+
+              player.setAttribute('src', googleDriveFileID);
+            </script>
+
 
             <div class="playbox">
               <button
