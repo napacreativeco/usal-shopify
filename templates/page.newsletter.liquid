@@ -1,4 +1,4 @@
-<div data-page--default class="page">
+<div data-page--default class="page newsletter-page">
 
   <div class="topper">
     <div class="topper-logo">{% render 'mobile-logo-text' %}</div>
@@ -11,7 +11,15 @@
     {% render 'navbar--mobile' %}
   </header>
 
-  <div class="anime-line">&nbsp;</div>
+
+    <div class="top">
+        <div class="title">
+            <span>{{ 'Sign up to join the community' | escape }}</span>
+        </div>
+        <div class="date">
+            <div>{{ "today" | date: "%B %d, %Y" }}</div>
+        </div>
+    </div>
 
   <div class="content">
 
@@ -20,18 +28,9 @@
     </div>
 
 
-    <div class="modal-content">
+    <div class="newsletter-content">
         <div class="row">
-            <span class="modal-close">[<u>close</u>]</span>
-            <div class="top">
-                <div class="title">
-                    <span>{{ 'Sign up to join the community' | escape }}</span>
-                </div>
-                <div class="date">
-                    <div>{{ "today" | date: "%B %d, %Y" }}</div>
-                </div>
-            </div>
-    
+            
             <div class="form-content">
     
               <!-- Begin Mailchimp Signup Form -->
@@ -117,7 +116,7 @@
   var logoHolder = $('div[data-logo]');
   logoHolder.html('<h1>{{ '/' | escape }}{{ page.title | capitalize }}</h1>')(function() {
 
-    $('body').css('background', '#191919');
+    $('body').css('background', 'var(--black)');
 
 
   }(jQuery))

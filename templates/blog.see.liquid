@@ -1,4 +1,6 @@
-<div data-page--see class="page">
+
+
+<div data-blog--see class="page see-blog">
 
     <div class="topper">
         <div class="topper-logo">{% render 'mobile-logo-text' %}</div>
@@ -11,12 +13,12 @@
         {% render 'navbar--mobile' %}
     </header>
 
+     
     <div class="content">
 
         <div class="video-archive">
-            <div class="row">
-                <div class="date-column">2022</div>
 
+            <div class="row">
                 <ul class="video-loop">
                     {% for post in blogs.see-tv.articles %}
 
@@ -29,21 +31,22 @@
                             <h3>{{ post.title }}</h3>
                             <div class="video">
                                 {% assign see_video = post.metafields.see.video_file.value %}
+
                                 <video controls>
                                     {% for video in see_video %}
+                                    
+                                        {% for url in video.sources %}
+                                            {% case url.height %}
+                                                {% when 1080 %}
+                                                    {% case url.format %}
+                                                        {% when 'mp4' %}
+                                                            <source data-format="{{ url.format }}" class="url mp4" src="{{ url.url }}">
+                                                        {% when 'm3u8' %}
+                                                            <source data-format="{{ url.format }}" class="url webm" src="{{ url.url }}">
+                                                    {% endcase %}
+                                            {% endcase %}
+                                        {% endfor %}
                                         
-                                            {% for url in video.sources %}
-                                                {% case url.height %}
-                                                    {% when 1080 %}
-                                                        {% case url.format %}
-                                                            {% when 'mp4' %}
-                                                                <source data-format="{{ url.format }}" class="url mp4" src="{{ url.url }}">
-                                                            {% when 'm3u8' %}
-                                                                <source data-format="{{ url.format }}" class="url webm" src="{{ url.url }}">
-                                                        {% endcase %}
-                                                {% endcase %}
-                                            {% endfor %}
-                                        </video>
                                     {% endfor %}
                                 </video>
 
@@ -53,13 +56,6 @@
                 </ul>
             </div>
 
-            <div class="row">
-                <div class="date-column">2021</div>
-
-                <div class="video-loop">
-
-                </div>
-            </div>
         </div>
 
     </div>
