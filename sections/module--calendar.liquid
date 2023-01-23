@@ -58,10 +58,13 @@
         </div>
       </div>
 
-      <div>
+      {% assign counter = 0 %}
+        <div>
         {% comment %} DESKTOP GRID {% endcomment %}
         <div class="calendar-grid desktop">
           {% for product in collections.all-events.products limit: 12 %}
+
+            {% assign counter = counter | plus: 1 %}
 
             <div class="calendar-item">
               <div class="top">
@@ -76,7 +79,15 @@
                     {{ 'TBD' | escape }}
                   {% endif %}
                 </div>
-                <div class="counter supply"></div>
+                <div class="counter supply">
+                  {% if counter < 10 %}
+                    {{ '[00' | escape }}{{ counter }}{{ ']' | escape }}
+                  {% elsif counter >= 10 %}
+                    {{ '[0' | escape }}{{ counter }}{{ ']' | escape }}
+                  {% else %}
+                    {{ '[' | escape }}{{ counter }}{{ ']' | escape }}
+                  {% endif %}
+                </div>
               </div>
               <div class="bottom">
                 <div class="title">
