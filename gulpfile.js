@@ -25,7 +25,19 @@ function buildStyles() {
 exports.buildStyles = buildStyles;
 
 function watch() {
-    gulp.watch(['./src/css/*.scss', './src/*.scss', './src/css/home/*.scss', './src/css/calendar/*.scss', './src/css/collections/*.scss', './src/css/blog/*.scss', './src/css/products/*/*.scss', './src/css/products/*.scss', './src/css/pages/*.scss', './src/css/cart/*.scss'], buildStyles);
+    gulp.watch([
+      './src/css/*.scss',
+      './src/*.scss',
+      './src/css/home/*.scss',
+      './src/css/calendar/*.scss',
+      './src/css/collections/*.scss',
+      './src/css/blog/*.scss',
+      './src/css/products/*/*.scss',
+      './src/css/products/*.scss',
+      './src/css/pages/*.scss',
+      './src/css/cart/*.scss',
+      './src/css/footer/*.scss'
+    ], buildStyles);
 }
 exports.watch = watch;
 

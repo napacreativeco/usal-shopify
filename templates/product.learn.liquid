@@ -347,7 +347,7 @@
   * Page Title
   */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title">/              {{ template.suffix | capitalize }} </h2>');
+  logoHolder.html('<h2 class="page-title">{{ '/Learn' | escape }}</h2>');
 
   (function() {
     $('body').css('background', 'var(--salmon)');
@@ -515,6 +515,7 @@
   */
   var selectCallback = function(variant, selector) {
     if (variant) { // Swap image.
+
       if (variant.featured_image) {
         var newImage = variant.featured_image; // New image object.
         var mainImageDomEl = jQuery('.product-photo-container img')[0]; // DOM element of main image we need to swap.
