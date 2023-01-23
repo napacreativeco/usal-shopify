@@ -117,9 +117,9 @@
                 <div class="detail where">
                   <h4 class="product-details--label">{{ 'Where' | escape }}</h4>
          
-                    <a class="product-detail" href="{{ variant.metafields.learn.location_google_url }}" title="Location">
-                      {{ variant.metafields.learn.location_address | escape }}
-                    </a>
+                  <a class="product-detail where--text" href="{{ variant.metafields.learn.location_google_url }}" title="Location">
+                    {{ variant.metafields.learn.location_address }}
+                  </a>
                 
                 </div>
 
@@ -158,7 +158,11 @@
 
                 <div class="detail length">
                   <h4 class="product-details--label">{{ 'Length' | escape }}</h4>
-                  <span class="length--text product-detail"></span>
+                  <span class="length--text product-detail">
+                    {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                    {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+                    {{ endHour | minus: startHour }} hrs
+                  </span>
                 </div>
 
               </div>
@@ -366,7 +370,9 @@
     jQuery(".price-field del").html(first_variant_compare_at_price);
                                           
     /* 
+    *
     * Initial Hydration
+    *
     */
     var variant_google_maps_url = jQuery('.date-radio').attr("data-google-maps");
     var variant_location = jQuery(this).attr("data-location");
@@ -379,7 +385,9 @@
     var variant_start_time = jQuery(this).attr("data-start-time");
     var variant_end_time = jQuery(this).attr("data-end-time");
     var variant_duration = jQuery(this).attr("data-duration");
-    var variant_title = jQuery(this).closest('li').children("label").text();{% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+    var variant_title = jQuery(this).closest('li').children("label").text();
+
+    {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
     {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
     // Check first variant
@@ -428,7 +436,9 @@
     jQuery(".length--text").html('{{ endHour | minus: startHour }} hrs');
 
     /*
+    *
     * Click Function
+    *
     */
     jQuery("input[type='radio']").click(function() {
                   

@@ -112,10 +112,14 @@
 
             <div class="bottom">
               <div class="row">
+
                 <div class="where">
                   <h4 class="product-details--label">{{ 'Where' | escape }}</h4>
-                  <span class="where--text product-detail"></span>
+                  <a class="product-detail where--text" href="{{ variant.metafields.learn.location_google_url }}" title="Location">
+                    {{ variant.metafields.learn.location_address }}
+                  </a>
                 </div>
+
                 <div class="guided-by">
                   <h4 class="product-details--label">{{ 'Guided by' | escape }}</h4>
                   <span class="guided-by--text">
@@ -123,22 +127,31 @@
                     <span class="product-detail product-price" itemprop="price">{{ variant.metafields.learn.guide_name }}</span>
                   </span>
                 </div>
+
                 <div class="time">
                   <h4 class="product-details--label">{{ 'Time' | escape }}</h4>
-                  <span class="product-detail time--text"></span>               
+                  <span class="product-detail time--text">
+                    {{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}
+                  </span>               
                 </div>
               </div>
+
               <div class="row">
+
                 <div class="when">
                   <h4 class="product-details--label">{{ 'When' | escape }}</h4>
                   <span class="when--text product-detail">
                     {{ event.start_at | date: "%B %e, %Y" }}
                   </span>
                 </div>
+
                 <div class="capacity">
                   <h4 class="product-details--label">{{ 'Spots Left' | escape }}</h4>
-                    <div class="capacity-text product-detail"></div>
+                  <span class="capacity-text product-detail">
+                    {{ variant.inventory_quantity }}
+                  </span>
                 </div>
+
                 <div class="length">
                   <h4 class="product-details--label">{{ 'Intensity' | escape }}</h4>
                   <span class="intensity--text product-detail">
@@ -167,7 +180,9 @@
                     </ul>
                   </span>
                 </div>
+
               </div>
+
             </div>
           </div>
 
