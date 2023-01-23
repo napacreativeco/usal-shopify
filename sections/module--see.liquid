@@ -26,6 +26,12 @@
                     {% endif %}
                     <h3>{{ post.title }}</h3>
                     <div class="video">
+
+                      <img src="{{ post.image | img_url: '700x'}}" alt="{{ post.title }}" />
+                      <div class="play_button">
+                        {% render 'play-button' %}
+                      </div>
+
                         {% assign see_video = post.metafields.see.video_file.value %}
                         <video controls>
                             {% for video in see_video limit: 2 %}
