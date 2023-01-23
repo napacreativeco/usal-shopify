@@ -24,19 +24,20 @@
 
   {% comment %} 
     Desktop Loop
+  {% endcomment %}<div class="loop--event desktop">
 
-  <div class="loop--event desktop">
     <div class="loop--row">
-      {% for product in collections.learn.products %}
+      {% for product in collections.escape.products %}
 
         <div data-name="{{ product.handle }}" class="loop-learn--item">
           <div class="row">
-
             <pre class="learn-item--date">
+                             
               <span>{{ variant.title }}</span>
+                        
               <span class="additional">+{{ count | minus: 1 }}</span>
+                          
             </pre>
-
             {% assign count = 0 %}
             {% for variant in product.variants %}
               {% assign count = count | plus: 1 %}
@@ -75,6 +76,7 @@
 
         </div>
 
+
         <div class="{{ product.handle }} image-container--item product-image" style="background: url('{{ product.featured_image | img_url: '1024x' }}'); background-size: cover;">&nbsp;</div>
 
         <script>
@@ -92,7 +94,6 @@
               var targ = $(this).attr('data-name');
               var k = '.' + targ;
               $(k).css({opacity: '1', height: '100%'});
-              console.log(k)
             });
             $('.loop-learn--item').on('mouseleave', function(e) {
               $('.image-container--item').css({opacity: '0', height: '0px'});
@@ -106,23 +107,27 @@
 
     <div class="{{ collection.handle }} image-container--collection" style="background: url('{{ collection.featured_image | img_url: '1024x' }}'); background-size: cover;">&nbsp;</div>
   </div>
-  {% endcomment %}
 
-  <div class="loop--event">
 
-  
-    <div class="image">
-      <img
-        class="featured-image {{ collection.handle }} image-container--collection"
-        src="{{ collection.featured_image | img_url: '1024x' }}"
-        alt="{{ collection.title }}" />
+  {% comment %} 
+    Mobile Loop
+  {% endcomment %}<div class="loop--event mobile">
+    <div class="top">
+      <div class="title">
+        <h1>{{ '/Escape' | escape }}</h1>
+      </div>
+      <div class="image">
+        <img
+          class="featured-image"
+          src="{{ collection.featured_image | img_url: '700x' }}"
+          alt="{{ collection.title }}" />
+      </div>
     </div>
-    
 
     <div class="loop">
       <ul class="row">
-        {% for product in collections.learn.products %}
-          <li class="loop-item" data-name="{{ product.featured_image | img_url: '1080x' }}">
+        {% for product in collections.escape.products %}
+          <li class="loop-item">
             <div class="top">
               <span class="counter supply"></span>
 
@@ -142,31 +147,6 @@
             </div>
 
           </li>
-
-          
-          <script>
-            (function($) {
-              var pHandle = '{{ product.handle }}';
-              // var dateHolder = $('.learn-item--date');
-
-              // Log Product Object
-              $.getJSON('/products/' + pHandle + '.js', function(product) {
-                console.log(product);
-              });
-
-              // Show/Hide Image on Hover
-              $('.loop-item').on('mouseenter', function(e) {
-                var targ = $(this).attr('data-name');
-                var k = '.' + targ;
-                $('.featured-image').attr('src', targ);
-              });
-              $('.loop-learn--item').on('mouseleave', function(e) {
-                $('.image-container--item').css({opacity: '0', height: '0px'});
-              });
-
-            })(jQuery);
-          </script>
-
         {% endfor %}
       </ul>
     </div>
@@ -177,8 +157,9 @@
 
 <script>
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h1>    {{ '/' | escape }}{{ template.suffix | capitalize }} </h1>')(function() {
-    $('body').css('background', 'var(--salmon)');
+  logoHolder.html('<h1>   {{ '/' | escape }}{{ template.suffix | capitalize }} </h1>')(function() {
+    $('body').css('background', 'var(--blue)');
+    $('body').addClass('collection--escape');
     $('.learn-item--date').on('mouseenter', function() {
       $(this).siblings('.tooltip').css({display: 'flex', marginLeft: '0px', opacity: '1'})
     });

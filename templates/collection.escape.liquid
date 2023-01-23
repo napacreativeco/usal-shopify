@@ -24,7 +24,7 @@
 
   {% comment %} 
     Desktop Loop
-  {% endcomment %}<div class="loop--event desktop">
+  <div class="loop--event desktop">
 
     <div class="loop--row">
       {% for product in collections.escape.products %}
@@ -107,27 +107,28 @@
 
     <div class="{{ collection.handle }} image-container--collection" style="background: url('{{ collection.featured_image | img_url: '1024x' }}'); background-size: cover;">&nbsp;</div>
   </div>
-
+  {% endcomment %}
 
   {% comment %} 
     Mobile Loop
-  {% endcomment %}<div class="loop--event mobile">
-    <div class="top">
-      <div class="title">
-        <h1>{{ '/Escape' | escape }}</h1>
-      </div>
-      <div class="image">
-        <img
-          class="featured-image"
-          src="{{ collection.featured_image | img_url: '700x' }}"
-          alt="{{ collection.title }}" />
-      </div>
+  {% endcomment %}
+  
+  
+  <div class="loop--event">
+
+  
+    <div class="image">
+      <img
+        class="featured-image {{ collection.handle }} image-container--collection"
+        src="{{ collection.featured_image | img_url: '1024x' }}"
+        alt="{{ collection.title }}" />
     </div>
+    
 
     <div class="loop">
       <ul class="row">
         {% for product in collections.escape.products %}
-          <li class="loop-item">
+          <li class="loop-item" data-name="{{ product.featured_image | img_url: '1080x' }}">
             <div class="top">
               <span class="counter supply"></span>
 
@@ -147,6 +148,31 @@
             </div>
 
           </li>
+
+          
+          <script>
+            (function($) {
+              var pHandle = '{{ product.handle }}';
+              // var dateHolder = $('.learn-item--date');
+
+              // Log Product Object
+              $.getJSON('/products/' + pHandle + '.js', function(product) {
+                console.log(product);
+              });
+
+              // Show/Hide Image on Hover
+              $('.loop-item').on('mouseenter', function(e) {
+                var targ = $(this).attr('data-name');
+                var k = '.' + targ;
+                $('.featured-image').attr('src', targ);
+              });
+              $('.loop-learn--item').on('mouseleave', function(e) {
+                $('.image-container--item').css({opacity: '0', height: '0px'});
+              });
+
+            })(jQuery);
+          </script>
+
         {% endfor %}
       </ul>
     </div>
