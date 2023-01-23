@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         custom3:  {
-            text: '*',
+            text: '',
             click: function(e) {
                 e.preventDefault();
             }
