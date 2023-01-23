@@ -46,11 +46,8 @@
     {% render 'navbar--mobile' %}
   </header>
 
-  {% comment %}
-    TO DO:
-    -- Sort Calendar Items in chronological order by variant.value
-  {% endcomment %}<div id="calendar-module" class="module-content calendar-container">
 
+  <div id="calendar-module" class="module-content calendar-container">
     <div class="row">
 
       <div class="title-block">
@@ -62,8 +59,8 @@
       </div>
 
       <div>
-        <div class="calendar-grid">
-
+        {% comment %} DESKTOP GRID {% endcomment %}
+        <div class="calendar-grid desktop">
           {% for product in collections.all-events.products limit: 12 %}
 
             <div class="calendar-item">
@@ -88,11 +85,39 @@
               </div>
             </div>
 
+          {% endfor %}
+        </div>
+
+        {% comment %} MOBILE GRID {% endcomment %}
+        <div class="calendar-grid mobile">
+          {% for product in collections.all-events.products limit: 8 %}
+
+            <div class="calendar-item">
+              <div class="top">
+                <div class="date">
+                  {% if product.first_available_variant.title %}
+                    {{ product.first_available_variant.title }}
+                  {% else if product.variant %}
+                    {% for variant in product.variants %}
+                      {{ variant.title }}
+                    {% endfor %}
+                  {% else %}
+                    {{ 'TBD' | escape }}
+                  {% endif %}
+                </div>
+                <div class="counter supply"></div>
+              </div>
+              <div class="bottom">
+                <div class="title">
+                  <a class="supply" href={{ product.url }}>{{ product.title }}</a>
+                </div>
+              </div>
+            </div>
 
           {% endfor %}
-
         </div>
       </div>
+
     </div>
   </div>
 
