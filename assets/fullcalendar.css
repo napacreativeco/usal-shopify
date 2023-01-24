@@ -773,7 +773,7 @@ tr:last-child {
     top: 0;
     bottom: 0;
     max-height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .fc-v-event:not(.fc-event-start) {
     border-top-width: 0;
