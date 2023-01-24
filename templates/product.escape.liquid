@@ -116,7 +116,7 @@
                 <div class="where">
                   <h4 class="product-details--label">{{ 'Where' | escape }}</h4>
                   <a class="product-detail where--text" href="{{ variant.metafields.learn.location_google_url }}" title="Location">
-                    {{ variant.metafields.learn.location_address }}
+                    {{ variant.metafields.learn.location_address | escape }}
                   </a>
                 </div>
 
@@ -231,7 +231,7 @@
                             data-date="{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}"
                             data-start-time="{{ variant.metafields.learn.event_start_time | date: '%I:%M %P' }}" 
                             data-end-time="{{ variant.metafields.learn.event_end_time | date: '%I:%M %P' }}"                   
-                            data-location="{{ variant.metafields.learn.location_address }}"
+                            data-location="{{ variant.metafields.learn.location_address | metafield_text }}"
                             data-guide-name="{{ variant.metafields.learn.guide_name }}"
                             data-guide-bio="{{ variant.metafields.learn.guide_bio }}"
                             data-capacity="{{ variant.inventory_quantity }}"
@@ -416,7 +416,7 @@ RADIO BUTTON FUNCTIONS
     jQuery(".title-variant").html('{{ variant.title }}');
     
     // Location
-    jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
+    jQuery('.where--text').text('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
     
     // Date
     jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
