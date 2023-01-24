@@ -228,33 +228,37 @@
                 </div>
               </div>
 
-              {% comment %} Variants {% endcomment %}
-              <div class="sizes">
+              {% if product.variants.size <= 1 %}
+                {% comment %} silence {% endcomment %}
+              {% else %}
+                {% comment %} Variants {% endcomment %}
+                <div class="sizes">
 
-                <div class="title">
-                  <span>{{ 'Size:' | escape }}</span>
+                  <div class="title">
+                    <span>{{ 'Size:' | escape }}</span>
+                  </div>
+
+                  <div class="variants-list switch-field">
+                    {% for variant in product.variants %}
+
+                      <input
+                        class="date-radio"
+                        type="radio"
+                        data-price="{{ variant.price | money_without_trailing_zeros }}"
+                        id="{{ variant.id }}"
+                        value="{{ variant.id }}"
+                        name="id"
+                        {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
+
+                      <label data-quantity="{{ variant.inventory_quantity }}" class="label" for="{{ variant.id }}">
+                        {{ variant.title }}
+                      </label>
+
+                    {% endfor %}
+                  </div>
+
                 </div>
-
-                <div class="variants-list switch-field">
-                  {% for variant in product.variants %}
-
-                    <input
-                      class="date-radio"
-                      type="radio"
-                      data-price="{{ variant.price | money_without_trailing_zeros }}"
-                      id="{{ variant.id }}"
-                      value="{{ variant.id }}"
-                      name="id"
-                      {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
-
-                    <label class="label" for="{{ variant.id }}">
-                      {{ variant.title }}
-                    </label>
-
-                  {% endfor %}
-                </div>
-
-              </div>
+              {% endif %}
 
             </div>
 
