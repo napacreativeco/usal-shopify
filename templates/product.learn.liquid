@@ -82,6 +82,8 @@
 
         </div>
 
+        
+        {% assign varianto = product.selected_or_first_available_variant %}
         <div class="row">
 
           {% comment %} Title Cell: Desktop {% endcomment %}
@@ -116,25 +118,23 @@
 
                 <div class="detail where">
                   <h4 class="product-details--label">{{ 'Where' | escape }}</h4>
-         
-                  <a class="product-detail where--text" href="{{ variant.metafields.learn.location_google_url }}" title="Location">
-                    {{ variant.metafields.learn.location_address }}
+                  <a class="product-detail where--text" href="{{ varianto.metafields.learn.location_google_url }}" title="Location">
+                    {{ varianto.metafields.learn.location_address }}
                   </a>
-                
                 </div>
 
                 <div class="detail guided-by">
                   <h4 class="product-details--label">{{ 'Guided by' | escape }}</h4>
                   <span class="guided-by--text">
-                    {% assign variant = product.selected_or_first_available_variant %}
-                    <span class="product-detail product-price" itemprop="price">{{ variant.metafields.learn.guide_name }}</span>
+                    
+                    <span class="product-detail product-price" itemprop="price">{{ varianto.metafields.learn.guide_name }}</span>
                   </span>
                 </div>
 
                 <div class="detail time">
                   <h4 class="product-details--label">{{ 'Time' | escape }}</h4>
                   <span class="product-detail time--text">
-                    {{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}
+                    {{ varianto.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ varianto.metafields.learn.event_end_time | date: '%I:%M%P' }}
                   </span>
                 </div>
 
@@ -145,22 +145,22 @@
                 <div class="detail when">
                   <h4 class="product-details--label">{{ 'When' | escape }}</h4>
                   <span class="when--text product-detail">
-                    {{ event.start_at | date: "%B %e, %Y" }}
+                    {{ varianto.metafields.learn.event_start_time | date: "%B %e, %Y" }}
                   </span>
                 </div>
 
                 <div class="detail capacity">
                   <h4 class="product-details--label">{{ 'Spots Left' | escape }}</h4>
                   <span class="capacity-text product-detail">
-                    {{ variant.inventory_quantity }}
+                    {{ varianto.inventory_quantity }}
                   </span>
                 </div>
 
                 <div class="detail length">
                   <h4 class="product-details--label">{{ 'Length' | escape }}</h4>
                   <span class="length--text product-detail">
-                    {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
-                    {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+                    {% assign startHour = varianto.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                    {% assign endHour = varianto.metafields.learn.event_end_time | date: '%I:%M %P' %}
                     {{ endHour | minus: startHour }} hrs
                   </span>
                 </div>
@@ -183,7 +183,6 @@
                   itemscope
                   itemtype="http://schema.org/Offer">
                   <h4 class="product-details--label">{{ 'Ticket Price:' | escape }}</h4>
-                  {% assign variant = product.selected_or_first_available_variant %}
                   <span class="product-price" itemprop="price">{{ variant.price | money_without_trailing_zeros }}</span>
                 </div>
                 <div class="detail sold-out--status product-details--label">

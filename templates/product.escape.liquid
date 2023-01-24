@@ -110,21 +110,22 @@
               </h4>
             </div>
 
+            
+            {% assign varianto = product.selected_or_first_available_variant %}
             <div class="bottom">
               <div class="row">
 
                 <div class="where">
                   <h4 class="product-details--label">{{ 'Where' | escape }}</h4>
-                  <a class="product-detail where--text" href="{{ variant.metafields.learn.location_google_url }}" title="Location">
-                    {{ variant.metafields.learn.location_address | escape }}
+                  <a class="product-detail where--text" href="{{ varianto.metafields.learn.location_google_url }}" title="Location">
+                    {{ varianto.metafields.learn.location_address }}
                   </a>
                 </div>
 
                 <div class="guided-by">
                   <h4 class="product-details--label">{{ 'Guided by' | escape }}</h4>
                   <span class="guided-by--text">
-                    {% assign variant = product.selected_or_first_available_variant %}
-                    <span class="product-detail product-price" itemprop="price">{{ variant.metafields.learn.guide_name }}</span>
+                    <span class="product-detail product-price" itemprop="price">{{ varianto.metafields.learn.guide_name }}</span>
                   </span>
                 </div>
 
