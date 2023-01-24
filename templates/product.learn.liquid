@@ -212,8 +212,8 @@
                     {% for variant in product.variants %}
 
                       <li class="switch-field" data-link="{{ variant.id }}">
-                        {% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
-                        {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
+                        {% assign startHour = varianto.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                        {% assign endHour = varianto.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
                         <input
                           class="date-radio"
@@ -231,7 +231,7 @@
                           id="{{ variant.id }}"
                           value="{{ variant.id }}"
                           name="id"
-                          {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
+                          {% if varianto %}checked="checked"{% endif %} />
 
                         <label for="{{ variant.id }}">
                           {{ variant.title }}

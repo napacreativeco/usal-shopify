@@ -132,7 +132,7 @@
                 <div class="time">
                   <h4 class="product-details--label">{{ 'Time' | escape }}</h4>
                   <span class="product-detail time--text">
-                    {{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}
+                    {{ varianto.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ varianto.metafields.learn.event_end_time | date: '%I:%M%P' }}
                   </span>               
                 </div>
               </div>
@@ -149,7 +149,7 @@
                 <div class="capacity">
                   <h4 class="product-details--label">{{ 'Spots Left' | escape }}</h4>
                   <span class="capacity-text product-detail">
-                    {{ variant.inventory_quantity }}
+                    {{ varianto.inventory_quantity }}
                   </span>
                 </div>
 
@@ -239,7 +239,7 @@
                             data-price="{{ variant.price | money_without_trailing_zeros }}"
                             id="{{ variant.id }}" value="{{ variant.id }}"
                             name="id"
-                            {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
+                            {% if varianto %}checked="checked"{% endif %} />
                           
                           <label for="{{ variant.id }}">
                             {{ variant.title }}
