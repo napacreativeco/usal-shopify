@@ -714,7 +714,7 @@ tr:last-child {
     flex-grow: 1;
     flex-shrink: 1;
     min-width: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
     font-weight: 700;
 }
 .fc-daygrid-dot-event.fc-event-mirror,
