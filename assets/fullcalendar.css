@@ -607,10 +607,10 @@ tr:last-child {
 }
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
     position: relative;
-    min-height: 2em;
+    /* min-height: 2em; */
 }
 .fc .fc-daygrid-body-natural .fc-daygrid-day-events {
-    margin-bottom: 1em;
+    /* margin-bottom: 1em; */
 }
 .fc .fc-daygrid-event-harness {
     position: relative;
