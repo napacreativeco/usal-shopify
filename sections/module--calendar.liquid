@@ -12,7 +12,6 @@
     loop
     muted
     playsinline
-    preload="metadata"
     class="background">
     <source
       class="mp4"
@@ -31,7 +30,6 @@
       loop
       muted
       playsinline
-      preload="metadata"
       class="background">
       <source
         class="mp4"
@@ -158,5 +156,17 @@
 
 <script>
   var video = document.getElementById('background-video');
-  video.play();
+  var playPromise = video.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+
+      // Automatic playback started!
+      // Show playing UI.
+    }).catch(error => {
+
+      // Auto-play was prevented
+      // Show paused UI.
+    });
+  }
 </script>

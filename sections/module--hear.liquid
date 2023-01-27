@@ -28,7 +28,7 @@
             <audio id="myAudio" preload="metadata">
               <source
                 class="audio-source"
-                src=""
+                src="https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/preview?usp=sharing"
                 type="audio/mpeg">
               {{ 'Your browser does not support the audio element.' | escape }}
             </audio>
@@ -42,7 +42,7 @@
 
               var player = document.querySelector('.audio-source');
 
-              player.setAttribute('src', googleDriveFileID);
+              // player.setAttribute('src', 'https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/preview');
             </script>
 
 
@@ -50,7 +50,9 @@
               <div class="playbutton" onclick="playAudio()">
                 {% render 'play-btn' %}
               </div>
-              <div class="pausebutton" onclick="pauseAudio()">Pause Audio</div>
+              <div class="pausebutton" onclick="pauseAudio()">
+                {% render 'pause-btn' %}
+              </div>
             </div>
 
             <div class="details">
@@ -129,15 +131,48 @@
     }
   }
 
-  // Play
+
   function playAudio() {
-    aud.play();
+    aud.load();
+    fetchVideoAndPlay();
   }
 
-  // Pause
-  function pauseAudio() {
-    aud.pause();
+
+  function fetchVideoAndPlay() {
+    fetch('https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/preview')
+      .then(response => response.blob())
+      .then(blob => {
+        aud.srcObject = blob;
+        return aud.play();
+      })
+      .then(_ => {
+
+        // Video playback started ;)
+      })
+      .catch(e => {
+
+        // Video playback failed ;(
+      })
   }
+
+  // Play
+
+  // function playAudio() {
+  // aud.play();
+  // jQuery('.playbutton').hide();
+  // jQuery('.pausebutton').show();
+
+  // }
+
+
+  // Pause
+  // function pauseAudio() {
+  // jQuery('.pausebutton').hide();
+  // jQuery('.playbutton').show();
+
+  // aud.pause();
+
+  // }
 
   // Progress Bar
   aud.addEventListener('timeupdate', function(e) {
