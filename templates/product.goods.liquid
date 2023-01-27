@@ -228,37 +228,35 @@
                 </div>
               </div>
 
-              {% if product.variants.size <= 1 %}
-                {% comment %} silence {% endcomment %}
-              {% else %}
-                {% comment %} Variants {% endcomment %}
-                <div class="sizes">
+              <div class="sizes">
 
-                  <div class="title">
-                    <span>{{ 'Size:' | escape }}</span>
-                  </div>
-
-                  <div class="variants-list switch-field">
-                    {% for variant in product.variants %}
-
-                      <input
-                        class="date-radio"
-                        type="radio"
-                        data-price="{{ variant.price | money_without_trailing_zeros }}"
-                        id="{{ variant.id }}"
-                        value="{{ variant.id }}"
-                        name="id"
-                        {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
-
-                      <label data-quantity="{{ variant.inventory_quantity }}" class="label" for="{{ variant.id }}">
-                        {{ variant.title }}
-                      </label>
-
-                    {% endfor %}
-                  </div>
-
+                <div class="title">
+                  <span>{{ 'Size:' | escape }}</span>
                 </div>
-              {% endif %}
+
+                <div class="variants-list switch-field">
+                  {% for variant in product.variants %}
+
+                    <input
+                      class="date-radio"
+                      type="radio"
+                      data-price="{{ variant.price | money_without_trailing_zeros }}"
+                      id="{{ variant.id }}"
+                      value="{{ variant.id }}"
+                      name="id"
+                      {% if found_available_variant == false %}{% assign found_available_variant = true %}checked="checked"{% endif %} />
+
+                    <label
+                      data-quantity="{{ variant.inventory_quantity }}"
+                      class="label"
+                      for="{{ variant.id }}">
+                      {{ variant.title }}
+                    </label>
+
+                  {% endfor %}
+                </div>
+
+              </div>
 
             </div>
 
@@ -279,7 +277,7 @@
   * Page Title
   */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title">/  {{ template.suffix | capitalize }} </h2>');
+  logoHolder.html('<h2 class="page-title">/   {{ template.suffix | capitalize }} </h2>');
 
   (function() {
     $('body').css('background', 'var(--black)');
@@ -292,40 +290,40 @@
 {% endcomment %}<script type="text/javascript" charset="utf-8">
   jQuery(function() { 
   /*
-            * Variants
-            */
-        
-            // Set underline
-            jQuery('.date-radio').first().addClass('active');
-        
-            // Check first variant
-            var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
+              * Variants
+              */
+          
+              // Set underline
+              jQuery('.date-radio').first().addClass('active');
+          
+              // Check first variant
+              var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
   jQuery(firstVariantID).attr('checked', true);
-        
-            // Click Function
-            jQuery("input.date-radio").click(function() {
-        
-              jQuery('.date-radio').removeClass('active');
-              jQuery(this).addClass('active');
-        
-            });
-        
-          });</script>
+          
+              // Click Function
+              jQuery("input.date-radio").click(function() {
+          
+                jQuery('.date-radio').removeClass('active');
+                jQuery(this).addClass('active');
+          
+              });
+          
+            });</script>
 
 
 <script type="text/javascript" charset="utf-8">
   /* Quantity Input */
   jQuery('.field').first().addClass('active-button');
-                                      
-          jQuery('.field').on('click', function(e) {
-        
-            jQuery('.field').removeClass('active-button');
-            
-            jQuery(this).addClass('active-button');
-        
-            jQuery(this).children('input').attr('checked');
-        
-          });</script>
+                                        
+            jQuery('.field').on('click', function(e) {
+          
+              jQuery('.field').removeClass('active-button');
+              
+              jQuery(this).addClass('active-button');
+          
+              jQuery(this).children('input').attr('checked');
+          
+            });</script>
 
 <script>
   /*
@@ -384,7 +382,7 @@
     });
 
     // Add label if only one product option and it isn't 'Title'.
-    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                           {{ product.options.first }} </label>');{% endif %}
+    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                            {{ product.options.first }} </label>');{% endif %}
   });
   Shopify.Image.preload({{ product.images | json }}, 'grande');
   Shopify.Image.preload({{ product.images | json }}, '1024x1024');

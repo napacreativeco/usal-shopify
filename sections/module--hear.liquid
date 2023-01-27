@@ -47,16 +47,10 @@
 
 
             <div class="playbox">
-              <button
-                class="playbutton"
-                onclick="playAudio()"
-                type="button">
-                {% render 'play-button' %}
-              </button>
-              <button
-                class="pausebutton"
-                onclick="pauseAudio()"
-                type="button">Pause Audio</button>
+              <div class="playbutton" onclick="playAudio()">
+                {% render 'play-btn' %}
+              </div>
+              <div class="pausebutton" onclick="pauseAudio()">Pause Audio</div>
             </div>
 
             <div class="details">
