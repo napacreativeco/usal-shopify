@@ -25,12 +25,8 @@
           <div class="audioplayer">
 
 
-            <audio id="myAudio" preload="metadata">
-              <source
-                class="audio-source"
-                src="https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/preview?usp=sharing"
-                type="audio/mpeg">
-              {{ 'Your browser does not support the audio element.' | escape }}
+            <audio>
+              <source src="http://docs.google.com/uc?export=open&id=104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o" type="audio/mp3">
             </audio>
 
             <script>
@@ -97,6 +93,20 @@
   // Containers
   let aud = document.getElementById("myAudio");
 
+  var playPromise = aud.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+
+      // Automatic playback started!
+      // Show playing UI.
+      aud.pause();
+    }).catch(error => {
+
+      // Auto-play was prevented
+      // Show paused UI.
+    });
+  }
 
   // On Load
   aud.onloadeddata = function() {
@@ -131,48 +141,21 @@
     }
   }
 
-
   function playAudio() {
-    aud.load();
-    fetchVideoAndPlay();
+    aud.play();
+    jQuery('.playbutton').hide();
+    jQuery('.pausebutton').show();
+
   }
-
-
-  function fetchVideoAndPlay() {
-    fetch('https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/preview')
-      .then(response => response.blob())
-      .then(blob => {
-        aud.srcObject = blob;
-        return aud.play();
-      })
-      .then(_ => {
-
-        // Video playback started ;)
-      })
-      .catch(e => {
-
-        // Video playback failed ;(
-      })
-  }
-
-  // Play
-
-  // function playAudio() {
-  // aud.play();
-  // jQuery('.playbutton').hide();
-  // jQuery('.pausebutton').show();
-
-  // }
-
 
   // Pause
-  // function pauseAudio() {
-  // jQuery('.pausebutton').hide();
-  // jQuery('.playbutton').show();
+  function pauseAudio() {
+    jQuery('.pausebutton').hide();
+    jQuery('.playbutton').show();
 
-  // aud.pause();
+    aud.pause();
 
-  // }
+  }
 
   // Progress Bar
   aud.addEventListener('timeupdate', function(e) {
