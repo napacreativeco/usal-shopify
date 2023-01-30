@@ -24,56 +24,38 @@
 
           <div class="audioplayer">
 
-
-            <audio id="myAudio">
-              <source src="http://docs.google.com/uc?export=open&id=1NNngFfLUwVPx_P5UUXcitoq9myIZlC1p" type="audio/mp3">
-            </audio>
-
-            <iframe
-              frameborder="0"
-              width="400"
-              height="75"
-              src="https://drive.google.com/file/d/1NNngFfLUwVPx_P5UUXcitoq9myIZlC1p/preview"></iframe>
-
-            <script>
-              var input = "https://drive.google.com/file/d/1NNngFfLUwVPx_P5UUXcitoq9myIZlC1p/view?usp=share_link";
-
-              var res = input.match(/https:\/\/drive.google.com\/file\/d\/([a-zA-Z0-9_]+)\//)
-
-              var googleDriveFileID = res;
-
-              var player = document.querySelector('.audio-source');
-
-              // player.setAttribute('src', 'https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/preview');
-            </script>
-
-
-            <div class="playbox">
-              <div class="playbutton" onclick="playAudio()">
-                {% render 'play-btn' %}
+            <div class="audioplayer--row">
+              <div class="playbox">
+                <div class="playbutton" onclick="playAudio()">
+                  {% render 'play-btn' %}
+                </div>
+                <div class="pausebutton" onclick="pauseAudio()">
+                  {% render 'pause-btn' %}
+                </div>
               </div>
-              <div class="pausebutton" onclick="pauseAudio()">
-                {% render 'pause-btn' %}
+              <div class="details">
+                <div class="title">
+                  <span class="h2">NTS Radio</span>
+                  <span class="audio-title">{{ section.settings.audio-title }}</span>
+                </div>
+                <div id="scrubber">
+                  <div>
+                    <span id="duration"></span>
+                  </div>
+                  <div class="progress-container" id="progress-container">
+                    <div class="progress" id="progress"></div>
+                  </div>
+                  <div>
+                    <span id="timeleft"></span>
+                  </div>
+                </div>
               </div>
+
             </div>
 
-            <div class="details">
-              <div class="title">
-                <span class="h2">NTS Radio</span>
-                <span class="audio-title">{{ section.settings.audio-title }}</span>
-              </div>
-              <div id="scrubber">
-                <div>
-                  <span id="duration"></span>
-                </div>
-                <div class="progress-container" id="progress-container">
-                  <div class="progress" id="progress"></div>
-                </div>
-                <div>
-                  <span id="timeleft"></span>
-                </div>
-              </div>
-            </div>
+
+
+
 
           </div>
         </div>
@@ -100,7 +82,7 @@
   const aud = document.getElementById("myAudio");
 
   // On Load
-  aud.onloadeddata = function() {
+  aud.onloadeddata = function () {
     var timeleft = document.getElementById('timeleft'),
       timeline = document.getElementById('duration'),
       duration = parseInt(aud.duration),
@@ -149,17 +131,17 @@
   }
 
   // Progress Bar
-  aud.addEventListener('timeupdate', function(e) {
+  aud.addEventListener('timeupdate', function (e) {
     var progress = document.getElementById('progress');
     var progressContainer = document.getElementById('progress-container');
-    const {duration, currentTime} = e.srcElement;
+    const { duration, currentTime } = e.srcElement;
     const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
   });
 
 
   // Countdown
-  aud.addEventListener("timeupdate", function() {
+  aud.addEventListener("timeupdate", function () {
     var timeleft = document.getElementById('timeleft'),
       duration = parseInt(aud.duration),
       currentTime = parseInt(aud.currentTime),
@@ -183,7 +165,7 @@
   }, false);
 
   // Countup
-  aud.addEventListener("timeupdate", function() {
+  aud.addEventListener("timeupdate", function () {
     var timeline = document.getElementById('duration');
     var s = parseInt(aud.currentTime % 60);
     var m = parseInt((aud.currentTime / 60) % 60);
@@ -196,27 +178,27 @@
 </script>
 
 {% schema %}
-  {
-    "name": "Module - Hear",
-    "tag": "section",
-    "class": "module",
-    "settings": [
-      {
-        "type": "textarea",
-        "id": "audio-description",
-        "label": "Audio Description",
-        "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-      }, {
-        "type": "text",
-        "id": "audio-title",
-        "label": "Audio Title",
-        "default": "Mountain System Researcg Episode 15"
-      }, {
-        "type": "text",
-        "id": "audio-url",
-        "label": "Audio URL",
-        "default": "https://samplelib.com/lib/preview/mp3/sample-3s.mp3"
-      }
-    ]
-  }
+{
+"name": "Module - Hear",
+"tag": "section",
+"class": "module",
+"settings": [
+{
+"type": "textarea",
+"id": "audio-description",
+"label": "Audio Description",
+"default": "Default audio"
+}, {
+"type": "text",
+"id": "audio-title",
+"label": "Audio Title",
+"default": "Mountain System Researcg Episode 15"
+}, {
+"type": "text",
+"id": "audio-url",
+"label": "Audio URL",
+"default": "https://samplelib.com/lib/preview/mp3/sample-3s.mp3"
+}
+]
+}
 {% endschema %}
