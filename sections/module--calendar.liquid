@@ -60,6 +60,7 @@
         <div>
         {% comment %} DESKTOP GRID {% endcomment %}
         <div class="calendar-grid desktop">
+
           {% for product in collections.all-events.products limit: 12 %}
 
             {% assign counter = counter | plus: 1 %}

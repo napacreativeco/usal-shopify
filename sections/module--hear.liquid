@@ -25,12 +25,18 @@
           <div class="audioplayer">
 
 
-            <audio>
-              <source src="http://docs.google.com/uc?export=open&id=104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o" type="audio/mp3">
+            <audio id="myAudio">
+              <source src="http://docs.google.com/uc?export=open&id=1NNngFfLUwVPx_P5UUXcitoq9myIZlC1p" type="audio/mp3">
             </audio>
 
+            <iframe
+              frameborder="0"
+              width="400"
+              height="75"
+              src="https://drive.google.com/file/d/1NNngFfLUwVPx_P5UUXcitoq9myIZlC1p/preview"></iframe>
+
             <script>
-              var input = "https://drive.google.com/file/d/104hKUN9b0BakG_FHBTLcXzRsTsAHf0-o/view?usp=share_link";
+              var input = "https://drive.google.com/file/d/1NNngFfLUwVPx_P5UUXcitoq9myIZlC1p/view?usp=share_link";
 
               var res = input.match(/https:\/\/drive.google.com\/file\/d\/([a-zA-Z0-9_]+)\//)
 
@@ -91,22 +97,7 @@
 
 <script>
   // Containers
-  let aud = document.getElementById("myAudio");
-
-  var playPromise = aud.play();
-
-  if (playPromise !== undefined) {
-    playPromise.then(_ => {
-
-      // Automatic playback started!
-      // Show playing UI.
-      aud.pause();
-    }).catch(error => {
-
-      // Auto-play was prevented
-      // Show paused UI.
-    });
-  }
+  const aud = document.getElementById("myAudio");
 
   // On Load
   aud.onloadeddata = function() {
