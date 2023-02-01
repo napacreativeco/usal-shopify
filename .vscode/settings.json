@@ -12,5 +12,8 @@
     "workbench.preferredHighContrastColorTheme": "Arachnoid",
     "explorer.decorations.badges": false,
     "explorer.expandSingleFolderWorkspaces": false,
-    "explorer.decorations.colors": false
+    "explorer.decorations.colors": false,
+    "[liquid]": {
+        "editor.formatOnSave": false
+    }
 }
