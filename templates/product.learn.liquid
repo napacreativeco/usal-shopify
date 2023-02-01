@@ -130,7 +130,7 @@
                   <h4 class="product-details--label">{{ 'Guided by' | escape }}</h4>
                   <span class="guided-by--text">
 
-                    <span class="product-detail product-price">{{ varianto.metafields.learn.guide_name }}</span>
+                    <span class="product-detail">{{ varianto.metafields.learn.guide_name }}</span>
                   </span>
                 </div>
 
@@ -162,9 +162,12 @@
                 <div class="detail length">
                   <h4 class="product-details--label">{{ 'Length' | escape }}</h4>
                   <span class="length--text product-detail">
-                    {% assign startHour = varianto.metafields.learn.event_start_time | date: '%I:%M %P' %}
-                    {% assign endHour = varianto.metafields.learn.event_end_time | date: '%I:%M %P' %}
-                    {{ endHour | minus: startHour }} hrs
+                    {% assign startHour = varianto.metafields.learn.event_start_time | date: '%I' %}
+                    {% assign endHour = varianto.metafields.learn.event_end_time | date: '%I' %}
+                    {% capture lengthTime %}
+                      {{ endHour | minus: startHour }}
+                    {% endcapture %}
+                    {{ lengthTime }} hrs
                   </span>
                 </div>
 
@@ -205,7 +208,7 @@
               </div>
 
               {% comment %}
-                VARIANT RADIO BUTTONS ===
+              VARIANT RADIO BUTTONS ===
               {% endcomment %}
               <div class="bottom">
 
@@ -265,7 +268,7 @@
       </section>
 
       {% comment %}
-        // SECTION 2 ============================================================================================
+      // SECTION 2 ============================================================================================
       {% endcomment %}
       <section class="section-two">
 
@@ -349,7 +352,7 @@
   * Page Title
   */
   var logoHolder = $('div[data-logo]');
-  logoHolder.html('<h2 class="page-title"> {{ '/Learn' | escape }} </h2>');
+  logoHolder.html('<h2 class="page-title">      {{ '/Learn' | escape }} </h2>');
 
   (function() {
     $('body').css('background', 'var(--salmon)');
@@ -358,143 +361,143 @@
 </script>
 
 {% comment %}
-  RADIO BUTTON FUNCTIONS
+RADIO BUTTON FUNCTIONS
 {% endcomment %}<script type="text/javascript" charset="utf-8">
   jQuery(function() { 
   var first_variant_title = jQuery("input[checked='checked'] > label").text();
-      var first_variant_price = jQuery("ul li input[type='radio']:checked").attr("data-price");
-      var first_variant_compare_at_price = jQuery("ul li input[type='radio']:checked").attr("data-compare-at-price") || ''; 
-  
-      jQuery(".product-price").html(first_variant_price);
-      jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
+                var first_variant_price = jQuery("ul li input[type='radio']:checked").attr("data-price");
+                var first_variant_compare_at_price = jQuery("ul li input[type='radio']:checked").attr("data-compare-at-price") || ''; 
+            
+                jQuery(".product-price").html(first_variant_price);
+                jQuery(".title-variant").html('{{ product.selected_or_first_available_variant.title }}');
   jQuery(".price-field del").html(first_variant_compare_at_price);
-                                            
-      /* 
-      *
-      * Initial Hydration
-      *
-      */
-      var variant_google_maps_url = jQuery('.date-radio').attr("data-google-maps");
-      var variant_location = jQuery(this).attr("data-location");
-      var variant_date = jQuery(this).attr("data-date");
-      var variant_guide_bio = jQuery(this).attr("data-guide-bio");
-      var variant_guide = jQuery(this).attr("data-guide-name");
-      var variant_cap = jQuery(this).attr("data-capacity");
-      var variant_id = jQuery(this).attr("id");
-      var variant_price = jQuery(this).attr("data-price");
-      var variant_start_time = jQuery(this).attr("data-start-time");
-      var variant_end_time = jQuery(this).attr("data-end-time");
-      var variant_duration = jQuery(this).attr("data-duration");
-      var variant_title = jQuery(this).closest('li').children("label").text();{% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
+                                                      
+                /* 
+                *
+                * Initial Hydration
+                *
+                */
+                var variant_google_maps_url = jQuery('.date-radio').attr("data-google-maps");
+                var variant_location = jQuery(this).attr("data-location");
+                var variant_date = jQuery(this).attr("data-date");
+                var variant_guide_bio = jQuery(this).attr("data-guide-bio");
+                var variant_guide = jQuery(this).attr("data-guide-name");
+                var variant_cap = jQuery(this).attr("data-capacity");
+                var variant_id = jQuery(this).attr("id");
+                var variant_price = jQuery(this).attr("data-price");
+                var variant_start_time = jQuery(this).attr("data-start-time");
+                var variant_end_time = jQuery(this).attr("data-end-time");
+                var variant_duration = jQuery(this).attr("data-duration");
+                var variant_title = jQuery(this).closest('li').children("label").text();{% assign startHour = variant.metafields.learn.event_start_time | date: '%I:%M %P' %}
   {% assign endHour = variant.metafields.learn.event_end_time | date: '%I:%M %P' %}
 
   // Check first variant
   var firstVariantID = '#{{ product.selected_or_first_available_variant.id | escape }}';
   jQuery(firstVariantID).attr('checked', true);
-                                            
-      // Init: Title 
-      jQuery(".title-variant").html('{{ variant.title }}');
+                                                      
+                // Init: Title 
+                jQuery(".title-variant").html('{{ variant.title }}');
   // Init: Location
-      jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
+                jQuery('.where--text').html('{{ variant.metafields.learn.location_address }}').wrap('<a href="{{ variant.metafields.learn.location_google_url }}" title="Location"></a>');
   // Init: Date
-      jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
+                jQuery('.when--text').html('{{ variant.metafields.learn.event_start_time | date: '%B %e, %Y' }}');
   // Init: Time
-      jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
+                jQuery('.time--text').html('{{ variant.metafields.learn.event_start_time | date: '%I:%M%P' }} - {{ variant.metafields.learn.event_end_time | date: '%I:%M%P' }}');
   // Init: Capacity
-      jQuery('.capacity-text').html('{{ variant.inventory_quantity }}'); 
+                jQuery('.capacity-text').html('{{ variant.inventory_quantity }}'); 
   if (jQuery('.capacity-text').text() == '0') {
-        jQuery('.sold-out--status').html('SOLD OUT');
-        jQuery('#product-add').css({
-          borderBottom: '0px'
-        });
-        jQuery('input#add').css({
-          textDecoration: 'line-through',
-          pointerEvents: 'none'
-        });
-      } else {
-        jQuery('.sold-out--status').html('OPEN');
-      }
-                                            
-      // Init: Guide
-      jQuery('.guided-by--text').html(variant_guide);
-      jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
+                  jQuery('.sold-out--status').html('SOLD OUT');
+                  jQuery('#product-add').css({
+                    borderBottom: '0px'
+                  });
+                  jQuery('input#add').css({
+                    textDecoration: 'line-through',
+                    pointerEvents: 'none'
+                  });
+                } else {
+                  jQuery('.sold-out--status').html('OPEN');
+                }
+                                                      
+                // Init: Guide
+                jQuery('.guided-by--text').html(variant_guide);
+                jQuery('.about--guide-name').html('About {{ variant.metafields.learn.guide_name }}');
   // Init: Guide Bio
-      jQuery('.guide-bio--content').html('<p>{{ variant.metafields.learn.guide_bio }}</p>');
+                jQuery('.guide-bio--content').html('<p>{{ variant.metafields.learn.guide_bio }}</p>');
   // Init: Price
-      jQuery(".product-price").html(variant_price);
-  
-      // Init: Length
-      jQuery(".length--text").html('{{ endHour | minus: startHour }} hrs');
+                jQuery(".product-price").html(variant_price);
+            
+                // Init: Length
+                jQuery(".length--text").html('{{ endHour | minus: startHour }} hrs');
   /*
-      *
-      * Click Function
-      *
-      */
-      jQuery("input[type='radio']").click(function() {
-                    
-        var variant_google_maps_url = jQuery(this).attr("data-google-maps");
-        var variant_location = jQuery(this).attr("data-location");
-        var variant_date = jQuery(this).attr("data-date");
-        var variant_guide_bio = jQuery(this).attr("data-guide-bio");
-        var variant_guide = jQuery(this).attr("data-guide-name");
-        var variant_cap = jQuery(this).attr("data-capacity");
-        var variant_id = jQuery(this).attr("id");
-        var variant_price = jQuery(this).attr("data-price");
-        var variant_start_time = jQuery(this).attr("data-start-time");
-        var variant_end_time = jQuery(this).attr("data-end-time");
-        var variant_duration = jQuery(this).attr("data-duration");
-        var variant_title = jQuery(this).closest('li').children("label").text();
-                                                  
-          /* Title */ 
-          jQuery(".title-variant").html(variant_title);
-                    
-          /* Location */
-          jQuery('.where--text').html(variant_location).wrap('<a href="'+ variant_google_maps_url +'" title="Location"></a>');
+                *
+                * Click Function
+                *
+                */
+                jQuery("input[type='radio']").click(function() {
+                              
+                  var variant_google_maps_url = jQuery(this).attr("data-google-maps");
+                  var variant_location = jQuery(this).attr("data-location");
+                  var variant_date = jQuery(this).attr("data-date");
+                  var variant_guide_bio = jQuery(this).attr("data-guide-bio");
+                  var variant_guide = jQuery(this).attr("data-guide-name");
+                  var variant_cap = jQuery(this).attr("data-capacity");
+                  var variant_id = jQuery(this).attr("id");
+                  var variant_price = jQuery(this).attr("data-price");
+                  var variant_start_time = jQuery(this).attr("data-start-time");
+                  var variant_end_time = jQuery(this).attr("data-end-time");
+                  var variant_duration = jQuery(this).attr("data-duration");
+                  var variant_title = jQuery(this).closest('li').children("label").text();
+                                                            
+                    /* Title */ 
+                    jQuery(".title-variant").html(variant_title);
+                              
+                    /* Location */
+                    jQuery('.where--text').html(variant_location).wrap('<a href="'+ variant_google_maps_url +'" title="Location"></a>');
   /* Date */
-          jQuery('.when--text').html(variant_date);
-                    
-          /* Time */
-          jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
-                                
-          /* Capacity */
-          jQuery('.capacity-text').html(variant_cap);
-          if (jQuery('.capacity-text').text() == '0') {
-            jQuery('.sold-out--status').html('SOLD OUT');
-            jQuery('#product-add').css({
-              borderBottom: '0px'
-            });
-            jQuery('input#add').css({
-              textDecoration: 'line-through',
-              pointerEvents: 'none'
-            });
-          } else {
-            jQuery('.sold-out--status').html('OPEN');
-            jQuery('#product-add').css({
-              borderBottom: 'var(--border-black)'
-            });
-            jQuery('input#add').css({
-              textDecoration: 'none',
-              pointerEvents: 'auto'
-            });
-          }
-                                                  
-          /* Guide */
-          jQuery('.guided-by--text').html(variant_guide);
-          jQuery('.about--guide-name').html('About ' + variant_guide);
-      
-          /* Guide Bio */
-          jQuery('.guide-bio--content').html('<p>' + variant_guide_bio + '</p>');
+                    jQuery('.when--text').html(variant_date);
+                              
+                    /* Time */
+                    jQuery('.time--text').html(variant_start_time + ' - ' + variant_end_time);
+                                          
+                    /* Capacity */
+                    jQuery('.capacity-text').html(variant_cap);
+                    if (jQuery('.capacity-text').text() == '0') {
+                      jQuery('.sold-out--status').html('SOLD OUT');
+                      jQuery('#product-add').css({
+                        borderBottom: '0px'
+                      });
+                      jQuery('input#add').css({
+                        textDecoration: 'line-through',
+                        pointerEvents: 'none'
+                      });
+                    } else {
+                      jQuery('.sold-out--status').html('OPEN');
+                      jQuery('#product-add').css({
+                        borderBottom: 'var(--border-black)'
+                      });
+                      jQuery('input#add').css({
+                        textDecoration: 'none',
+                        pointerEvents: 'auto'
+                      });
+                    }
+                                                            
+                    /* Guide */
+                    jQuery('.guided-by--text').html(variant_guide);
+                    jQuery('.about--guide-name').html('About ' + variant_guide);
+                
+                    /* Guide Bio */
+                    jQuery('.guide-bio--content').html('<p>' + variant_guide_bio + '</p>');
   /* Price */
-          jQuery(".product-price").html(variant_price);
-      
-          /* Length */
-          jQuery(".length--text").html(variant_duration + ' hrs');
-          
-          var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
-          jQuery(".price-field del").html(variant_compare_at_price);
-                      
-        });
-      });</script>
+                    jQuery(".product-price").html(variant_price);
+                
+                    /* Length */
+                    jQuery(".length--text").html(variant_duration + ' hrs');
+                    
+                    var variant_compare_at_price = jQuery(this).attr("data-compare-at-price") || '';
+                    jQuery(".price-field del").html(variant_compare_at_price);
+                                
+                  });
+                });</script>
 
 <script>
   /*
@@ -510,15 +513,15 @@
       }
 
 
-      // Selected a valid variant that is available.
+// Selected a valid variant that is available.
       if (variant.available) {
 
         jQuery('.sold-out--status').html('OPEN');
 
-        // Enabling add to cart button.
+// Enabling add to cart button.
         jQuery('#add').removeClass('disabled').prop('disabled', false).val({{ add_to_cart | json }});
 
-        // If item is backordered yet can still be ordered, we'll show special message.
+// If item is backordered yet can still be ordered, we'll show special message.
         if (variant.inventory_management && variant.inventory_quantity <= 0) {
           jQuery('#selected-variant').html(
             {{ product.title | json }}
@@ -535,7 +538,7 @@
 
       }
 
-      // Whether the variant is in stock or not, we can update the price and compare at price.
+// Whether the variant is in stock or not, we can update the price and compare at price.
       if (variant.compare_at_price > variant.price) {
         jQuery('#product-price').html('<span class="product-price on-sale">' + Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' + '&nbsp;<s class="product-compare-price">' + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + '</s>');
       } else {
@@ -555,8 +558,8 @@
       enableHistoryState: true
     });
 
-    // Add label if only one product option and it isn't 'Title'.
-    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                      {{ product.options.first }} </label>');{% endif %}
+// Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}$('.selector-wrapper:eq(0)').prepend('<label>                           {{ product.options.first }} </label>');{% endif %}
   });
   Shopify.Image.preload({{ product.images | json }}, 'grande');
   Shopify.Image.preload({{ product.images | json }}, '1024x1024');
