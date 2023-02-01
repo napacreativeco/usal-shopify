@@ -45,7 +45,11 @@
             <div class="pricing">
               <div class="variants">
                 <a href="{{ product.url }}" title="{{ product.price }}">
-                  {{ product.variants.first.title }}-{{ product.variants.last.title }}
+                  {% if product.variants.last == product.variants.first %}
+                    {{ product.variants.first.title }}
+                  {% else %}
+                    {{ product.variants.first.title }}-{{ product.variants.last.title }}
+                  {% endif %}
                 </a>
               </div>
               <div class="price">
