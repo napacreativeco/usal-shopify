@@ -1,0 +1,206 @@
+<section data-module--hear class="home--module">
+
+
+  <div class="module-content hear-container">
+
+    <div class="row">
+
+      <div class="title-block">
+
+        <h2 class="title">{{ 'Hear' | escape }}</h2>
+
+        <div class="links">
+          <span>{{ '(Latest Show)' | escape }}</span>
+          <a href="https://www.nts.live/shows/michael-washington" title="View all">{{ 'View All' | escape }}</a>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <div class="flex flex-column justify-between">
+
+          <p class="description">
+            {{ section.settings.audio-description }}
+          </p>
+
+          <div class="audioplayer">
+
+            <audio id="myAudio" src="https://www.napacreativeco.com/audio/usal-test.mp3"></audio>
+
+            <div class="audioplayer--row">
+              <div class="playbox">
+                <div class="playbutton" onclick="playAudio()">
+                  {% render 'play-btn' %}
+                </div>
+                <div class="pausebutton" onclick="pauseAudio()">
+                  {% render 'pause-btn' %}
+                </div>
+              </div>
+              <div class="details">
+                <div class="title">
+                  <span class="h2">NTS Radio</span>
+                  <span class="audio-title">{{ section.settings.audio-title }}</span>
+                </div>
+                <div id="scrubber">
+                  <div>
+                    <span id="duration"></span>
+                  </div>
+                  <div class="progress-container" id="progress-container">
+                    <div class="progress" id="progress"></div>
+                  </div>
+                  <div>
+                    <span id="timeleft"></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+
+          </div>
+        </div>
+
+        <div class="icon">
+          <div class="info">
+            <span>{{ '[C]' | escape }}</span>
+            <span>{{ 'Foundation' | escape }}</span>
+          </div>
+          <div class="image">
+            {% render 'discs' %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  // Containers
+  const aud = document.getElementById("myAudio");
+
+  // On Load
+  aud.onloadeddata = function () {
+    var timeleft = document.getElementById('timeleft'),
+      timeline = document.getElementById('duration'),
+      duration = parseInt(aud.duration),
+      currentTime = parseInt(aud.currentTime),
+      timeLeft = duration - currentTime,
+      s,
+      m;
+
+
+    s = timeLeft % 60;
+    m = Math.floor(timeLeft / 60) % 60;
+
+    s = s < 10
+      ? "0" + s
+      : s;
+    m = m < 10
+      ? "0" + m
+      : m;
+
+    timeleft.innerHTML = m + ":" + s;
+    timeline.innerHTML = m + ':0' + s;
+
+    var sx = parseInt(aud.currentTime % 60);
+    var mx = parseInt((aud.currentTime / 60) % 60);
+    if (sx < 10) {
+      timeline.innerHTML = mx + ':0' + sx;
+    } else {
+      timeline.innerHTML = mx + ':' + sx;
+    }
+  }
+
+  function playAudio() {
+    aud.play();
+    jQuery('.playbutton').hide();
+    jQuery('.pausebutton').show();
+
+  }
+
+  // Pause
+  function pauseAudio() {
+    jQuery('.pausebutton').hide();
+    jQuery('.playbutton').show();
+
+    aud.pause();
+
+  }
+
+  // Progress Bar
+  aud.addEventListener('timeupdate', function (e) {
+    var progress = document.getElementById('progress');
+    var progressContainer = document.getElementById('progress-container');
+    const { duration, currentTime } = e.srcElement;
+    const progressPercent = (currentTime / duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+  });
+
+
+  // Countdown
+  aud.addEventListener("timeupdate", function () {
+    var timeleft = document.getElementById('timeleft'),
+      duration = parseInt(aud.duration),
+      currentTime = parseInt(aud.currentTime),
+      timeLeft = duration - currentTime,
+      s,
+      m;
+
+
+    s = timeLeft % 60;
+    m = Math.floor(timeLeft / 60) % 60;
+
+    s = s < 10
+      ? "0" + s
+      : s;
+    m = m < 10
+      ? "0" + m
+      : m;
+
+    timeleft.innerHTML = m + ":" + s;
+
+  }, false);
+
+  // Countup
+  aud.addEventListener("timeupdate", function () {
+    var timeline = document.getElementById('duration');
+    var s = parseInt(aud.currentTime % 60);
+    var m = parseInt((aud.currentTime / 60) % 60);
+    if (s < 10) {
+      timeline.innerHTML = m + ':0' + s;
+    } else {
+      timeline.innerHTML = m + ':' + s;
+    }
+  }, false);
+</script>
+
+{% schema %}
+{
+"name": "Module - Hear",
+"tag": "section",
+"class": "module",
+"settings": [
+{
+"type": "textarea",
+"id": "audio-description",
+"label": "Audio Description",
+"default": "Default audio"
+}, {
+"type": "text",
+"id": "audio-title",
+"label": "Audio Title",
+"default": "Mountain System Researcg Episode 15"
+}, {
+"type": "text",
+"id": "audio-url",
+"label": "Audio URL",
+"default": "https://samplelib.com/lib/preview/mp3/sample-3s.mp3"
+}
+]
+}
+{% endschema %}

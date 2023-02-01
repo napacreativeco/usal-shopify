@@ -22,44 +22,70 @@
             {{ section.settings.audio-description }}
           </p>
 
-          <div class="audioplayer">
+          <div class="audioplayer" id="audio-player-container">
 
-            <audio id="myAudio" src="https://www.napacreativeco.com/audio/usal-test.mp3"></audio>
+            <audio id="myAudio" src="https://www.napacreativeco.com/audio/usal-test.mp3" preload="metadata"></audio>
 
             <div class="audioplayer--row">
-              <div class="playbox">
-                <div class="playbutton" onclick="playAudio()">
-                  {% render 'play-btn' %}
+
+                <div class="playbox" id="playbox">
+                    <div id="play-icon">
+                        <svg
+                        width="100%"
+                        height="100%"
+                        version="1.1"
+                        viewBox="0 0 521 518"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xml:space="preserve"
+                        xmlns:serif="http://www.serif.com/"
+                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:10;">
+                        <g id="play-btn">
+                            <path d="M515.901,256.268C515.901,113.413 400.195,-2.568 257.676,-2.568C115.158,-2.568 -0.549,113.413 -0.549,256.268C-0.549,399.123 115.158,515.103 257.676,515.103C400.195,515.103 515.901,399.123 515.901,256.268Z" style="fill:none;" />
+                            <path d="M215.8,381.624L341.155,256.27L215.8,130.912L215.8,381.624Z" style="fill-rule:nonzero;" /></g>
+                        </svg>
+                    </div>
+                    
+                    <div id="pause-icon">
+                        <svg width="100%" height="100%" viewBox="0 0 521 518" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:10;">
+                            <g id="play-btn">
+                            <path
+                                d="M515.901,256.268C515.901,113.413 400.195,-2.568 257.676,-2.568C115.158,-2.568 -0.549,113.413 -0.549,256.268C-0.549,399.123 115.158,515.103 257.676,515.103C400.195,515.103 515.901,399.123 515.901,256.268Z"
+                                style="fill:none;" />
+                            <g transform="matrix(0.977271,0,0,0.977271,-3561.13,-20996.8)">
+                                <rect x="3842.42" y="21622.1" width="33.155" height="250.542" style="" />
+                                <rect x="3939.67" y="21622.1" width="33.155" height="250.542" style="" />
+                            </g>
+                            </g>
+                        </svg>   
+                    </div>
+                
                 </div>
-                <div class="pausebutton" onclick="pauseAudio()">
-                  {% render 'pause-btn' %}
-                </div>
-              </div>
-              <div class="details">
+                
+                <div class="details">
+                
                 <div class="title">
-                  <span class="h2">NTS Radio</span>
-                  <span class="audio-title">{{ section.settings.audio-title }}</span>
+                    <span class="h2">NTS Radio</span>
+                    <span class="audio-title">{{ section.settings.audio-title }}</span>
                 </div>
+                
                 <div id="scrubber">
-                  <div>
-                    <span id="duration"></span>
-                  </div>
-                  <div class="progress-container" id="progress-container">
-                    <div class="progress" id="progress"></div>
-                  </div>
-                  <div>
-                    <span id="timeleft"></span>
-                  </div>
+                    <span id="current-time" class="time">0:00</span>
+                    
+                    <input type="range" id="seek-slider" max="100" value="0">
+                    
+                    <span id="duration" class="time">0:00</span>
                 </div>
-              </div>
+                
+                </div>
 
             </div>
 
-
-
-
-
           </div>
+
+
         </div>
 
         <div class="icon">
@@ -79,128 +105,138 @@
 
 </section>
 
-<script>
-  // Containers
-  const aud = document.getElementById("myAudio");
-
-  // On Load
-  aud.onloadeddata = function () {
-    var timeleft = document.getElementById('timeleft'),
-      timeline = document.getElementById('duration'),
-      duration = parseInt(aud.duration),
-      currentTime = parseInt(aud.currentTime),
-      timeLeft = duration - currentTime,
-      s,
-      m;
 
 
-    s = timeLeft % 60;
-    m = Math.floor(timeLeft / 60) % 60;
-
-    s = s < 10
-      ? "0" + s
-      : s;
-    m = m < 10
-      ? "0" + m
-      : m;
-
-    timeleft.innerHTML = m + ":" + s;
-    timeline.innerHTML = m + ':0' + s;
-
-    var sx = parseInt(aud.currentTime % 60);
-    var mx = parseInt((aud.currentTime / 60) % 60);
-    if (sx < 10) {
-      timeline.innerHTML = mx + ':0' + sx;
-    } else {
-      timeline.innerHTML = mx + ':' + sx;
-    }
-  }
-
-  function playAudio() {
-    aud.play();
-    jQuery('.playbutton').hide();
-    jQuery('.pausebutton').show();
-
-  }
-
-  // Pause
-  function pauseAudio() {
-    jQuery('.pausebutton').hide();
-    jQuery('.playbutton').show();
-
-    aud.pause();
-
-  }
-
-  // Progress Bar
-  aud.addEventListener('timeupdate', function (e) {
-    var progress = document.getElementById('progress');
-    var progressContainer = document.getElementById('progress-container');
-    const { duration, currentTime } = e.srcElement;
-    const progressPercent = (currentTime / duration) * 100;
-    progress.style.width = `${progressPercent}%`;
-  });
-
-
-  // Countdown
-  aud.addEventListener("timeupdate", function () {
-    var timeleft = document.getElementById('timeleft'),
-      duration = parseInt(aud.duration),
-      currentTime = parseInt(aud.currentTime),
-      timeLeft = duration - currentTime,
-      s,
-      m;
-
-
-    s = timeLeft % 60;
-    m = Math.floor(timeLeft / 60) % 60;
-
-    s = s < 10
-      ? "0" + s
-      : s;
-    m = m < 10
-      ? "0" + m
-      : m;
-
-    timeleft.innerHTML = m + ":" + s;
-
-  }, false);
-
-  // Countup
-  aud.addEventListener("timeupdate", function () {
-    var timeline = document.getElementById('duration');
-    var s = parseInt(aud.currentTime % 60);
-    var m = parseInt((aud.currentTime / 60) % 60);
-    if (s < 10) {
-      timeline.innerHTML = m + ':0' + s;
-    } else {
-      timeline.innerHTML = m + ':' + s;
-    }
-  }, false);
-</script>
 
 {% schema %}
 {
-"name": "Module - Hear",
-"tag": "section",
-"class": "module",
-"settings": [
-{
-"type": "textarea",
-"id": "audio-description",
-"label": "Audio Description",
-"default": "Default audio"
-}, {
-"type": "text",
-"id": "audio-title",
-"label": "Audio Title",
-"default": "Mountain System Researcg Episode 15"
-}, {
-"type": "text",
-"id": "audio-url",
-"label": "Audio URL",
-"default": "https://samplelib.com/lib/preview/mp3/sample-3s.mp3"
-}
-]
+    "name": "Module - Hear",
+    "tag": "section",
+    "class": "module",
+    "settings": [
+        {
+            "type": "textarea",
+            "id": "audio-description",
+            "label": "Audio Description",
+            "default": "Default audio"
+        },
+        {
+            "type": "text",
+            "id": "audio-title",
+            "label": "Audio Title",
+            "default": "Mountain System Researcg Episode 15"
+        },
+        {
+            "type": "text",
+            "id": "audio-url",
+            "label": "Audio URL",
+            "default": "https://samplelib.com/lib/preview/mp3/sample-3s.mp3"
+        }
+    ]
 }
 {% endschema %}
+
+
+<script>
+    /* Implementation of the presentation of the audio player */
+    const playIconContainer = document.getElementById('play-icon');
+    const pauseIconContainer = document.getElementById('pause-icon');
+    const playThumb = document.querySelector('#thumb');
+    const playBox = document.getElementById('playbox');
+    const audioPlayerContainer = document.getElementById('audio-player-container');
+    const seekSlider = document.getElementById('seek-slider');
+    const volumeSlider = document.getElementById('volume-slider');
+    const muteIconContainer = document.getElementById('mute-icon');
+    let playState = 'play';
+    let muteState = 'unmute';
+    const audio = document.querySelector('audio');
+    const durationContainer = document.getElementById('duration');
+    const currentTimeContainer = document.getElementById('current-time');
+    const outputContainer = document.getElementById('volume-output');
+    let raf = null;
+
+
+
+    const showRangeProgress = (rangeInput) => {
+        if (rangeInput === seekSlider) {
+        audioPlayerContainer.style.setProperty('--seek-before-width', rangeInput.value / rangeInput.max * 100 + '%');
+        } else {
+        audioPlayerContainer.style.setProperty('--volume-before-width', rangeInput.value / rangeInput.max * 100 + '%');
+        }
+    }
+
+    seekSlider.addEventListener('input', (e) => {
+        showRangeProgress(e.target);
+    });
+
+
+    const calculateTime = (secs) => {
+        const minutes = Math.floor(secs / 60);
+        const seconds = Math.floor(secs % 60);
+        const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+        return `${minutes}:${returnedSeconds}`;
+    }
+
+    const displayDuration = () => {
+        durationContainer.textContent = calculateTime(audio.duration);
+    }
+
+    const setSliderMax = () => {
+        seekSlider.max = Math.floor(audio.duration);
+    }
+
+    const displayBufferedAmount = () => {
+        const bufferedAmount = Math.floor(audio.buffered.end(audio.buffered.length - 1));
+        audioPlayerContainer.style.setProperty('--buffered-width', `${(bufferedAmount / seekSlider.max) * 100}%`);
+    }
+
+    const whilePlaying = () => {
+        seekSlider.value = Math.floor(audio.currentTime);
+        currentTimeContainer.textContent = calculateTime(seekSlider.value);
+        audioPlayerContainer.style.setProperty('--seek-before-width', `${seekSlider.value / seekSlider.max * 100}%`);
+        raf = requestAnimationFrame(whilePlaying);
+    }
+
+    if (audio.readyState > 0) {
+        displayDuration();
+        setSliderMax();
+    } else {
+        audio.addEventListener('loadedmetadata', () => {
+            displayDuration();
+            setSliderMax();
+        });
+    }
+
+    audio.addEventListener('progress', displayBufferedAmount);
+
+    seekSlider.addEventListener('input', () => {
+        currentTimeContainer.textContent = calculateTime(seekSlider.value);
+        if(!audio.paused) {
+            cancelAnimationFrame(raf);
+        }
+    });
+
+    seekSlider.addEventListener('change', () => {
+        audio.currentTime = seekSlider.value;
+        if(!audio.paused) {
+            requestAnimationFrame(whilePlaying);
+        }
+    });
+
+    playBox.addEventListener('click', () => {
+        if(playState === 'play') {
+            audio.play();
+            requestAnimationFrame(whilePlaying);
+            playState = 'pause';
+            playIconContainer.style.display = "none";
+            pauseIconContainer.style.display = "block";
+        } else {
+            audio.pause();
+            cancelAnimationFrame(raf);
+            playState = 'play';
+            playIconContainer.style.display = "block";
+            pauseIconContainer.style.display = "none";
+        }
+    });
+
+</script>
