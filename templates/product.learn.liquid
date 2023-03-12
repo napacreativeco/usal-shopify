@@ -331,7 +331,25 @@
               </div>
             </div>
 
+            {% comment %} What to bring {% endcomment %}
+            <div class="list-item what-to-bring">
+              <div class="top">
+                <h4 class="product-details--label">
+                  {{ 'What to bring' | escape }}
+                </h4>
+              </div>
+              <div class="bottom">
+                <ul data-what-to-bring>
+                    {% assign what_to_bring = product.metafields.event.what_to_bring.value %}
+                    {% for item in what_to_bring %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+              </div>
+            </div>
+
           </div>
+
         </div>
       </section>
 
