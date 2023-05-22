@@ -8,15 +8,15 @@
         "videowebm": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/1506da4d1745472b9cd63d378973c71a.webm"
       }
     },
-    "large-nav": {
-      "type": "module--large-nav",
-      "settings": {
-      }
-    },
     "home-goods": {
       "type": "module--goods",
       "settings": {
         "description": "Usal goods are designed and printed in Los Angeles, California. Produced with high quality, comfortable garments. Made for the Usal community and their adventures, with love. Shop our latest collection now."
+      }
+    },
+    "large-nav": {
+      "type": "module--large-nav",
+      "settings": {
       }
     },
     "home-see": {
@@ -40,8 +40,8 @@
   },
   "order": [
     "calendar",
-    "large-nav",
     "home-goods",
+    "large-nav",
     "home-see",
     "home-hear",
     "home-field-log"
